@@ -12,6 +12,16 @@ The Music Directory is a streaming service that allows users to have a personali
 
 ## Setup:
 
+### Root
+1. npm install
+1. To lint client files: npm run cl
+1. To lint server files: npm run sl
+
+### Client
+1. cd client
+1. npm install
+1. npm start
+
 ### Server
 1. cd server
 1. npm install
