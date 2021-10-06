@@ -1,0 +1,576 @@
+[
+    {
+        "username": "hillrachel",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Katherine",
+        "lastName": "David",
+        "email": "timothy78@hotmail.com",
+        "dob": "1988-06-20T22:15:34Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "",
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "serranobrian",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Leslie",
+        "lastName": "Martinez",
+        "email": "tcrawford@gmail.com",
+        "dob": "1974-11-26T14:30:20Z",
+        "followers":[
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "andrewhamilton",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Gary",
+        "lastName": "Nichols",
+        "email": "laura34@yahoo.com",
+        "dob": "1993-02-25T17:37:29Z",
+        "followers":[
+                    "serranobrian",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "matthewray",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "John",
+        "lastName": "Parks",
+        "email": "zmelton@gmail.com",
+        "dob": "1993-03-13T11:37:34Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "nicholassmith",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Amy",
+        "lastName": "Lawrence",
+        "email": "christophercastro@hotmail.com",
+        "dob": "1989-06-14T09:13:05Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "luke58",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Natasha",
+        "lastName": "Conrad",
+        "email": "jamesfloyd@hotmail.com",
+        "dob": "1984-10-03T18:35:58Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "isArtist": false, 
+        "genres": [],
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "ashley97",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "James",
+        "lastName": "Smith",
+        "email": "kevin84@yahoo.com",
+        "dob": "1966-09-17T20:18:01Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false,
+        "artistName": "",
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "rwelch",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Adrienne",
+        "lastName": "Obrien",
+        "email": "leslieday@gmail.com",
+        "dob": "1967-11-29T01:49:52Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "allenhubbard",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Bradley",
+        "lastName": "Roberts",
+        "email": "donna47@hotmail.com",
+        "dob": "1996-08-27T22:56:52Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "",
+        "genres": [], 
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "edwardszachary",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "John",
+        "lastName": "Guzman",
+        "email": "christopher91@hotmail.com",
+        "dob": "1968-10-28T03:23:01Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "icooke",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Julie",
+        "lastName": "Mora",
+        "email": "clarkjean@gmail.com",
+        "dob": "1982-03-06T19:47:54Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "jdawson",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Elizabeth",
+        "lastName": "Moore",
+        "email": "brandonmercer@yahoo.com",
+        "dob": "1967-11-02T08:27:11Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "thomas48",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "David",
+        "lastName": "Obrien",
+        "email": "cindy96@yahoo.com",
+        "dob": "1970-07-02T20:01:26Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "kingraymond",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Ashley",
+        "lastName": "Mosley",
+        "email": "michael63@gmail.com",
+        "dob": "1979-05-09T00:39:13Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "carolynmorris",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Adam",
+        "lastName": "Miller",
+        "email": "richard78@gmail.com",
+        "dob": "1990-10-31T20:59:25Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+                "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "thomas16",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Elizabeth",
+        "lastName": "Meyer",
+        "email": "andrew95@gmail.com",
+        "dob": "1992-01-01T19:03:58Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "wolfheather",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Elizabeth",
+        "lastName": "Hughes",
+        "email": "gmoore@gmail.com",
+        "dob": "1987-09-26T12:52:18Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "dianefoster",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Daniel",
+        "lastName": "Wang",
+        "email": "vchristensen@gmail.com",
+        "dob": "1988-12-15T11:33:39Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "davidestrada",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Angela",
+        "lastName": "Ortiz",
+        "email": "mitchelldeborah@gmail.com",
+        "dob": "1966-08-17T05:29:22Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    },
+    {
+        "username": "matthew71",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "firstName": "Brenda",
+        "lastName": "Mercer",
+        "email": "cabreramatthew@hotmail.com",
+        "dob": "1987-06-30T20:07:45Z",
+        "followers":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "following":[
+                    "serranobrian",
+                    "andrewhamilton",
+                    "matthewray"
+                    ],
+        "bio": "", 
+        "genres": [],
+        "isArtist": false, 
+        "artistName": "", 
+        "songs": [],
+        "albums": [],
+        "playlists":[{
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
+    }
+]

@@ -1,0 +1,17 @@
+[
+    {
+        "songURL": "",
+        "songName": "",
+        "coverURL" : "",
+        "artists": [],
+        "writers": [],
+        "isSignle": true,
+        "fromAlbum" : false,
+        "albumName": "",
+        "genre": "",
+        "releaseDate": "1988-06-20T22:15:34Z",
+        "recordLabel" : "",
+        "streams": 0,
+        "likes": 0
+    }
+]
