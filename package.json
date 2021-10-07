@@ -9,7 +9,7 @@
     "jest": "^27.2.4"
   },
   "scripts": {
-    "cl": "eslint client",
+    "cl": "eslint client/src",
     "sl": "eslint server",
     "test": "jest"
   }

@@ -37,7 +37,7 @@ userRoutes.route("/user/:id").get(function (req, res) {
 });
 
 // This section will help you create a new user.
-userRoutes.route("/user/add").post(function (req, response) {
+userRoutes.route("/user/register").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
     username: req.body.username,
@@ -66,10 +66,22 @@ userRoutes.route("/user/add").post(function (req, response) {
   });
 });
 
+// This section allows a user to login
+userRoutes.route("/user/login").post(function (req, res) {
+  let db_connect = dbo.getDb();
+  let myquery = {username: req.body.username, password: req.body.password};
+  db_connect
+      .collection("users")
+      .findOne(myquery, function (err, result) {
+          if (err) throw err;
+          res.json(result);
+      });
+});
+
 // This section will help you update a user by id.
 userRoutes.route("/user/:id").post(function (req, response) {
   let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId( req.params.id )};
+  let myquery = { username: ObjectId( req.params.id )};
   let newvalues = {
     $set: {
       username: req.body.username,

@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <NavLink className="navbar-brand" to="/">
+        <NavLink className="navbar-brand" to="/" style={{ margin: 20 }}>
           Asha Music
         </NavLink>
         <button
