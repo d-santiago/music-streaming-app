@@ -143,7 +143,7 @@ export default class Create extends Component {
                     />
                 </div>
                 <div className="form-group">
-                    <label>Date of Birth: 00/00/0000</label>
+                    <label>Date of Birth - mm/dd/yyyy:</label>
                     <input
                     type="text"
                     className="form-control"
