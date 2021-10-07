@@ -12,5 +12,9 @@
     "cl": "eslint client/src",
     "sl": "eslint server",
     "test": "jest"
+  },
+  "dependencies": {
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-standard": "^16.0.3"
   }
 }
