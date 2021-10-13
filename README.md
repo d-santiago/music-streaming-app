@@ -1,7 +1,7 @@
 # Ahsa Music
 
 ## Team Members:
-* Hellen Ekpo (Front End Developer)
+* Hellen Ekpo (Back End Developer)
 * Afnan Haq (Front End Developer) 
 * Sheika Islam (Front End Developer)
 * Abed Islam (Back End Developer)
