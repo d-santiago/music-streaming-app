@@ -20,6 +20,7 @@
         "genres": [],
         "isArtist": false, 
         "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -46,7 +47,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -73,7 +75,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -100,7 +103,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -129,7 +133,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -158,7 +163,8 @@
         "bio": "", 
         "isArtist": false, 
         "genres": [],
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -188,6 +194,7 @@
         "genres": [],
         "isArtist": false,
         "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -216,7 +223,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -245,7 +253,8 @@
         "bio": "",
         "genres": [], 
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -274,7 +283,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -303,7 +313,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -332,7 +343,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -361,7 +373,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -390,7 +403,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -419,7 +433,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -448,7 +463,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -477,7 +493,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -506,7 +523,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -535,7 +553,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
@@ -564,7 +583,8 @@
         "bio": "", 
         "genres": [],
         "isArtist": false, 
-        "artistName": "", 
+        "artistName": "",
+        "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
