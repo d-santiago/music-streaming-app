@@ -12,7 +12,7 @@ const dbo = require('../db/conn');
 // This help convert the id from string to ObjectId for the _id.
 // const ObjectId = require('mongodb').ObjectId;
 
-// This section will help you create a new user.
+// This route will help you create a new user.
 userRoutes.route('/user/register').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const object = {
@@ -42,7 +42,7 @@ userRoutes.route('/user/register').post(function(req, response) {
   });
 });
 
-// This section allows a user to login
+// This route allows a user to login
 userRoutes.route('/user/login').post(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {
@@ -52,6 +52,46 @@ userRoutes.route('/user/login').post(function(req, res) {
   dbConnect.collection('users').findOne(query, function(err, result) {
     if (err) throw err;
     res.json(result);
+  });
+});
+
+// This route finds a user's followers
+userRoutes.route('/user/followers').post(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {};
+  dbConnect.collection('users').find(query, function(err, result) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
+
+// This route finds who a user is following
+userRoutes.route('/user/following').post(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {};
+  dbConnect.collection('users').find(query, function(err, result) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
+
+// This route allows a user to edit their profile
+userRoutes.route('/user/editProfile').post(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {};
+  dbConnect.collection('users').updateOne(myquery, newvalues, function (err, res) {
+    if (err) throw err;
+    response.json(res);
+  });
+});
+
+// This route allows a user to change their status to 'Artist'
+userRoutes.route('/user/artistRegistration').post(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {};
+  dbConnect.collection('users').updateOne(myquery, newvalues, function (err, res) {
+    if (err) throw err;
+    response.json(res);
   });
 });
 
