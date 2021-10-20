@@ -10,7 +10,7 @@ const userRoutes = express.Router();
 const dbo = require('../db/conn');
 
 // This help convert the id from string to ObjectId for the _id.
-// const ObjectId = require('mongodb').ObjectId;
+const ObjectId = require('mongodb').ObjectId;
 
 // This route will help you create a new user.
 userRoutes.route('/user/register').post(function(req, response) {
@@ -37,6 +37,7 @@ userRoutes.route('/user/register').post(function(req, response) {
       'songs': [],
     }],
   };
+  // console.log("query: ", query);
   dbConnect.collection('users').insertOne(object, function(err, res) {
     if (err) throw err;
     response.json(res);
@@ -44,12 +45,13 @@ userRoutes.route('/user/register').post(function(req, response) {
 });
 
 // This route allows a user to login
-userRoutes.route('/user/login').post(function(req, res) {
+userRoutes.route('/user/login').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {
     username: req.body.username,
     password: req.body.password,
   };
+  // console.log("query: ", query);
   dbConnect.collection('users').findOne(query, function(err, result) {
     if (err) throw err;
     res.json(result);
@@ -57,40 +59,46 @@ userRoutes.route('/user/login').post(function(req, res) {
 });
 
 // This route finds a user's followers
-userRoutes.route('/user/followers').post(function(req, res) {
+userRoutes.route('/user/followers/:id').get(function(req, res) {
   const dbConnect = dbo.getDb();
-  const query = {};
-  dbConnect.collection('users').find(query, function(err, result) {
+  // console.log("req.params: ", req.params.id);
+  // let query = { _id: ObjectId(req.params.id)};
+  console.log("req.body._id: ", req.body._id);
+  let query = { _id: ObjectId(req.body._id)};
+  dbConnect.collection('users').findOne(query, function(err, result) {
     if (err) throw err;
-    res.json(result);
+    res.json(result.followers);
   });
 });
 
 // This route finds who a user is following
-userRoutes.route('/user/following').post(function(req, res) {
+userRoutes.route('/user/following/:id').get(function(req, res) {
   const dbConnect = dbo.getDb();
-  const query = {};
-  dbConnect.collection('users').find(query, function(err, result) {
+  // console.log("req.params: ", req.params.id);
+  // let query = { _id: ObjectId(req.params.id)};
+  console.log("req.body._id: ", req.body._id);
+  let query = { _id: ObjectId(req.body._id)};
+  dbConnect.collection('users').findOne(query, function (err, result) {
     if (err) throw err;
-    res.json(result);
-  });
+    res.json(result.following);
+    });
 });
 
 // This route allows a user to edit their profile
-userRoutes.route('/user/editProfile').post(function(req, res) {
+userRoutes.route('/user/editProfile').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {};
-  dbConnect.collection('users').updateOne(myquery, newvalues, function (err, res) {
+  dbConnect.collection('users').updateOne(query, newvalues, function (err, res) {
     if (err) throw err;
     response.json(res);
   });
 });
 
 // This route allows a user to change their status to 'Artist'
-userRoutes.route('/user/artistRegistration').post(function(req, res) {
+userRoutes.route('/user/artistRegistration').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {};
-  dbConnect.collection('users').updateOne(myquery, newvalues, function (err, res) {
+  dbConnect.collection('users').updateOne(query, newvalues, function (err, res) {
     if (err) throw err;
     response.json(res);
   });
