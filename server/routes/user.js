@@ -28,6 +28,7 @@ userRoutes.route('/user/register').post(function(req, response) {
     genres: [],
     isArtist: false,
     artistName: '',
+    recordLabel: '',
     songs: [],
     albums: [],
     playlist: [{

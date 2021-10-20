@@ -32,6 +32,7 @@ describe('insert', () => {
       genres: [],
       isArtist: false,
       artistName: '',
+      recordLabel: '',
       songs: [],
       albums: [],
       playlist: [{
