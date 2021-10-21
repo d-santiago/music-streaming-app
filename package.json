@@ -11,10 +11,12 @@
   "scripts": {
     "cl": "eslint client/src",
     "sl": "eslint server",
-    "test": "jest"
+    "test": "jest",
+    "routes": "newman run server/tests/userRoutes.postman_collection.json"
   },
   "dependencies": {
     "eslint-config-google": "^0.14.0",
-    "eslint-config-standard": "^16.0.3"
+    "eslint-config-standard": "^16.0.3",
+    "newman": "^5.3.0"
   }
 }
