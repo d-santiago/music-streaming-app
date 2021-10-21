@@ -1,65 +1,53 @@
 # Ahsa Music
 
 ## Team Members:
-* Hellen Ekpo (Back End Developer)
 * Afnan Haq (Front End Developer) 
 * Sheika Islam (Front End Developer)
 * Abed Islam (Back End Developer)
 * Damaris Santiago (Back End Developer)
+* Hellen Ekpo (Back End Developer)
 
 ## Description:
-The Music Directory is a streaming service that allows users to have a personalized experience when it comes to listening to music. The user has the ability to create their own playlists, highlight their favorite artists, and upload their own music if they are a musician themselves. The Music Directory will be available on all operating systems, it can run as an application on both computers and cellular devices. In addition, the Music Directory can be operated on the official website as well if the user is away from their personal devices. The Music Directory is beneficial for our organization because one of our very own engineers, Abed Islam, is a musical artist himself. He has noticed the disparity between local artists in comparison to popular famous artists and how it's imperative to make it easy to bridge the gap between the two major groups. This will give local aspiring artists the opportunity to connect with artists that inspire them and gives major artists the ability to give hands-on mentoring services and a personal connection between an audience that shares a common interest with them: making music.
+Asha Music is a streaming service that allows users to have a personalized music listening experience. The user can create their own playlists, highlight their favorite artists, and upload their own music if they are an artist. Asha Music is beneficial for our organization because one of our very own developers, Abed Islam, is a musical artist. He has noticed the disparity between local and popular artists and believes that it is imperative bridge the gap between the two groups. This application will give local aspiring artists the opportunity to connect with artists that inspire them and give artists with larger fanbases the ability to provide mentoring services and develop personal connections with their audiences.
 
-## Setup:
+## To Install Dependencies:
 
+### Root, Client, and Server
+    npm install
+
+## To Start the Application:
+
+### Client and Server
+    npm start
+
+## To Lint Code:
 ### Root
-1. npm install
-1. To lint client files: npm run cl
-1. To lint server files: npm run sl
-1. To test: npm run test
+    To lint client files: npm run cl
+    To lint server files: npm run sl
 
-### Client
-1. cd client
-1. npm install
-1. npm start
+## To Test User Routes:
+### Root
+    To test user routes: npm run routes
 
-### Server
-1. cd server
-1. npm install
-1. npm start
+## Requirements
 
-### Client
-1. cd client
-1. npm install
-1. npm start
+### User and Artist Requirements
+1. Register
+1. Login
+1. Delete Account
+1. Edit Account Information
+1. Upgrade to an Artist
+1. Search for Users and Artists
+1. Follow and Unfollow Users and Artists
+1. Search for Music
+1. Play Music
+1. Create Music Playlists
+1. Like Songs and Albums
+1. Access Music Feed
 
-## Requirements 
-Action Requirements:
-1. Play music on demand
-1. Contain music in several databases, which are playlists.
-1. Store information about the user (name, phone, email address)
-1. Create sessions for users to be able to communicate with each other
-
-
-### User Requirements:
-
-1. Create new profiles 
-1. Create new playlists
-1. Search through Artist Catalogs
-1. Play App made playlists
-1. Connect with other artists
-1. Add upvote and comment feature
-1. follow other users and artists 
-
-
-### API should be able to:
-
-1. List Artists
-1. Add Artists 
-1. Delete Artist pages
-1. Add songs
-1. Search for songs,artists,profiles, albums, playlists
-1. Create Algorithm based Curated Playlists - this is our bread and butter
-1. Connect users with artists by allowing them to talk 
-1. Generate a song feed for users 
-1. Generate shareable links for social media platforms such as Instagram, Twitter, Facebook
+### Artist Specific Requirements
+1. Downgrade to User
+1. Upload Songs
+1. Upload Albums
+1. View Song and Album Likes
+1. View Music Streams
