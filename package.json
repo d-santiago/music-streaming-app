@@ -11,7 +11,6 @@
   "scripts": {
     "cl": "eslint client/src",
     "sl": "eslint server",
-    "test": "jest",
     "routes": "newman run server/tests/userRoutes.postman_collection.json"
   },
   "dependencies": {
