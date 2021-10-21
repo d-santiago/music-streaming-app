@@ -11,9 +11,9 @@
 Asha Music is a streaming service that allows users to have a personalized music listening experience. The user can create their own playlists, highlight their favorite artists, and upload their own music if they are an artist. Asha Music is beneficial for our organization because one of our very own developers, Abed Islam, is a musical artist. He has noticed the disparity between local and popular artists and believes that it is imperative bridge the gap between the two groups. This application will give local aspiring artists the opportunity to connect with artists that inspire them and give artists with larger fanbases the ability to provide mentoring services and develop personal connections with their audiences.
 
 _________________
-## Technology Stack: MongoDB, Express, React, and Node (MERN)
-### For Linting: ESLint
-### For Testing: Postman and Newman
+### Stack: MongoDB, Express, React, and Node (MERN)
+### Linting: ESLint
+### Testing: Postman and Newman
 _________________
 ## To Install Dependencies:
 
