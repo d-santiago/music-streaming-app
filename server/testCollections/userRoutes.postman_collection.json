@@ -74,7 +74,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"6171aa57baf8758a98d1f3ff\"\n}",
+					"raw": "{\n    \"_id\": \"61721224b0a90ecefbc9f378\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -103,89 +103,13 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/followers/:id",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"_id\": \"6171aa57baf8758a98d1f3ff\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:5000/user/followers/:id",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"user",
-						"followers",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5000/user/following/:id",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"_id\": \"6171aa57baf8758a98d1f3ff\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:5000/user/following/:id",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"user",
-						"following",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "localhost:5000/user/editProfile/:id",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"6171aa57baf8758a98d1f3ff\",\n    \"username\": \"hillrachel\",\n    \"password\": \"password\",\n    \"firstName\": \"Rachel\",\n    \"lastName\": \"Hill\",\n    \"email\": \"rachelhill@hotmail.com\",\n    \"dob\": \"1988-06-20T22:15:34Z\",\n    \"genres\": [\"Hip Hop\", \"Pop\"]\n}",
+					"raw": "{\n    \"_id\": \"61721224b0a90ecefbc9f378\",\n    \"username\": \"hillrachel\",\n    \"password\": \"password\",\n    \"firstName\": \"Rachel\",\n    \"lastName\": \"Hill\",\n    \"email\": \"rachelhill@hotmail.com\",\n    \"dob\": \"1988-06-20T22:15:34Z\",\n    \"genres\": [\"Hip Hop\", \"Pop\"]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -220,7 +144,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"6171aa57baf8758a98d1f3ff\",\n    \"artistName\": \"Rachel Hill\",\n    \"recordLabel\": \"Hill Records\"\n}",
+					"raw": "{\n    \"_id\": \"61721224b0a90ecefbc9f378\",\n    \"artistName\": \"Rachel Hill\",\n    \"recordLabel\": \"Hill Records\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -236,41 +160,6 @@
 					"path": [
 						"user",
 						"switchtoArtist",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5000/user/switchtoUser/:id",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"_id\": \"6171aa57baf8758a98d1f3ff\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:5000/user/switchtoUser/:id",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"user",
-						"switchtoUser",
 						":id"
 					],
 					"variable": [
