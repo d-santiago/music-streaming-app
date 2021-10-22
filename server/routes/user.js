@@ -281,8 +281,25 @@ userRoutes.route('/user/removeLibrarySong/:uid/:sid').put(function(req, res) {
       });
 });
 
-// This route allows a user create a playlist
-userRoutes.route('/createPlaylist/:id').put(function(req, response) {});
+// This route allows a user create a playlist (:id = user _id) 
+userRoutes.route('/createPlaylist/:id').put(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body._id)};
+  const updatedUser = {
+    $push: {
+      playlists: {
+        name: req.body.name,
+        songs: []
+      }
+    },
+  };
+
+  dbConnect.collection('users')
+      .updateOne(query, updatedUser, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
 
 // This route allows a user delete a playlist
 userRoutes.route('/user/deltePlaylist/:id').delete((req, response) => {});

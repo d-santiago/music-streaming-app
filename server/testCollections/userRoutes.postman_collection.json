@@ -442,6 +442,40 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "localhost:5000/createPlaylist/:id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_id\": \"61722ae4b0a90ecefbc9f3aa\",\n    \"name\": \"Favorite Songs\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/createPlaylist/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"createPlaylist",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
