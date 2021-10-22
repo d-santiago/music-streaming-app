@@ -13,7 +13,6 @@ const dbo = require('../db/conn');
 const ObjectId = require('mongodb').ObjectId;
 
 // Complete Routes:
-// /artist/switchToUser/:id
 
 // Incomplete Routes:
 // /artist/uploadSong/:id
@@ -32,24 +31,6 @@ const ObjectId = require('mongodb').ObjectId;
 // const query = {_id: ObjectId(req.params.id)};
 // console.log('req.body: ', req.body);
 // console.log('req.body._id: ', req.body._id);
-
-// This route allows a user to change their status to 'Artist'
-userRoutes.route('/artist/switchToUser/:id').put(function(req, response) {
-  const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
-  const updatedFields = {
-    $set: {
-      isArtist: false,
-      artistName: '',
-      recordLabel: '',
-    },
-  };
-  dbConnect.collection('users')
-      .updateOne(query, updatedFields, function(err, res) {
-        if (err) throw err;
-        response.json(res);
-      });
-});
 
 // This route allows an artist to upload a song
 userRoutes.route('/artist/uploadSong/:id').post(function(req, response) {});
