@@ -234,11 +234,39 @@ userRoutes.route('/user/unlikeSong/:uid/:sid').put(function(req, res) {
       });
 });
 
-// This route allows a user add a song to their library
-userRoutes.route('/user/addLibrarySong/:id').get(function(req, response) {});
+// This route allows a user add a song to their library (:uid = user _id) (:sid = song _id)
+userRoutes.route('/user/addLibrarySong/:uid/:sid').put(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid)};
+  const updatedUser = {
+    $push: {
+      library: {_id: ObjectId(req.body.sid)},
+    },
+  };
 
-// This route allows a user remove a song from their library
-userRoutes.route('/user/removeLibrarySong/:id').get(function(req, response) {});
+  dbConnect.collection('users')
+      .updateOne(query, updatedUser, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
+
+// This route allows a user remove a song from their library (:uid = user _id) (:sid = song _id)
+userRoutes.route('/user/removeLibrarySong/:uid/:sid').put(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid)};
+  const updatedUser = {
+    $pull: {
+      library: {_id: ObjectId(req.body.sid)},
+    },
+  };
+
+  dbConnect.collection('users')
+      .updateOne(query, updatedUser, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
 
 // This route allows a user create a playlist
 userRoutes.route('/createPlaylist/:id').put(function(req, response) {});
