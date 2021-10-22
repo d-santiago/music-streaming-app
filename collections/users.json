@@ -25,10 +25,10 @@
         "songs": [],
         "albums": [],
         "playlists":[{
-            "name": "",
-            "coverURL": "",
-            "songs": []
-        }]
+                    "name": "",
+                    "coverURL": "",
+                    "songs": []
+                    }]
     },
     {
         "username": "serranobrian",
