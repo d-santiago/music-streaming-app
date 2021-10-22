@@ -165,7 +165,14 @@ userRoutes.route('/user/viewAlbum/:id').get(function(req, res) {
 });
 
 // This route allows a user to retrieve a song
-userRoutes.route('/user/playSong/:id').get(function(req, response) {});
+userRoutes.route('/user/playSong/:id').get(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body._id)};
+  dbConnect.collection('songs').findOne(query, function(err, result) {
+    if (err) throw err;
+    res.json(result.songURL);
+  });
+});
 
 // This route allows a user to like a song
 userRoutes.route('/user/likeSong/:id').put(function(req, response) {});
