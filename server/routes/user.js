@@ -12,6 +12,36 @@ const dbo = require('../db/conn');
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require('mongodb').ObjectId;
 
+// Complete Routes:
+// /user/register
+// /user/login
+// /user/info/:id
+// /user/followers/:id
+// /user/following/:id
+// /user/editProfile/:id
+// /user/switchToArtist/:id
+// /:id (delete)
+
+// Incomplete Routes:
+// /user/viewSong/:id
+// /user/viewAlbum/:id
+// /user/playSong/:id
+// /user/likeSong/:id
+// /user/unlikeSong/:id
+// /user/addLibrairySong/:id
+// /user/removeLibrairySong/:id
+// /createPlaylist/:id
+// /user/deltePlaylist/:id
+// /user/addPlaylistSong/:id
+// /user/removePlaylistSong/:id
+
+// For Debugging:
+// console.log('query: ', query);
+// console.log('req.params: ', req.params);
+// const query = {_id: ObjectId(req.params.id)};
+// console.log('req.body: ', req.body);
+// console.log('req.body._id: ', req.body._id);
+
 // This route registers a new user
 userRoutes.route('/user/register').post(function(req, response) {
   const dbConnect = dbo.getDb();
@@ -126,25 +156,7 @@ userRoutes.route('/user/switchToArtist/:id').put(function(req, response) {
       });
 });
 
-// This route allows a user to change their status to 'Artist'
-userRoutes.route('/user/switchToUser/:id').put(function(req, response) {
-  const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
-  const updatedFields = {
-    $set: {
-      isArtist: false,
-      artistName: '',
-      recordLabel: '',
-    },
-  };
-  dbConnect.collection('users')
-      .updateOne(query, updatedFields, function(err, res) {
-        if (err) throw err;
-        response.json(res);
-      });
-});
-
-// This section will help you delete a user
+// This route allows a user to delete their account
 userRoutes.route('/:id').delete((req, response) => {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId( req.body._id )};
@@ -154,23 +166,37 @@ userRoutes.route('/:id').delete((req, response) => {
   });
 });
 
-// For Debugging
-// console.log('query: ', query);
-// console.log('req.params: ', req.params);
-// const query = {_id: ObjectId(req.params.id)};
-// console.log('req.body: ', req.body);
-// console.log('req.body._id: ', req.body._id);
+// This route allows a user to view a song's information
+userRoutes.route('/user/viewSong/:id').get(function(req, response) {});
 
-// // This section will help you get a list of all the users.
-// userRoutes.route('/user').get(function (req, res) {
-//   let dbConnect = dbo.getDb();
-//   dbConnect
-//     .collection('users')
-//     .find({})
-//     .toArray(function (err, result) {
-//       if (err) throw err;
-//       res.json(result);
-//     });
-// });
+// This route allows a user to view an album's information
+userRoutes.route('/user/viewAlbum/:id').get(function(req, response) {});
+
+// This route allows a user to retrieve a song
+userRoutes.route('/user/playSong/:id').get(function(req, response) {});
+
+// This route allows a user to like a song
+userRoutes.route('/user/likeSong/:id').put(function(req, response) {});
+
+// This route allows a user to unlike a song
+userRoutes.route('/user/unlikeSong/:id').put(function(req, response) {});
+
+// This route allows a user add a song to their librairy
+userRoutes.route('/user/addLibrairySong/:id').get(function(req, response) {});
+
+// This route allows a user remove a song from their librairy
+userRoutes.route('/user/removeLibrairySong/:id').get(function(req, response) {});
+
+// This route allows a user create a playlist
+userRoutes.route('/createPlaylist/:id').put(function(req, response) {});
+
+// This route allows a user delete a playlist
+userRoutes.route('/user/deltePlaylist/:id').delete((req, response) => {});
+
+// This route allows a user add a song to their playlist
+userRoutes.route('/user/addPlaylistSong/:id').post(function(req, response) {});
+
+// This route allows a user remove a song from their playlist
+userRoutes.route('/user/removePlaylistSong/:id').post(function(req, response) {});
 
 module.exports = userRoutes;
