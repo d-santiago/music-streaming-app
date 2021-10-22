@@ -84,7 +84,7 @@ userRoutes.route('/user/login').get(function(req, res) {
   });
 });
 
-// This route retrieves a user's information
+// This route retrieves a user's information (:id = user _id)
 userRoutes.route('/user/info/:id').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
@@ -94,7 +94,7 @@ userRoutes.route('/user/info/:id').get(function(req, res) {
   });
 });
 
-// This route allows a user to edit their profile
+// This route allows a user to edit their profile (:id = user _id)
 userRoutes.route('/user/editProfile/:id').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
@@ -116,7 +116,7 @@ userRoutes.route('/user/editProfile/:id').put(function(req, response) {
       });
 });
 
-// This route allows a user to change their status to 'Artist'
+// This route allows a user to change their status to 'Artist' (:id = user _id)
 userRoutes.route('/user/switchToArtist/:id').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
@@ -134,7 +134,7 @@ userRoutes.route('/user/switchToArtist/:id').put(function(req, response) {
       });
 });
 
-// This route allows a user to delete their account
+// This route allows a user to delete their account (:id = user _id)
 userRoutes.route('/:id').delete((req, response) => {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId( req.body._id )};
@@ -144,7 +144,7 @@ userRoutes.route('/:id').delete((req, response) => {
   });
 });
 
-// This route allows a user to view a song's information
+// This route allows a user to view a song's information (:id = song _id)
 userRoutes.route('/user/viewSong/:id').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
@@ -154,7 +154,7 @@ userRoutes.route('/user/viewSong/:id').get(function(req, res) {
   });
 });
 
-// This route allows a user to view an album's information
+// This route allows a user to view an album's information (:id = album _id)
 userRoutes.route('/user/viewAlbum/:id').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
@@ -164,7 +164,7 @@ userRoutes.route('/user/viewAlbum/:id').get(function(req, res) {
   });
 });
 
-// This route allows a user to retrieve a song
+// This route allows a user to retrieve a song (:id = song _id)
 userRoutes.route('/user/playSong/:id').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
@@ -174,11 +174,65 @@ userRoutes.route('/user/playSong/:id').get(function(req, res) {
   });
 });
 
-// This route allows a user to like a song
-userRoutes.route('/user/likeSong/:id').put(function(req, response) {});
+// This route allows a user to like a song (:uid = user _id) (:sid = song _id)
+userRoutes.route('/user/likeSong/:uid/:sid').put(function(req, res) {
+  // Update song's like count by 1
+  const dbConnect = dbo.getDb();
+  // const songQuery = {_id: ObjectId(req.body.sid)};
+  // const updatedSong = {
+  //   $inc: {likes: 1},
+  // };
 
-// This route allows a user to unlike a song
-userRoutes.route('/user/unlikeSong/:id').put(function(req, response) {});
+  // Append song _id to user's likes list
+  const userQuery = {_id: ObjectId(req.body.uid)};
+  const updatedUser = {
+    $push: {
+      likes: {_id: ObjectId(req.body.sid)},
+    },
+  };
+
+  // dbConnect.collection('songs')
+  //     .updateOne(songQuery, updatedSong, function(err, result) {
+  //       if (err) throw err;
+  //       res.json(result);
+  //     });
+
+  dbConnect.collection('users')
+      .updateOne(userQuery, updatedUser, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
+
+// This route allows a user to unlike a song (:uid = user _id) (:sid = song _id)
+userRoutes.route('/user/unlikeSong/:uid/:sid').put(function(req, res) {
+  // Update song's like count by 1
+  const dbConnect = dbo.getDb();
+  // const songQuery = {_id: ObjectId(req.body.sid)};
+  // const updatedSong = {
+  //   $inc: {likes: -1},
+  // };
+
+  // Append song _id to user's likes list
+  const userQuery = {_id: ObjectId(req.body.uid)};
+  const updatedUser = {
+    $pull: {
+      likes: {_id: ObjectId(req.body.sid)},
+    },
+  };
+
+  // dbConnect.collection('songs')
+  //     .updateOne(songQuery, updatedSong, function(err, result) {
+  //       if (err) throw err;
+  //       res.json(result);
+  //     });
+
+  dbConnect.collection('users')
+      .updateOne(userQuery, updatedUser, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
 
 // This route allows a user add a song to their library
 userRoutes.route('/user/addLibrarySong/:id').get(function(req, response) {});
