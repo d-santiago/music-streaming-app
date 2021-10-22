@@ -511,6 +511,46 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "localhost:5000/user/addPlaylistSong/:uid/:sid",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"61722ae4b0a90ecefbc9f3aa\",\n    \"sid\": \"61721640b0a90ecefbc9f38e\",\n    \"name\": \"Favorite Songs\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/addPlaylistSong/:uid/:sid",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"addPlaylistSong",
+						":uid",
+						":sid"
+					],
+					"variable": [
+						{
+							"key": "uid",
+							"value": null
+						},
+						{
+							"key": "sid",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
