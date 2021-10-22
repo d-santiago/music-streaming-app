@@ -168,10 +168,23 @@ userRoutes.route('/user/viewAlbum/:id').get(function(req, res) {
 userRoutes.route('/user/playSong/:id').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
+
+  // Need to increase song stream count
+  // const updatedSong = {
+  //     $inc: {streams: 1},
+  //   };
+
   dbConnect.collection('songs').findOne(query, function(err, result) {
     if (err) throw err;
     res.json(result.songURL);
   });
+
+  // dbConnect.collection('users')
+  //     .updateOne(query, updatedSong, function(err, result) {
+  //       if (err) throw err;
+  //       res.json(result);
+  //     });
+
 });
 
 // This route allows a user to like a song (:uid = user _id) (:sid = song _id)
