@@ -165,7 +165,7 @@ userRoutes.route('/user/viewAlbum/:id').get(function(req, res) {
 });
 
 // This route allows a user to retrieve a song (:id = song _id)
-userRoutes.route('/user/playSong/:id').get(function(req, res) {
+userRoutes.route('/user/playSong/:id').put(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
 

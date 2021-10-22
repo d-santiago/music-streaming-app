@@ -250,11 +250,8 @@
 		},
 		{
 			"name": "localhost:5000/user/playSong/:id",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
