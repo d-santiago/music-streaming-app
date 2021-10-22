@@ -145,10 +145,24 @@ userRoutes.route('/:id').delete((req, response) => {
 });
 
 // This route allows a user to view a song's information
-userRoutes.route('/user/viewSong/:id').get(function(req, response) {});
+userRoutes.route('/user/viewSong/:id').get(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body._id)};
+  dbConnect.collection('songs').findOne(query, function(err, result) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
 
 // This route allows a user to view an album's information
-userRoutes.route('/user/viewAlbum/:id').get(function(req, response) {});
+userRoutes.route('/user/viewAlbum/:id').get(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body._id)};
+  dbConnect.collection('albums').findOne(query, function(err, result) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
 
 // This route allows a user to retrieve a song
 userRoutes.route('/user/playSong/:id').get(function(req, response) {});
