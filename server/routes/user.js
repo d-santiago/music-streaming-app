@@ -96,26 +96,6 @@ userRoutes.route('/user/info/:id').get(function(req, res) {
   });
 });
 
-// This route retrieves a list of a user's followers
-userRoutes.route('/user/followers/:id').get(function(req, res) {
-  const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
-  dbConnect.collection('users').findOne(query, function(err, result) {
-    if (err) throw err;
-    res.json(result.followers);
-  });
-});
-
-// This route retrieves a list of people a user is following
-userRoutes.route('/user/following/:id').get(function(req, res) {
-  const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
-  dbConnect.collection('users').findOne(query, function(err, result) {
-    if (err) throw err;
-    res.json(result.following);
-  });
-});
-
 // This route allows a user to edit their profile
 userRoutes.route('/user/editProfile/:id').put(function(req, response) {
   const dbConnect = dbo.getDb();
