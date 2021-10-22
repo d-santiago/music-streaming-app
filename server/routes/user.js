@@ -16,8 +16,6 @@ const ObjectId = require('mongodb').ObjectId;
 // /user/register
 // /user/login
 // /user/info/:id
-// /user/followers/:id
-// /user/following/:id
 // /user/editProfile/:id
 // /user/switchToArtist/:id
 // /:id (delete)
