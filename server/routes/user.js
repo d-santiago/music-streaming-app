@@ -26,8 +26,8 @@ const ObjectId = require('mongodb').ObjectId;
 // /user/playSong/:id
 // /user/likeSong/:id
 // /user/unlikeSong/:id
-// /user/addLibrairySong/:id
-// /user/removeLibrairySong/:id
+// /user/addLibrarySong/:id
+// /user/removeLibrarySong/:id
 // /createPlaylist/:id
 // /user/deltePlaylist/:id
 // /user/addPlaylistSong/:id
@@ -159,11 +159,11 @@ userRoutes.route('/user/likeSong/:id').put(function(req, response) {});
 // This route allows a user to unlike a song
 userRoutes.route('/user/unlikeSong/:id').put(function(req, response) {});
 
-// This route allows a user add a song to their librairy
-userRoutes.route('/user/addLibrairySong/:id').get(function(req, response) {});
+// This route allows a user add a song to their library
+userRoutes.route('/user/addLibrarySong/:id').get(function(req, response) {});
 
-// This route allows a user remove a song from their librairy
-userRoutes.route('/user/removeLibrairySong/:id').get(function(req, response) {});
+// This route allows a user remove a song from their library
+userRoutes.route('/user/removeLibrarySong/:id').get(function(req, response) {});
 
 // This route allows a user create a playlist
 userRoutes.route('/createPlaylist/:id').put(function(req, response) {});

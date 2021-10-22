@@ -18,16 +18,17 @@
                     ],
         "bio": "", 
         "genres": [],
+        "librairy": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
         "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+            "name": "",
+            "coverURL": "",
+            "songs": []
+        }]
     },
     {
         "username": "serranobrian",
@@ -46,16 +47,13 @@
                     ],
         "bio": "", 
         "genres": [],
+        "librairy": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "andrewhamilton",
@@ -73,17 +71,14 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "matthewray",
@@ -101,17 +96,14 @@
                     "andrewhamilton"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "nicholassmith",
@@ -131,17 +123,14 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "luke58",
@@ -161,17 +150,14 @@
                     "matthewray"
                     ],
         "bio": "", 
-        "isArtist": false, 
+        "librairy": [],
         "genres": [],
+        "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "ashley97",
@@ -191,17 +177,14 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false,
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "rwelch",
@@ -221,17 +204,14 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "allenhubbard",
@@ -251,17 +231,14 @@
                     "matthewray"
                     ],
         "bio": "",
+        "librairy": [],
         "genres": [], 
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "edwardszachary",
@@ -281,17 +258,14 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "icooke",
@@ -311,17 +285,14 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "jdawson",
@@ -341,17 +312,14 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "thomas48",
@@ -371,17 +339,14 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "kingraymond",
@@ -401,17 +366,14 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "carolynmorris",
@@ -431,17 +393,14 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "thomas16",
@@ -461,17 +420,14 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "wolfheather",
@@ -491,17 +447,14 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "dianefoster",
@@ -521,17 +474,14 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "davidestrada",
@@ -551,17 +501,14 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     },
     {
         "username": "matthew71",
@@ -581,16 +528,13 @@
                     "matthewray"
                     ],
         "bio": "", 
+        "librairy": [],
         "genres": [],
         "isArtist": false, 
         "artistName": "",
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "coverURL": "",
-                    "songs": []
-                    }]
+        "playlists": []
     }
 ]
