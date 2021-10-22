@@ -74,7 +74,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"61722ae4b0a90ecefbc9f3aa\"\n}",
+					"raw": "{\n    \"_id\": \"61724624b0a90ecefbc9f3c8\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -109,7 +109,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"61722ae4b0a90ecefbc9f3aa\",\n    \"username\": \"hillrachel\",\n    \"password\": \"password\",\n    \"firstName\": \"Rachel\",\n    \"lastName\": \"Hill\",\n    \"email\": \"rachelhill@hotmail.com\",\n    \"dob\": \"1988-06-20T22:15:34Z\",\n    \"genres\": [\"Hip Hop\", \"Pop\"]\n}",
+					"raw": "{\n    \"_id\": \"61724624b0a90ecefbc9f3c8\",\n    \"username\": \"hillrachel\",\n    \"password\": \"password\",\n    \"firstName\": \"Rachel\",\n    \"lastName\": \"Hill\",\n    \"email\": \"rachelhill@hotmail.com\",\n    \"dob\": \"1988-06-20T22:15:34Z\",\n    \"genres\": [\"Hip Hop\", \"Pop\"]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -144,7 +144,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"61722ae4b0a90ecefbc9f3aa\",\n    \"artistName\": \"Rachel Hill\",\n    \"recordLabel\": \"Hill Records\"\n}",
+					"raw": "{\n    \"_id\": \"61724624b0a90ecefbc9f3c8\",\n    \"artistName\": \"Rachel Hill\",\n    \"recordLabel\": \"Hill Records\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -290,7 +290,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": \"61722ae4b0a90ecefbc9f3aa\",\n    \"sid\": \"61721640b0a90ecefbc9f38e\"\n}",
+					"raw": "{\n    \"uid\": \"61724624b0a90ecefbc9f3c8\",\n    \"sid\": \"61721640b0a90ecefbc9f38e\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -330,7 +330,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": \"61722ae4b0a90ecefbc9f3aa\",\n    \"sid\": \"61721640b0a90ecefbc9f38e\"\n}",
+					"raw": "{\n    \"uid\": \"61724624b0a90ecefbc9f3c8\",\n    \"sid\": \"61721640b0a90ecefbc9f38e\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -370,7 +370,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": \"61722ae4b0a90ecefbc9f3aa\",\n    \"sid\": \"61721640b0a90ecefbc9f38e\"\n}",
+					"raw": "{\n    \"uid\": \"61724624b0a90ecefbc9f3c8\",\n    \"sid\": \"61721640b0a90ecefbc9f38e\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -410,7 +410,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": \"61722ae4b0a90ecefbc9f3aa\",\n    \"sid\": \"61721640b0a90ecefbc9f38e\"\n}",
+					"raw": "{\n    \"uid\": \"61724624b0a90ecefbc9f3c8\",\n    \"sid\": \"61721640b0a90ecefbc9f38e\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -450,7 +450,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"61722ae4b0a90ecefbc9f3aa\",\n    \"name\": \"Favorite Songs\"\n}",
+					"raw": "{\n    \"_id\": \"61724624b0a90ecefbc9f3c8\",\n    \"name\": \"Favorite Songs\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -484,7 +484,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"61722ae4b0a90ecefbc9f3aa\",\n    \"name\": \"Favorite Songs\"\n}",
+					"raw": "{\n    \"_id\": \"61724624b0a90ecefbc9f3c8\",\n    \"name\": \"Favorite Songs\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -519,7 +519,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": \"61722ae4b0a90ecefbc9f3aa\",\n    \"sid\": \"61721640b0a90ecefbc9f38e\",\n    \"name\": \"Favorite Songs\"\n}",
+					"raw": "{\n    \"uid\": \"61724624b0a90ecefbc9f3c8\",\n    \"sid\": \"61721640b0a90ecefbc9f38e\",\n    \"name\": \"Favorite Songs\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -535,6 +535,46 @@
 					"path": [
 						"user",
 						"addPlaylistSong",
+						":uid",
+						":sid"
+					],
+					"variable": [
+						{
+							"key": "uid",
+							"value": null
+						},
+						{
+							"key": "sid",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/removePlaylistSong/:uid/:sid",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"61724624b0a90ecefbc9f3c8\",\n    \"sid\": \"61721640b0a90ecefbc9f38e\",\n    \"name\": \"Favorite Songs\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/removePlaylistSong/:uid/:sid",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"removePlaylistSong",
 						":uid",
 						":sid"
 					],

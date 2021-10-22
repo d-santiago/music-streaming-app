@@ -25,10 +25,7 @@
         "recordLabel": "",
         "songs": [],
         "albums": [],
-        "playlists":[{
-                    "name": "",
-                    "songs": []
-                    }]
+        "playlists":[]
     },
     {
         "username": "serranobrian",

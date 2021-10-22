@@ -21,9 +21,6 @@ const ObjectId = require('mongodb').ObjectId;
 // /:id (delete)
 // /user/viewSong/:id
 // /user/viewAlbum/:id
-// /user/playSong/:id (Needs to be revisited)
-// /user/likeSong/:id (Needs to be revisited)
-// /user/unlikeSong/:id (Needs to be revisited)
 // /user/addLibrarySong/:id
 // /user/removeLibrarySong/:id
 // /createPlaylist/:id
@@ -31,7 +28,10 @@ const ObjectId = require('mongodb').ObjectId;
 // /user/addPlaylistSong/:id
 
 // Incomplete Routes:
-// /user/removePlaylistSong/:id
+// /user/playSong/:id (Needs to be revisited)
+// /user/likeSong/:id (Needs to be revisited)
+// /user/unlikeSong/:id (Needs to be revisited)
+// /user/removePlaylistSong/:id Needs to be revisited)
 
 // For Debugging:
 // console.log('query: ', query);
@@ -340,7 +340,17 @@ userRoutes.route('/user/addPlaylistSong/:uid/:sid').put(function(req, res) {
       });
 });
 
-// This route allows a user remove a song from their playlist
-userRoutes.route('/user/removePlaylistSong/:id').post(function(req, response) {});
+// This route allows a user remove a song from their playlist (:uid = user _id) (:sid = song _id)
+userRoutes.route('/user/removePlaylistSong/:uid/:sid').put(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid)};
+  const updatedUser = {};
+
+  dbConnect.collection('users')
+      .updateOne(query, updatedUser, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
 
 module.exports = userRoutes;
