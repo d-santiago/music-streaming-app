@@ -19,17 +19,17 @@ const ObjectId = require('mongodb').ObjectId;
 // /user/editProfile/:id
 // /user/switchToArtist/:id
 // /:id (delete)
-
-// Incomplete Routes:
 // /user/viewSong/:id
 // /user/viewAlbum/:id
-// /user/playSong/:id
-// /user/likeSong/:id
-// /user/unlikeSong/:id
+// /user/playSong/:id (Needs to be revisited)
+// /user/likeSong/:id (Needs to be revisited)
+// /user/unlikeSong/:id (Needs to be revisited)
 // /user/addLibrarySong/:id
 // /user/removeLibrarySong/:id
 // /createPlaylist/:id
 // /user/deltePlaylist/:id
+
+// Incomplete Routes:
 // /user/addPlaylistSong/:id
 // /user/removePlaylistSong/:id
 
@@ -301,8 +301,24 @@ userRoutes.route('/createPlaylist/:id').put(function(req, res) {
       });
 });
 
-// This route allows a user delete a playlist
-userRoutes.route('/user/deltePlaylist/:id').delete((req, response) => {});
+// This route allows a user delete a playlist (:id = user _id) 
+userRoutes.route('/user/deletePlaylist/:id').put(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body._id)};
+  const updatedUser = {
+    $pull: {
+      playlists: {
+        name: req.body.name,
+      }
+    },
+  };
+
+  dbConnect.collection('users')
+      .updateOne(query, updatedUser, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
 
 // This route allows a user add a song to their playlist
 userRoutes.route('/user/addPlaylistSong/:id').post(function(req, response) {});
