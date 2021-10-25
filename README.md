@@ -31,7 +31,8 @@ _________________
     server: npm run sl
 
 ## To Test User Routes:
-### Root
+### Server
+    npm start
     npm run routes
 
 ## Requirements
