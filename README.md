@@ -27,12 +27,12 @@ _________________
 
 ## To Lint Code:
 ### Root
-    To lint client files: npm run cl
-    To lint server files: npm run sl
+    client: npm run cl
+    server: npm run sl
 
 ## To Test User Routes:
 ### Root
-    To test user routes: npm run routes
+    npm run routes
 
 ## Requirements
 
