@@ -33,6 +33,7 @@ _________________
 ## To Test User Routes:
 ### Server
     npm start
+### Root
     npm run routes
 
 ## Requirements

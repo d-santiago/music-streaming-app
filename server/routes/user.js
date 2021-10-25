@@ -178,7 +178,6 @@ userRoutes.route('/user/incrementSongStream/:id').put(function(req, res) {
         if (err) throw err;
         res.json(result);
       });
-
 });
 
 // This route allows a user to like a song (:uid = user _id) (:sid = song _id)
