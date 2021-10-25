@@ -21,9 +21,9 @@ const ObjectId = require('mongodb').ObjectId;
 // /artist/editAlbum/:id
 // /artist/deleteSong/:id
 // /artist/deleteAlbum/:id
-// /artist/viewSongStats/:id
-// /artist/viewAlbumStats/:id
-// /artist/viewAllStats/:id
+// /artist/viewSongStreams/:id
+// /artist/viewAlbumStreams/:id
+// /artist/viewAllStreams/:id
 
 // For Debugging:
 // console.log('query: ', query);
@@ -50,13 +50,13 @@ userRoutes.route('/artist/deleteSong/:id').delete((req, response) => {});
 // This route allows an artist to delete an album
 userRoutes.route('/artist/deleteAlbum/:id').delete((req, response) => {});
 
-// This route allows an artist view a song's streams and likes
-userRoutes.route('/artist/viewSongStats/:id').get(function(req, response) {});
+// This route allows an artist view a song's streams
+userRoutes.route('/artist/viewSongStreams/:id').get(function(req, response) {});
 
-// This route allows an artist view an album's streams and likes
-userRoutes.route('/artist/viewAlbumStats/:id').get(function(req, response) {});
+// This route allows an artist view an album's streams
+userRoutes.route('/artist/viewAlbumStreams/:id').get(function(req, response) {});
 
-// This route allows an artist view all of their streams and likes
-userRoutes.route('/artist/viewAllStats/:id').get(function(req, response) {});
+// This route allows an artist view all of their streams
+userRoutes.route('/artist/viewAllStreams/:id').get(function(req, response) {});
 
 module.exports = userRoutes;

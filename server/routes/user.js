@@ -29,8 +29,6 @@ const ObjectId = require('mongodb').ObjectId;
 // /user/addPlaylistSong/:id
 
 // Incomplete Routes:
-// /user/likeSong/:id (Needs to be revisited)
-// /user/unlikeSong/:id (Needs to be revisited)
 // /user/removePlaylistSong/:id Needs to be revisited)
 
 // For Debugging:
@@ -164,7 +162,7 @@ userRoutes.route('/user/viewAlbum/:id').get(function(req, res) {
   });
 });
 
-// This route allows a user to retrieve a song (:id = song _id)
+// This route increment's a song's stream count by 1 (:id = song _id)
 userRoutes.route('/user/incrementSongStream/:id').put(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
@@ -175,66 +173,6 @@ userRoutes.route('/user/incrementSongStream/:id').put(function(req, res) {
 
   dbConnect.collection('songs')
       .updateOne(query, updatedSong, function(err, result) {
-        if (err) throw err;
-        res.json(result);
-      });
-});
-
-// This route allows a user to like a song (:uid = user _id) (:sid = song _id)
-userRoutes.route('/user/likeSong/:uid/:sid').put(function(req, res) {
-  // Update song's like count by 1
-  const dbConnect = dbo.getDb();
-  // const songQuery = {_id: ObjectId(req.body.sid)};
-  // const updatedSong = {
-  //   $inc: {likes: 1},
-  // };
-
-  // Append song _id to user's likes list
-  const userQuery = {_id: ObjectId(req.body.uid)};
-  const updatedUser = {
-    $push: {
-      likes: {_id: ObjectId(req.body.sid)},
-    },
-  };
-
-  // dbConnect.collection('songs')
-  //     .updateOne(songQuery, updatedSong, function(err, result) {
-  //       if (err) throw err;
-  //       res.json(result);
-  //     });
-
-  dbConnect.collection('users')
-      .updateOne(userQuery, updatedUser, function(err, result) {
-        if (err) throw err;
-        res.json(result);
-      });
-});
-
-// This route allows a user to unlike a song (:uid = user _id) (:sid = song _id)
-userRoutes.route('/user/unlikeSong/:uid/:sid').put(function(req, res) {
-  // Update song's like count by 1
-  const dbConnect = dbo.getDb();
-  // const songQuery = {_id: ObjectId(req.body.sid)};
-  // const updatedSong = {
-  //   $inc: {likes: -1},
-  // };
-
-  // Append song _id to user's likes list
-  const userQuery = {_id: ObjectId(req.body.uid)};
-  const updatedUser = {
-    $pull: {
-      likes: {_id: ObjectId(req.body.sid)},
-    },
-  };
-
-  // dbConnect.collection('songs')
-  //     .updateOne(songQuery, updatedSong, function(err, result) {
-  //       if (err) throw err;
-  //       res.json(result);
-  //     });
-
-  dbConnect.collection('users')
-      .updateOne(userQuery, updatedUser, function(err, result) {
         if (err) throw err;
         res.json(result);
       });
