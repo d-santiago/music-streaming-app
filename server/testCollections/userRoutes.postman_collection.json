@@ -249,7 +249,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/playSong/:id",
+			"name": "localhost:5000/user/incrementSongStream/:id",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -263,14 +263,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/playSong/:id",
+					"raw": "localhost:5000/user/incrementSongStream/:id",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"playSong",
+						"incrementSongStream",
 						":id"
 					],
 					"variable": [

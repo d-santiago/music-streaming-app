@@ -21,6 +21,7 @@ const ObjectId = require('mongodb').ObjectId;
 // /:id (delete)
 // /user/viewSong/:id
 // /user/viewAlbum/:id
+// /user/incrementSongStream/:id
 // /user/addLibrarySong/:id
 // /user/removeLibrarySong/:id
 // /createPlaylist/:id
@@ -28,7 +29,6 @@ const ObjectId = require('mongodb').ObjectId;
 // /user/addPlaylistSong/:id
 
 // Incomplete Routes:
-// /user/playSong/:id (Needs to be revisited)
 // /user/likeSong/:id (Needs to be revisited)
 // /user/unlikeSong/:id (Needs to be revisited)
 // /user/removePlaylistSong/:id Needs to be revisited)
@@ -165,25 +165,19 @@ userRoutes.route('/user/viewAlbum/:id').get(function(req, res) {
 });
 
 // This route allows a user to retrieve a song (:id = song _id)
-userRoutes.route('/user/playSong/:id').put(function(req, res) {
+userRoutes.route('/user/incrementSongStream/:id').put(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
 
-  // Need to increase song stream count
-  // const updatedSong = {
-  //     $inc: {streams: 1},
-  //   };
+  const updatedSong = {
+      $inc: {streams: 1},
+    };
 
-  dbConnect.collection('songs').findOne(query, function(err, result) {
-    if (err) throw err;
-    res.json(result.songURL);
-  });
-
-  // dbConnect.collection('users')
-  //     .updateOne(query, updatedSong, function(err, result) {
-  //       if (err) throw err;
-  //       res.json(result);
-  //     });
+  dbConnect.collection('songs')
+      .updateOne(query, updatedSong, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
 
 });
 
