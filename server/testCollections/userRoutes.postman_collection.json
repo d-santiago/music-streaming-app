@@ -34,13 +34,13 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/delete/:id",
+			"name": "localhost:5000/user/delete",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"617845f89880ed8979cf8c8b\"\n}",
+					"raw": "{\n    \"_id\": \"61784d882d216001d3881457\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -48,21 +48,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/delete/:id",
+					"raw": "localhost:5000/user/delete",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"delete",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
+						"delete"
 					]
 				}
 			},
@@ -100,7 +93,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/info/:id",
+			"name": "localhost:5000/user/info",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -117,28 +110,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/info/:id",
+					"raw": "localhost:5000/user/info",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"info",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
+						"info"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/updateUsername/:id",
+			"name": "localhost:5000/user/updateUsername",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -152,28 +138,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/updateUsername/:id",
+					"raw": "localhost:5000/user/updateUsername",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"updateUsername",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
+						"updateUsername"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/updatePassword/:id",
+			"name": "localhost:5000/user/updatePassword",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -187,28 +166,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/updatePassword/:id",
+					"raw": "localhost:5000/user/updatePassword",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"updatePassword",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
+						"updatePassword"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/updateProfile/:id",
+			"name": "localhost:5000/user/updateProfile",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -222,28 +194,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/updateProfile/:id",
+					"raw": "localhost:5000/user/updateProfile",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"updateProfile",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
+						"updateProfile"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/updatePersonalInfo/:id",
+			"name": "localhost:5000/user/updatePersonalInfo",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -257,28 +222,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/updatePersonalInfo/:id",
+					"raw": "localhost:5000/user/updatePersonalInfo",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"updatePersonalInfo",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
+						"updatePersonalInfo"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/updateGenres/:id",
+			"name": "localhost:5000/user/updateGenres",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -292,28 +250,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/updateGenres/:id",
+					"raw": "localhost:5000/user/updateGenres",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"updateGenres",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
+						"updateGenres"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/switchtoArtist/:id",
+			"name": "localhost:5000/user/switchtoArtist",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -327,28 +278,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/switchtoArtist/:id",
+					"raw": "localhost:5000/user/switchtoArtist",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"switchtoArtist",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
+						"switchtoArtist"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/viewSong/:id",
+			"name": "localhost:5000/user/viewSong",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -365,28 +309,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/viewSong/:id",
+					"raw": "localhost:5000/user/viewSong",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"viewSong",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
+						"viewSong"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/viewAlbum/:id",
+			"name": "localhost:5000/user/viewAlbum",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -403,28 +340,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/viewAlbum/:id",
+					"raw": "localhost:5000/user/viewAlbum",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"viewAlbum",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
+						"viewAlbum"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/incrementSongStream/:id",
+			"name": "localhost:5000/user/incrementSongStream",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -438,28 +368,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/incrementSongStream/:id",
+					"raw": "localhost:5000/user/incrementSongStream",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"incrementSongStream",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
+						"incrementSongStream"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/addLibrarySong/:uid/:sid",
+			"name": "localhost:5000/user/addLibrarySong",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -473,33 +396,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/addLibrarySong/:uid/:sid",
+					"raw": "localhost:5000/user/addLibrarySong",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"addLibrarySong",
-						":uid",
-						":sid"
-					],
-					"variable": [
-						{
-							"key": "uid",
-							"value": null
-						},
-						{
-							"key": "sid",
-							"value": null
-						}
+						"addLibrarySong"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/removeLibrarySong/:uid/:sid",
+			"name": "localhost:5000/user/removeLibrarySong",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -513,33 +424,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/removeLibrarySong/:uid/:sid",
+					"raw": "localhost:5000/user/removeLibrarySong",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"removeLibrarySong",
-						":uid",
-						":sid"
-					],
-					"variable": [
-						{
-							"key": "uid",
-							"value": null
-						},
-						{
-							"key": "sid",
-							"value": null
-						}
+						"removeLibrarySong"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/createPlaylist/:id",
+			"name": "localhost:5000/user/createPlaylist",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -553,28 +452,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/createPlaylist/:id",
+					"raw": "localhost:5000/user/createPlaylist",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"createPlaylist",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
-						}
+						"createPlaylist"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/deletePlaylist/:uid/:pid",
+			"name": "localhost:5000/user/deletePlaylist",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -588,33 +480,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/deletePlaylist/:uid/:pid",
+					"raw": "localhost:5000/user/deletePlaylist",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"deletePlaylist",
-						":uid",
-						":pid"
-					],
-					"variable": [
-						{
-							"key": "uid",
-							"value": null
-						},
-						{
-							"key": "pid",
-							"value": null
-						}
+						"deletePlaylist"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/addPlaylistSong/:uid/:pid/:sid",
+			"name": "localhost:5000/user/addPlaylistSong",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -628,38 +508,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/addPlaylistSong/:uid/:pid/:sid",
+					"raw": "localhost:5000/user/addPlaylistSong",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"addPlaylistSong",
-						":uid",
-						":pid",
-						":sid"
-					],
-					"variable": [
-						{
-							"key": "uid",
-							"value": null
-						},
-						{
-							"key": "pid",
-							"value": null
-						},
-						{
-							"key": "sid",
-							"value": null
-						}
+						"addPlaylistSong"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/removePlaylistSong/:uid/:pid/:sid",
+			"name": "localhost:5000/user/removePlaylistSong",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -673,31 +536,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/removePlaylistSong/:uid/:pid/:sid",
+					"raw": "localhost:5000/user/removePlaylistSong",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"removePlaylistSong",
-						":uid",
-						":pid",
-						":sid"
-					],
-					"variable": [
-						{
-							"key": "uid",
-							"value": null
-						},
-						{
-							"key": "pid",
-							"value": null
-						},
-						{
-							"key": "sid",
-							"value": null
-						}
+						"removePlaylistSong"
 					]
 				}
 			},
