@@ -7,6 +7,19 @@
 	"item": [
 		{
 			"name": "localhost:5000/user/register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -35,6 +48,23 @@
 		},
 		{
 			"name": "localhost:5000/user/delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"User deleted\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.deletedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -63,6 +93,24 @@
 		},
 		{
 			"name": "localhost:5000/user/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"User logged in\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.username).to.eql('hillrachel');",
+							"    pm.expect(jsonData.password).to.eql('password');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -94,6 +142,23 @@
 		},
 		{
 			"name": "localhost:5000/user/info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"User information retrieved\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql('61786e46b81c801b7164107f');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -102,7 +167,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"61775eddf20535a31b19d767\"\n}",
+					"raw": "{\n    \"_id\": \"61786e46b81c801b7164107f\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -125,12 +190,29 @@
 		},
 		{
 			"name": "localhost:5000/user/updateUsername",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Username updated\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"61775eddf20535a31b19d767\",\n    \"username\": \"rachelhill\"\n}",
+					"raw": "{\n    \"_id\": \"61786e46b81c801b7164107f\",\n    \"username\": \"rachelhill\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -153,12 +235,29 @@
 		},
 		{
 			"name": "localhost:5000/user/updatePassword",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Password updated\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"61775eddf20535a31b19d767\",\n    \"prevPassword\": \"password\",\n    \"newPassword\": \"musicRocks\"\n}",
+					"raw": "{\n    \"_id\": \"61786e46b81c801b7164107f\",\n    \"prevPassword\": \"password\",\n    \"newPassword\": \"musicRocks\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -181,12 +280,29 @@
 		},
 		{
 			"name": "localhost:5000/user/updateProfile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Profile updated\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"61775eddf20535a31b19d767\",\n    \"firstName\": \"Rach\",\n    \"lastName\": \"H\",\n    \"bio\": \"Love making music!\"\n}",
+					"raw": "{\n    \"_id\": \"61786e46b81c801b7164107f\",\n    \"firstName\": \"Rach\",\n    \"lastName\": \"H\",\n    \"bio\": \"Love making music!\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -209,12 +325,29 @@
 		},
 		{
 			"name": "localhost:5000/user/updatePersonalInfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Personal information updated\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"61775eddf20535a31b19d767\",\n    \"email\": \"rhill@hotmail.com\",\n    \"dob\": \"10/26/2021\"\n}",
+					"raw": "{\n    \"_id\": \"61786e46b81c801b7164107f\",\n    \"email\": \"rhill@hotmail.com\",\n    \"dob\": \"10/26/2021\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -237,12 +370,29 @@
 		},
 		{
 			"name": "localhost:5000/user/updateGenres",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Genres updated\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"61775eddf20535a31b19d767\",\n    \"genres\": \"Jazz\"\n}",
+					"raw": "{\n    \"_id\": \"61786e46b81c801b7164107f\",\n    \"genres\": \"Jazz\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -265,12 +415,29 @@
 		},
 		{
 			"name": "localhost:5000/user/switchtoArtist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"User -> Artist status updated\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"61775eddf20535a31b19d767\",\n    \"artistName\": \"Rachel Hill\",\n    \"recordLabel\": \"Hill Records\"\n}",
+					"raw": "{\n    \"_id\": \"61786e46b81c801b7164107f\",\n    \"artistName\": \"Rachel Hill\",\n    \"recordLabel\": \"Hill Records\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -293,6 +460,23 @@
 		},
 		{
 			"name": "localhost:5000/user/viewSong",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Song information retrieved\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql('61776035f20535a31b19d77d');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -324,6 +508,23 @@
 		},
 		{
 			"name": "localhost:5000/user/viewAlbum",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Album information retrieved\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql('6172164ab0a90ecefbc9f391');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -355,6 +556,23 @@
 		},
 		{
 			"name": "localhost:5000/user/incrementSongStream",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Song stream incremented by 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -383,12 +601,29 @@
 		},
 		{
 			"name": "localhost:5000/user/addLibrarySong",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Song added to library\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": \"61775eddf20535a31b19d767\",\n    \"sid\": \"61776035f20535a31b19d77d\"\n}",
+					"raw": "{\n    \"uid\": \"61786e46b81c801b7164107f\",\n    \"sid\": \"61776035f20535a31b19d77d\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -411,12 +646,29 @@
 		},
 		{
 			"name": "localhost:5000/user/removeLibrarySong",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Song removed from library\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": \"61775eddf20535a31b19d767\",\n    \"sid\": \"61776035f20535a31b19d77d\"\n}",
+					"raw": "{\n    \"uid\": \"61786e46b81c801b7164107f\",\n    \"sid\": \"61776035f20535a31b19d77d\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -439,12 +691,29 @@
 		},
 		{
 			"name": "localhost:5000/user/createPlaylist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Playlist created\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"61775eddf20535a31b19d767\",\n    \"name\": \"Favorite Songs\"\n}",
+					"raw": "{\n    \"_id\": \"61786e46b81c801b7164107f\",\n    \"name\": \"Favorite Songs\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -467,12 +736,29 @@
 		},
 		{
 			"name": "localhost:5000/user/deletePlaylist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Playlist deleted\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": \"61775eddf20535a31b19d767\",\n    \"pid\": \"617761437db3c61e13101c8d\"\n}",
+					"raw": "{\n    \"uid\": \"61786e46b81c801b7164107f\",\n    \"pid\": \"617761437db3c61e13101c8d\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -495,12 +781,29 @@
 		},
 		{
 			"name": "localhost:5000/user/addPlaylistSong",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Song added to playlist\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": \"61775eddf20535a31b19d767\",\n    \"pid\": \"617761437db3c61e13101c8d\",\n    \"sid\": \"61776035f20535a31b19d77d\"\n}",
+					"raw": "{\n    \"uid\": \"61786e46b81c801b7164107f\",\n    \"pid\": \"617761437db3c61e13101c8d\",\n    \"sid\": \"61776035f20535a31b19d77d\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -523,12 +826,29 @@
 		},
 		{
 			"name": "localhost:5000/user/removePlaylistSong",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Song removed from playlist\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": \"61775eddf20535a31b19d767\",\n    \"pid\": \"617761437db3c61e13101c8d\",\n    \"sid\": \"61776035f20535a31b19d77d\"\n}",
+					"raw": "{\n    \"uid\": \"61786e46b81c801b7164107f\",\n    \"pid\": \"617761437db3c61e13101c8d\",\n    \"sid\": \"61776035f20535a31b19d77d\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
