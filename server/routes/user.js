@@ -29,9 +29,9 @@ const ObjectId = require('mongodb').ObjectId;
 // /addLibrarySong/:uid/:sid
 // /user/removeLibrarySong/:uid/:sid
 // /createPlaylist/:id
-// /user/deltePlaylist/uid/:pid
+// /user/deletePlaylist/uid/:pid
 // /user/addPlaylistSong/uid/:pid/:sid
-// /user/removePlaylistSong/:id/:pid/:sid
+// /user/removePlaylistSong/:uid/:pid/:sid
 
 // For Debugging:
 // console.log('query: ', query);
@@ -289,7 +289,7 @@ userRoutes.route('/user/removeLibrarySong/:uid/:sid').put(function(req, res) {
 
 // This route allows a user create a playlist
 // (:id = user _id)
-userRoutes.route('/createPlaylist/:id').put(function(req, res) {
+userRoutes.route('/user/createPlaylist/:id').put(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
   const updatedUser = {

@@ -34,6 +34,39 @@
 			"response": []
 		},
 		{
+			"name": "localhost:5000/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_id\": \"617845f89880ed8979cf8c8b\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "localhost:5000/user/login",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -504,7 +537,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5000/createPlaylist/:id",
+			"name": "localhost:5000/user/createPlaylist/:id",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -518,12 +551,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/createPlaylist/:id",
+					"raw": "localhost:5000/user/createPlaylist/:id",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
+						"user",
 						"createPlaylist",
 						":id"
 					],
