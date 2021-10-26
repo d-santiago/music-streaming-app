@@ -46,17 +46,14 @@ userRoutes.route('/user/register').post(function(req, response) {
     followers: [],
     following: [],
     bio: '',
+    library: [],
     genres: [],
     isArtist: false,
     artistName: '',
     recordLabel: '',
     songs: [],
     albums: [],
-    playlist: [{
-      'name': '',
-      'coverURL': '',
-      'songs': [],
-    }],
+    playlist: [],
   };
   dbConnect.collection('users').insertOne(object, function(err, res) {
     if (err) throw err;
