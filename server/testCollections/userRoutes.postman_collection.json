@@ -34,7 +34,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5000/:id",
+			"name": "localhost:5000/user/delete/:id",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -48,12 +48,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/:id",
+					"raw": "localhost:5000/user/delete/:id",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
+						"user",
+						"delete",
 						":id"
 					],
 					"variable": [

@@ -22,7 +22,7 @@ const ObjectId = require('mongodb').ObjectId;
 // /user/updatePersonalInfo/:id
 // /user/updateGenres/:id
 // /user/switchToArtist/:id
-// /:id (delete)
+// /user/delete/:id
 // /user/viewSong/:id
 // /user/viewAlbum/:id
 // /user/incrementSongStream/:id
@@ -204,7 +204,7 @@ userRoutes.route('/user/switchToArtist/:id').put(function(req, response) {
 
 // This route allows a user to delete their account
 // (:id = user _id)
-userRoutes.route('/:id').delete((req, response) => {
+userRoutes.route('/user/delete/:id').delete((req, response) => {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId( req.body._id )};
   dbConnect.collection('users').deleteOne(query, function(err, res) {
