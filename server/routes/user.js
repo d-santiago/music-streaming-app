@@ -16,7 +16,11 @@ const ObjectId = require('mongodb').ObjectId;
 // /user/register
 // /user/login
 // /user/info/:id
-// /user/editProfile/:id
+// /user/updateUsername/:id
+// /user/updatePassword/:id
+// /user/updateProfile/:id
+// /user/updatePersonalInfo/:id
+// /user/updateGenres/:id
 // /user/switchToArtist/:id
 // /:id (delete)
 // /user/viewSong/:id
@@ -80,7 +84,8 @@ userRoutes.route('/user/login').get(function(req, res) {
   });
 });
 
-// This route retrieves a user's information (:id = user _id)
+// This route retrieves a user's information
+// (:id = user _id)
 userRoutes.route('/user/info/:id').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
@@ -90,19 +95,50 @@ userRoutes.route('/user/info/:id').get(function(req, res) {
   });
 });
 
-// This route allows a user to edit their profile (:id = user _id)
-userRoutes.route('/user/editProfile/:id').put(function(req, response) {
+// This route allows a user to update their username
+// (:id = user _id)
+userRoutes.route('/user/updateUsername/:id').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body._id)};
+  const updatedUsername = {
+    $set: {
+      username: req.body.username,
+    },
+  };
+  dbConnect.collection('users')
+      .updateOne(query, updatedUsername, function(err, res) {
+        if (err) throw err;
+        response.json(res);
+      });
+});
+
+// This route allows a user to update their password
+// (:id = user _id)
+userRoutes.route('/user/updatePassword/:id').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body._id)};
+  const updatedPassword = {
+    $set: {
+      password: req.body.newPassword,
+    },
+  };
+  dbConnect.collection('users')
+      .updateOne(query, updatedPassword, function(err, res) {
+        if (err) throw err;
+        response.json(res);
+      });
+});
+
+// This route allows a user to update their profile
+// (:id = user _id)
+userRoutes.route('/user/updateProfile/:id').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
   const updatedFields = {
     $set: {
-      username: req.body.username,
-      password: req.body.password,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      email: req.body.email,
-      dob: req.body.dob,
-      genres: req.body.genres,
+      bio: req.body.bio,
     },
   };
   dbConnect.collection('users')
@@ -112,7 +148,43 @@ userRoutes.route('/user/editProfile/:id').put(function(req, response) {
       });
 });
 
-// This route allows a user to change their status to 'Artist' (:id = user _id)
+// This route allows a user to update their personal information
+// (:id = user _id)
+userRoutes.route('/user/updatePersonalInfo/:id').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body._id)};
+  const updatedFields = {
+    $set: {
+      email: req.body.email,
+      dob: req.body.dob,
+    },
+  };
+  dbConnect.collection('users')
+      .updateOne(query, updatedFields, function(err, res) {
+        if (err) throw err;
+        response.json(res);
+      });
+});
+
+// This route allows a user to update their preferred genres
+// (:id = user _id)
+userRoutes.route('/user/updateGenres/:id').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body._id)};
+  const updatedGenres = {
+    $push: {
+      genres: req.body.genres,
+    },
+  };
+  dbConnect.collection('users')
+      .updateOne(query, updatedGenres, function(err, res) {
+        if (err) throw err;
+        response.json(res);
+      });
+});
+
+// This route allows a user to update their status to 'Artist'
+// (:id = user _id)
 userRoutes.route('/user/switchToArtist/:id').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
@@ -130,7 +202,8 @@ userRoutes.route('/user/switchToArtist/:id').put(function(req, response) {
       });
 });
 
-// This route allows a user to delete their account (:id = user _id)
+// This route allows a user to delete their account
+// (:id = user _id)
 userRoutes.route('/:id').delete((req, response) => {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId( req.body._id )};
@@ -140,7 +213,8 @@ userRoutes.route('/:id').delete((req, response) => {
   });
 });
 
-// This route allows a user to view a song's information (:id = song _id)
+// This route allows a user to view a song's information
+// (:id = song _id)
 userRoutes.route('/user/viewSong/:id').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
@@ -150,7 +224,8 @@ userRoutes.route('/user/viewSong/:id').get(function(req, res) {
   });
 });
 
-// This route allows a user to view an album's information (:id = album _id)
+// This route allows a user to view an album's information
+// (:id = album _id)
 userRoutes.route('/user/viewAlbum/:id').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
@@ -160,14 +235,14 @@ userRoutes.route('/user/viewAlbum/:id').get(function(req, res) {
   });
 });
 
-// This route increment's a song's stream count by 1 (:id = song _id)
+// This route increment's a song's stream count by 1
+// (:id = song _id)
 userRoutes.route('/user/incrementSongStream/:id').put(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
-
   const updatedSong = {
-      $inc: {streams: 1},
-    };
+    $inc: {streams: 1},
+  };
 
   dbConnect.collection('songs')
       .updateOne(query, updatedSong, function(err, result) {
@@ -176,7 +251,8 @@ userRoutes.route('/user/incrementSongStream/:id').put(function(req, res) {
       });
 });
 
-// This route allows a user add a song to their library (:uid = user _id) (:sid = song _id)
+// This route allows a user add a song to their library
+// (:uid = user _id) (:sid = song _id)
 userRoutes.route('/user/addLibrarySong/:uid/:sid').put(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -193,7 +269,8 @@ userRoutes.route('/user/addLibrarySong/:uid/:sid').put(function(req, res) {
       });
 });
 
-// This route allows a user remove a song from their library (:uid = user _id) (:sid = song _id)
+// This route allows a user remove a song from their library
+// (:uid = user _id) (:sid = song _id)
 userRoutes.route('/user/removeLibrarySong/:uid/:sid').put(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -210,7 +287,8 @@ userRoutes.route('/user/removeLibrarySong/:uid/:sid').put(function(req, res) {
       });
 });
 
-// This route allows a user create a playlist (:id = user _id) 
+// This route allows a user create a playlist
+// (:id = user _id)
 userRoutes.route('/createPlaylist/:id').put(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body._id)};
@@ -219,8 +297,8 @@ userRoutes.route('/createPlaylist/:id').put(function(req, res) {
       playlists: {
         _id: new ObjectId,
         name: req.body.name,
-        songs: []
-      }
+        songs: [],
+      },
     },
   };
 
@@ -231,7 +309,8 @@ userRoutes.route('/createPlaylist/:id').put(function(req, res) {
       });
 });
 
-// This route allows a user delete a playlist (:uid = user _id) (:pid = playlist _id) 
+// This route allows a user delete a playlist
+// (:uid = user _id) (:pid = playlist _id)
 userRoutes.route('/user/deletePlaylist/:uid/:pid').put(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -250,14 +329,18 @@ userRoutes.route('/user/deletePlaylist/:uid/:pid').put(function(req, res) {
       });
 });
 
-// This route allows a user add a song to their playlist (:uid = user _id) (:pid = playlist _id) (:sid = song _id)
+// This route allows a user add a song to their playlist
+// (:uid = user _id) (:pid = playlist _id) (:sid = song _id)
 userRoutes.route('/user/addPlaylistSong/:uid/:pid/:sid').put(function(req, res) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.uid), 'playlists._id': ObjectId(req.body.pid)};
+  const query = {
+    _id: ObjectId(req.body.uid),
+    'playlists._id': ObjectId(req.body.pid),
+  };
   const updatedPlaylist = {
     $push: {
-      'playlists.$.songs': ObjectId(req.body.sid)
-    }
+      'playlists.$.songs': ObjectId(req.body.sid),
+    },
   };
 
   dbConnect.collection('users')
@@ -267,14 +350,18 @@ userRoutes.route('/user/addPlaylistSong/:uid/:pid/:sid').put(function(req, res) 
       });
 });
 
-// This route allows a user remove a song from their playlist (:uid = user _id) (:pid = playlist _id) (:sid = song _id)
+// This route allows a user remove a song from their playlist
+// (:uid = user _id) (:pid = playlist _id) (:sid = song _id)
 userRoutes.route('/user/removePlaylistSong/:uid/:pid/:sid').put(function(req, res) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.uid), 'playlists._id': ObjectId(req.body.pid)};
+  const query = {
+    _id: ObjectId(req.body.uid),
+    'playlists._id': ObjectId(req.body.pid),
+  };
   const updatedPlaylist = {
     $pull: {
-      'playlists.$.songs': ObjectId(req.body.sid)
-    }
+      'playlists.$.songs': ObjectId(req.body.sid),
+    },
   };
   dbConnect.collection('users')
       .updateOne(query, updatedPlaylist, function(err, result) {

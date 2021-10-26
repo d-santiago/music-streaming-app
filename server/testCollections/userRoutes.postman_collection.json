@@ -103,13 +103,13 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/editProfile/:id",
+			"name": "localhost:5000/user/updateUsername/:id",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"_id\": \"61775eddf20535a31b19d767\",\n    \"username\": \"hillrachel\",\n    \"password\": \"password\",\n    \"firstName\": \"Rachel\",\n    \"lastName\": \"Hill\",\n    \"email\": \"rachelhill@hotmail.com\",\n    \"dob\": \"1988-06-20T22:15:34Z\",\n    \"genres\": [\"Hip Hop\", \"Pop\"]\n}",
+					"raw": "{\n    \"_id\": \"61775eddf20535a31b19d767\",\n    \"username\": \"rachelhill\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -117,14 +117,154 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/editProfile/:id",
+					"raw": "localhost:5000/user/updateUsername/:id",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"editProfile",
+						"updateUsername",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/updatePassword/:id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_id\": \"61775eddf20535a31b19d767\",\n    \"prevPassword\": \"password\",\n    \"newPassword\": \"musicRocks\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/updatePassword/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"updatePassword",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/updateProfile/:id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_id\": \"61775eddf20535a31b19d767\",\n    \"firstName\": \"Rach\",\n    \"lastName\": \"H\",\n    \"bio\": \"Love making music!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/updateProfile/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"updateProfile",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/updatePersonalInfo/:id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_id\": \"61775eddf20535a31b19d767\",\n    \"email\": \"rhill@hotmail.com\",\n    \"dob\": \"10/26/2021\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/updatePersonalInfo/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"updatePersonalInfo",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/updateGenres/:id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_id\": \"61775eddf20535a31b19d767\",\n    \"genres\": \"Jazz\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/updateGenres/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"updateGenres",
 						":id"
 					],
 					"variable": [
