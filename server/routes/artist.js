@@ -15,48 +15,41 @@ const ObjectId = require('mongodb').ObjectId;
 // Complete Routes:
 
 // Incomplete Routes:
-// /artist/uploadSong/:id
-// /artist/uploadAlbum/:id
-// /artist/editSong/:id
-// /artist/editAlbum/:id
-// /artist/deleteSong/:id
-// /artist/deleteAlbum/:id
-// /artist/viewSongStreams/:id
-// /artist/viewAlbumStreams/:id
-// /artist/viewAllStreams/:id
-
-// For Debugging:
-// console.log('query: ', query);
-// console.log('req.params: ', req.params);
-// const query = {_id: ObjectId(req.params.id)};
-// console.log('req.body: ', req.body);
-// console.log('req.body._id: ', req.body._id);
+// /artist/uploadSong
+// /artist/uploadAlbum
+// /artist/editSong
+// /artist/editAlbum
+// /artist/deleteSong
+// /artist/deleteAlbum
+// /artist/viewSongStreams
+// /artist/viewAlbumStreams
+// /artist/viewAllStreams
 
 // This route allows an artist to upload a song
-userRoutes.route('/artist/uploadSong/:id').post(function(req, response) {});
+userRoutes.route('/artist/uploadSong').post(function(req, response) {});
 
 // This route allows an artist to upload an album
-userRoutes.route('/artist/uploadAlbum/:id').post(function(req, response) {});
+userRoutes.route('/artist/uploadAlbum').post(function(req, response) {});
 
 // This route allows an artist to edit a song's information
-userRoutes.route('/artist/editSong/:id').put(function(req, response) {});
+userRoutes.route('/artist/editSong').put(function(req, response) {});
 
 // This route allows an artist to edit an album's information
-userRoutes.route('/artist/editAlbum/:id').put(function(req, response) {});
+userRoutes.route('/artist/editAlbum').put(function(req, response) {});
 
 // This route allows an artist to delete a song
-userRoutes.route('/artist/deleteSong/:id').delete((req, response) => {});
+userRoutes.route('/artist/deleteSong').delete((req, response) => {});
 
 // This route allows an artist to delete an album
-userRoutes.route('/artist/deleteAlbum/:id').delete((req, response) => {});
+userRoutes.route('/artist/deleteAlbum').delete((req, response) => {});
 
 // This route allows an artist view a song's streams
-userRoutes.route('/artist/viewSongStreams/:id').get(function(req, response) {});
+userRoutes.route('/artist/viewSongStreams').get(function(req, response) {});
 
 // This route allows an artist view an album's streams
-userRoutes.route('/artist/viewAlbumStreams/:id').get(function(req, response) {});
+userRoutes.route('/artist/viewAlbumStreams').get(function(req, response) {});
 
 // This route allows an artist view all of their streams
-userRoutes.route('/artist/viewAllStreams/:id').get(function(req, response) {});
+userRoutes.route('/artist/viewAllStreams').get(function(req, response) {});
 
 module.exports = userRoutes;
