@@ -80,7 +80,7 @@ userRoutes.route('/user/login').get(function(req, res) {
 // This route retrieves a user's information
 userRoutes.route('/user/info').get(function(req, res) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
+  const query = {_id: ObjectId(req.body.uid)};
   dbConnect.collection('users').findOne(query, function(err, result) {
     if (err) throw err;
     res.json(result);
@@ -90,7 +90,7 @@ userRoutes.route('/user/info').get(function(req, res) {
 // This route allows a user to update their username
 userRoutes.route('/user/updateUsername').put(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
+  const query = {_id: ObjectId(req.body.uid)};
   const updatedUsername = {
     $set: {
       username: req.body.username,
@@ -106,7 +106,7 @@ userRoutes.route('/user/updateUsername').put(function(req, response) {
 // This route allows a user to update their password
 userRoutes.route('/user/updatePassword').put(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
+  const query = {_id: ObjectId(req.body.uid)};
   const updatedPassword = {
     $set: {
       password: req.body.newPassword,
@@ -122,7 +122,7 @@ userRoutes.route('/user/updatePassword').put(function(req, response) {
 // This route allows a user to update their profile
 userRoutes.route('/user/updateProfile').put(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
+  const query = {_id: ObjectId(req.body.uid)};
   const updatedFields = {
     $set: {
       firstName: req.body.firstName,
@@ -140,7 +140,7 @@ userRoutes.route('/user/updateProfile').put(function(req, response) {
 // This route allows a user to update their personal information
 userRoutes.route('/user/updatePersonalInfo').put(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
+  const query = {_id: ObjectId(req.body.uid)};
   const updatedFields = {
     $set: {
       email: req.body.email,
@@ -157,7 +157,7 @@ userRoutes.route('/user/updatePersonalInfo').put(function(req, response) {
 // This route allows a user to update their preferred genres
 userRoutes.route('/user/updateGenres').put(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
+  const query = {_id: ObjectId(req.body.uid)};
   const updatedGenres = {
     $push: {
       genres: req.body.genres,
@@ -173,7 +173,7 @@ userRoutes.route('/user/updateGenres').put(function(req, response) {
 // This route allows a user to update their status to 'Artist'
 userRoutes.route('/user/switchToArtist').put(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
+  const query = {_id: ObjectId(req.body.uid)};
   const updatedFields = {
     $set: {
       isArtist: true,
@@ -191,7 +191,7 @@ userRoutes.route('/user/switchToArtist').put(function(req, response) {
 // This route allows a user to delete their account
 userRoutes.route('/user/delete').delete((req, response) => {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId( req.body._id )};
+  const query = {_id: ObjectId( req.body.uid )};
   dbConnect.collection('users').deleteOne(query, function(err, res) {
     if (err) throw err;
     response.json(res);
@@ -201,7 +201,7 @@ userRoutes.route('/user/delete').delete((req, response) => {
 // This route allows a user to view a song's information
 userRoutes.route('/user/viewSong').get(function(req, res) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
+  const query = {_id: ObjectId(req.body.sid)};
   dbConnect.collection('songs').findOne(query, function(err, result) {
     if (err) throw err;
     res.json(result);
@@ -211,7 +211,7 @@ userRoutes.route('/user/viewSong').get(function(req, res) {
 // This route allows a user to view an album's information
 userRoutes.route('/user/viewAlbum').get(function(req, res) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
+  const query = {_id: ObjectId(req.body.aid)};
   dbConnect.collection('albums').findOne(query, function(err, result) {
     if (err) throw err;
     res.json(result);
@@ -221,7 +221,7 @@ userRoutes.route('/user/viewAlbum').get(function(req, res) {
 // This route increment's a song's stream count by 1
 userRoutes.route('/user/incrementSongStream').put(function(req, res) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
+  const query = {_id: ObjectId(req.body.sid)};
   const updatedSong = {
     $inc: {streams: 1},
   };
@@ -270,7 +270,7 @@ userRoutes.route('/user/removeLibrarySong').put(function(req, res) {
 // This route allows a user create a playlist
 userRoutes.route('/user/createPlaylist').put(function(req, res) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body._id)};
+  const query = {_id: ObjectId(req.body.uid)};
   const updatedUser = {
     $push: {
       playlists: {
