@@ -29,10 +29,10 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/register">
+              <NavLink className="nav-link" to="/Register">
                 New User? Register Here.
               </NavLink>
-              <NavLink className="nav-link" to="/login">
+              <NavLink className="nav-link" to="/Login">
                 Login.
               </NavLink>
             </li>
