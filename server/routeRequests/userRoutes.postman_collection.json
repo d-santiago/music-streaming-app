@@ -105,7 +105,8 @@
 							"});",
 							"pm.test(\"User logged in\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData).not.eql(undefined);",
+							"    pm.expect(jsonData.username).to.eql(globals['username'].replace('\"', '').replace('\"', ''));",
+							"    pm.expect(jsonData.password).to.eql(globals['password'].replace('\"', '').replace('\"', ''));",
 							"});"
 						],
 						"type": "text/javascript"
@@ -153,7 +154,7 @@
 							"});",
 							"pm.test(\"User information retrieved\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData).not.eql(undefined);",
+							"    pm.expect(jsonData._id).to.eql(globals['uid']);",
 							"});"
 						],
 						"type": "text/javascript"
