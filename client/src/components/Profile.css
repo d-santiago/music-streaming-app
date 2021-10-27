@@ -1,0 +1,80 @@
+
+.profilecard {
+    width: 350px;
+    background-color: #efefef;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s
+}
+
+.profileimage img {
+    transition: all 0.5s
+}
+
+.profilecard:hover .profileimage img {
+    transform: scale(1.5)
+}
+
+.profilebtn {
+    height: 140px;
+    width: 140px;
+    border-radius: 50%
+}
+
+.profilename {
+    font-size: 22px;
+    font-weight: bold
+}
+
+.profileidd {
+    font-size: 14px;
+    font-weight: 600
+}
+
+.profileidd1 {
+    font-size: 12px
+}
+
+.profilenumber {
+    font-size: 22px;
+    font-weight: bold
+}
+
+.profilefollow {
+    font-size: 12px;
+    font-weight: 500;
+    color: #444444
+}
+
+.profilebtn1 {
+    height: 40px;
+    width: 150px;
+    border: none;
+    background-color: #000;
+    color: #aeaeae;
+    font-size: 15px
+}
+
+.profiletext span {
+    font-size: 13px;
+    color: #545454;
+    font-weight: 500
+}
+
+.profileicons i {
+    font-size: 19px
+}
+
+hr .profilenew1 {
+    border: 1px solid
+}
+
+.profilejoin {
+    font-size: 14px;
+    color: #a0a0a0;
+    font-weight: bold
+}
+
+.profiledate {
+    background-color: #ccc
+}
