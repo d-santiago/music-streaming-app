@@ -1,46 +1,40 @@
-import React from "react";
- 
-// We import bootstrap to make our application look better.
-import "bootstrap/dist/css/bootstrap.css";
- 
-// We import NavLink to utilize the react router.
-import { NavLink } from "react-router-dom";
- 
-// Here, we display our Navbar
-const Navbar = () => {
-  return (
-    <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <NavLink className="navbar-brand" to="/" style={{ margin: 20 }}>
-          Asha Music
-        </NavLink>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
- 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/Register">
-                New User? Register Here.
-              </NavLink>
-              <NavLink className="nav-link" to="/Login">
-                Login.
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-  );
-};
- 
+
+
+const Navbar = (props) => {
+	const notLoggedIn = (
+		<>
+	        <li class="nav-item">
+	          <a class="nav-link" aria-current="page" onClick={() => props.setPage("Register")}><h2>Register</h2></a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" onClick={() => props.setPage("Login")}><h2>Login</h2></a>
+	        </li>
+	    </>
+	)
+
+	const loggedIn = (
+		<>
+	        <li class="nav-item">
+	          <a class="nav-link" aria-current="page" onClick={props.handleLogout}><h2>Logout</h2></a>
+	        </li>
+		</>
+	)
+	
+	
+	
+	return (
+		<nav class="navbar navbar-light navbar-expand-lg bg-primary py-3">
+		  	<div class="container-fluid">
+		    	<h1 onClick={() => props.setPage("Dashboard")}> ASHA Music </h1>
+		  	</div>
+		  	<div class="collapse navbar-collapse" id="navbarNav">
+		      	<ul class="navbar-nav ml-auto mx-0">
+		      	{notLoggedIn}
+		      		{/*sessionStorage.getItem('type') ? loggedIn : notLoggedIn*/}
+		        </ul>
+	    	</div>
+		</nav>
+	)
+}
+
 export default Navbar;

@@ -1,165 +1,92 @@
-import React, { Component } from "react";
-// This will require to npm install axios
-import axios from 'axios';
- 
-export default class Create extends Component {
-    // This is the constructor that stores the data.
-    constructor(props) {
-        super(props);
-    
-        this.onChangeUsername = this.onChangeUsername.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
-        this.onChangeFirstName = this.onChangeFirstName.bind(this);
-        this.onChangeLastName = this.onChangeLastName.bind(this);
-        this.onChangeEmail = this.onChangeEmail.bind(this);
-        this.onChangeDOB = this.onChangeDOB.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-    
-        this.state = {
-        username: "",
-        password: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        dob: "",
-        };
-    }
-    
-    // These methods will update the state properties.
-    onChangeUsername(e) {
-        this.setState({
-        username: e.target.value,
-        });
-    }
-    
-    onChangePassword(e) {
-        this.setState({
-        password: e.target.value,
-        });
-    }
-    
-    onChangeFirstName(e) {
-        this.setState({
-        firstName: e.target.value,
-        });
-    }
+import { useState } from 'react';
 
-    onChangeLastName(e) {
-        this.setState({
-        lastName: e.target.value,
-        });
-    }
+const axios = require('axios');
+const Register = () => {
 
-    onChangeEmail(e) {
-        this.setState({
-        email: e.target.value,
-        });
-    }
+	function useInput({ type, className, id /*...*/ }) {
+	   const [value, setValue] = useState("");
+	   const input = <input value={value} id={id} onChange={e => setValue(e.target.value)} 
+	   type={type} className={className} name={id} />;
+	   return [value, input];
+ 	}
 
-    onChangeDOB(e) {
-        this.setState({
-        dob: e.target.value,
-        });
-    }
-    
-    // This function will handle the submission.
-    onSubmit(e) {
-        e.preventDefault();
-    
-        // When post request is sent to the create url, axios will add a new user to the database.
-        const newUser = {
-            username: this.state.username,
-            password: this.state.password,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            email: this.state.email,
-            dob: this.state.dob,
-        };
-    
-        axios
-            .post("http://localhost:5000/user/register", newUser)
-            .then((res) => console.log(res.data));
-    
-        // We will empty the state after posting the data to the database
-        this.setState({
-            username: "",
-            password: "",
-            firstName: "",
-            lastName: "",
-            email: "",
-            dob: "",
-        });
-    }
-    
-    // This following section will display the form that takes the input from the user.
-    render() {
-        return (
-        <div style={{ margin: 20 }}>
-            <h3>Welcome to Asha Music! </h3>
-            <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                    <label>Username: </label>
-                    <input
-                    type="text"
-                    className="form-control"
-                    value={this.state.username}
-                    onChange={this.onChangeUsername}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Password: </label>
-                    <input
-                    type="text"
-                    className="form-control"
-                    value={this.state.password}
-                    onChange={this.onChangePassword}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>First Name: </label>
-                    <input
-                    type="text"
-                    className="form-control"
-                    value={this.state.firstName}
-                    onChange={this.onChangeFirstName}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Last Name: </label>
-                    <input
-                    type="text"
-                    className="form-control"
-                    value={this.state.lastName}
-                    onChange={this.onChangeLastName}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Email: </label>
-                    <input
-                    type="text"
-                    className="form-control"
-                    value={this.state.email}
-                    onChange={this.onChangeEmail}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Date of Birth - mm/dd/yyyy:</label>
-                    <input
-                    type="text"
-                    className="form-control"
-                    value={this.state.dob}
-                    onChange={this.onChangeDOB}
-                    />
-                </div>
-                <div className="form-group">
-                    <input
-                    type="submit"
-                    value="Create Account"
-                    className="btn btn-primary"
-                    />
-                </div>
-            </form>
-        </div>
-        );
-    }
+ 	const handleRegister = (e) => {
+	 		e.preventDefault();
+	 		let values = {};
+	 		if (userType === "listener") {
+	 			values = {
+	 				userType, emailValue, passwordValue, firstNameValue, lastNameValue, dobValue
+	 			}
+	 		}
+	 		else if (userType === "artist") {
+	 			values = {
+	 				userType, emailValue, passwordValue, firstNameValue, lastNameValue, dobValue, artistNameValue
+	 			}
+	 		}
+	 		else {
+	 			alert("Please choose a user type");
+	 		}
+ 		axios.post("http://localhost:5000/register", values)
+ 		.then(response => alert(response.data))
+ 	}
+ 	
+ 	const [userType, setUserType] = useState("");
+ 	const [emailValue, setEmailValue] = useInput({ type: "email", className: "form-control", id: "email" });
+ 	const [passwordValue, setPasswordValue] = useInput({ type: "password", className: "form-control", id: "password" });
+ 	const [firstNameValue, setFirstNameValue] = useInput({ type: "text", className: "form-control", id: "firstName" });
+ 	const [lastNameValue, setLastNameValue] = useInput({ type: "text", className: "form-control", id: "lastName" });
+ 	const [dobValue, setDobValue] = useInput({ type: "date", className: "form-control", id: "dob" });
+ 	const [artistNameValue, setArtistNameValue] = useInput({ type: "text", className: "form-control", id: "artistName" });
+
+ 	const artistnameshowing = (
+ 		<div class="mb-3">
+	    	<label for="dob" class="form-label">Artist Name</label>
+	    	{setArtistNameValue}
+	  	</div>
+ 	)
+
+	return (
+		<div className="col-md-4 mx-auto mt-5">
+			<h2 class="mt-3">Register</h2>
+			<form>
+			  	<div>
+			  		<p className="mb-1"> Choose user type: </p>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onClick={() => setUserType("listener")}/>
+					  <label class="form-check-label" for="flexRadioDefault1">Listener</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onClick={() => setUserType("artist")}/>
+					  <label class="form-check-label" for="flexRadioDefault2">Artist</label>
+					</div>
+					<div class="mb-3">
+				    	<label for="email" class="form-label">Email</label>
+				    	{setEmailValue}
+				  	</div>
+				  	<div class="mb-3">
+				    	<label for="Password" class="form-label">Password</label>
+				    	{setPasswordValue}
+				  	</div>
+				  	<div class="mb-3">
+				    	<label for="firstName" class="form-label">First name</label>
+				    	{setFirstNameValue}
+				  	</div>
+				  	<div class="mb-3">
+				    	<label for="lastName" class="form-label">Last name</label>
+				    	{setLastNameValue}
+				  	</div>
+				  	{userType === "artist" ? artistnameshowing : null}
+				  	<div class="mb-3">
+				    	<label for="dob" class="form-label">Date of birth</label>
+				    	{setDobValue}
+				  	</div>
+
+				</div>
+			  	<hr />
+			  	<button type="submit" class="btn btn-primary" onClick={handleRegister}>Register</button>
+			</form>
+		</div>
+	)
 }
+
+export default Register;
