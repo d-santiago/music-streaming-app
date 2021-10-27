@@ -2,8 +2,7 @@
     {
         "username": "hillrachel",
         "password": "password",
-        "firstName": "Katherine",
-        "lastName": "David",
+        "name": "Katherine",
         "email": "timothy78@hotmail.com",
         "dob": "1988-06-20T22:15:34Z",
         "followers":[
@@ -29,8 +28,7 @@
     {
         "username": "serranobrian",
         "password": "password",
-        "firstName": "Leslie",
-        "lastName": "Martinez",
+        "name": "Leslie",
         "email": "tcrawford@gmail.com",
         "dob": "1974-11-26T14:30:20Z",
         "followers":[
@@ -54,8 +52,7 @@
     {
         "username": "andrewhamilton",
         "password": "password",
-        "firstName": "Gary",
-        "lastName": "Nichols",
+        "name": "Gary",
         "email": "laura34@yahoo.com",
         "dob": "1993-02-25T17:37:29Z",
         "followers":[
@@ -79,8 +76,7 @@
     {
         "username": "matthewray",
         "password": "password",
-        "firstName": "John",
-        "lastName": "Parks",
+        "name": "John",
         "email": "zmelton@gmail.com",
         "dob": "1993-03-13T11:37:34Z",
         "followers":[
@@ -104,8 +100,7 @@
     {
         "username": "nicholassmith",
         "password": "password",
-        "firstName": "Amy",
-        "lastName": "Lawrence",
+        "name": "Amy",
         "email": "christophercastro@hotmail.com",
         "dob": "1989-06-14T09:13:05Z",
         "followers":[
@@ -131,8 +126,7 @@
     {
         "username": "luke58",
         "password": "password",
-        "firstName": "Natasha",
-        "lastName": "Conrad",
+        "name": "Natasha",
         "email": "jamesfloyd@hotmail.com",
         "dob": "1984-10-03T18:35:58Z",
         "followers":[
@@ -158,8 +152,7 @@
     {
         "username": "ashley97",
         "password": "password",
-        "firstName": "James",
-        "lastName": "Smith",
+        "name": "James",
         "email": "kevin84@yahoo.com",
         "dob": "1966-09-17T20:18:01Z",
         "followers":[
@@ -185,8 +178,7 @@
     {
         "username": "rwelch",
         "password": "password",
-        "firstName": "Adrienne",
-        "lastName": "Obrien",
+        "name": "Adrienne",
         "email": "leslieday@gmail.com",
         "dob": "1967-11-29T01:49:52Z",
         "followers":[
@@ -212,8 +204,7 @@
     {
         "username": "allenhubbard",
         "password": "password",
-        "firstName": "Bradley",
-        "lastName": "Roberts",
+        "name": "Bradley",
         "email": "donna47@hotmail.com",
         "dob": "1996-08-27T22:56:52Z",
         "followers":[
@@ -239,8 +230,7 @@
     {
         "username": "edwardszachary",
         "password": "password",
-        "firstName": "John",
-        "lastName": "Guzman",
+        "name": "John",
         "email": "christopher91@hotmail.com",
         "dob": "1968-10-28T03:23:01Z",
         "followers":[
@@ -266,8 +256,7 @@
     {
         "username": "icooke",
         "password": "password",
-        "firstName": "Julie",
-        "lastName": "Mora",
+        "name": "Julie",
         "email": "clarkjean@gmail.com",
         "dob": "1982-03-06T19:47:54Z",
         "followers":[
@@ -293,8 +282,7 @@
     {
         "username": "jdawson",
         "password": "password",
-        "firstName": "Elizabeth",
-        "lastName": "Moore",
+        "name": "Elizabeth",
         "email": "brandonmercer@yahoo.com",
         "dob": "1967-11-02T08:27:11Z",
         "followers":[
@@ -320,8 +308,7 @@
     {
         "username": "thomas48",
         "password": "password",
-        "firstName": "David",
-        "lastName": "Obrien",
+        "name": "David",
         "email": "cindy96@yahoo.com",
         "dob": "1970-07-02T20:01:26Z",
         "followers":[
@@ -347,8 +334,7 @@
     {
         "username": "kingraymond",
         "password": "password",
-        "firstName": "Ashley",
-        "lastName": "Mosley",
+        "name": "Ashley",
         "email": "michael63@gmail.com",
         "dob": "1979-05-09T00:39:13Z",
         "followers":[
@@ -374,8 +360,7 @@
     {
         "username": "carolynmorris",
         "password": "password",
-        "firstName": "Adam",
-        "lastName": "Miller",
+        "name": "Adam",
         "email": "richard78@gmail.com",
         "dob": "1990-10-31T20:59:25Z",
         "followers":[
@@ -401,8 +386,7 @@
     {
         "username": "thomas16",
         "password": "password",
-        "firstName": "Elizabeth",
-        "lastName": "Meyer",
+        "name": "Elizabeth",
         "email": "andrew95@gmail.com",
         "dob": "1992-01-01T19:03:58Z",
         "followers":[
@@ -428,8 +412,7 @@
     {
         "username": "wolfheather",
         "password": "password",
-        "firstName": "Elizabeth",
-        "lastName": "Hughes",
+        "name": "Elizabeth",
         "email": "gmoore@gmail.com",
         "dob": "1987-09-26T12:52:18Z",
         "followers":[
@@ -455,8 +438,7 @@
     {
         "username": "dianefoster",
         "password": "password",
-        "firstName": "Daniel",
-        "lastName": "Wang",
+        "name": "Daniel",
         "email": "vchristensen@gmail.com",
         "dob": "1988-12-15T11:33:39Z",
         "followers":[
@@ -482,8 +464,7 @@
     {
         "username": "davidestrada",
         "password": "password",
-        "firstName": "Angela",
-        "lastName": "Ortiz",
+        "name": "Angela",
         "email": "mitchelldeborah@gmail.com",
         "dob": "1966-08-17T05:29:22Z",
         "followers":[
@@ -509,8 +490,7 @@
     {
         "username": "matthew71",
         "password": "password",
-        "firstName": "Brenda",
-        "lastName": "Mercer",
+        "name": "Brenda",
         "email": "cabreramatthew@hotmail.com",
         "dob": "1987-06-30T20:07:45Z",
         "followers":[

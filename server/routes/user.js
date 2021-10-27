@@ -39,8 +39,7 @@ userRoutes.route('/user/register').post(function(req, response) {
   const object = {
     username: req.body.username,
     password: req.body.password,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    name: req.body.name,
     email: req.body.email,
     dob: req.body.dob,
     followers: [],
