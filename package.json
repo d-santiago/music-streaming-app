@@ -11,7 +11,7 @@
   "scripts": {
     "cl": "eslint client/src",
     "sl": "eslint server",
-    "routes": "newman run server/routeRequests/userRoutes.postman_collection.json --globals server/routeRequests/globals.postman_globals.json"
+    "routes": "newman run server/postman/userRoutes.postman_collection.json --globals server/postman/globals.postman_globals.json"
   },
   "dependencies": {
     "eslint-config-google": "^0.14.0",
