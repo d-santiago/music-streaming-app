@@ -123,8 +123,7 @@ userRoutes.route('/user/updateProfile').put(function(req, response) {
   const query = {_id: ObjectId(req.body.uid)};
   const updatedFields = {
     $set: {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
+      name: req.body.name,
       bio: req.body.bio,
     },
   };

@@ -27,7 +27,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"hillrachel\",\n    \"password\": \"password\",\n    \"firstName\": \"Katherine\",\n    \"lastName\": \"David\",\n    \"email\": \"timothy78@hotmail.com\",\n    \"dob\": \"1988-06-20T22:15:34Z\",\n    \"followers\": [\n        \"serranobrian\",\n        \"andrewhamilton\",\n        \"matthewray\"\n    ],\n    \"following\": [\n        \"serranobrian\",\n        \"andrewhamilton\",\n        \"matthewray\"\n    ],\n    \"bio\": \"\",\n    \"library\": [],\n    \"genres\": [],\n    \"isArtist\": false,\n    \"artistName\": \"\",\n    \"recordLabel\": \"\",\n    \"songs\": [],\n    \"albums\": [],\n    \"playlists\": []\n}",
+					"raw": "{\n    \"username\": \"hillrachel\",\n    \"password\": \"password\",\n    \"name\": \"Katherine\",\n    \"email\": \"timothy78@hotmail.com\",\n    \"dob\": \"1988-06-20T22:15:34Z\",\n    \"followers\": [\n        \"serranobrian\",\n        \"andrewhamilton\",\n        \"matthewray\"\n    ],\n    \"following\": [\n        \"serranobrian\",\n        \"andrewhamilton\",\n        \"matthewray\"\n    ],\n    \"bio\": \"\",\n    \"library\": [],\n    \"genres\": [],\n    \"isArtist\": false,\n    \"artistName\": \"\",\n    \"recordLabel\": \"\",\n    \"songs\": [],\n    \"albums\": [],\n    \"playlists\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -306,7 +306,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"firstName\": {{firstName}},\n    \"lastName\": {{lastName}},\n    \"bio\": {{bio}}\n}",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"name\": {{name}},\n    \"bio\": {{bio}}\n}",
 					"options": {
 						"raw": {
 							"language": "json"
