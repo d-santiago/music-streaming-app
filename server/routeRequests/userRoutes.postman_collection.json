@@ -202,7 +202,8 @@
 							"});",
 							"pm.test(\"Username updated\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"    pm.expect(jsonData.value.username).to.eql(globals['newUsername'].replace('\"', '').replace('\"', ''));",
+							"    pm.globals.set(\"username\", jsonData.value.username);",
 							"});"
 						],
 						"type": "text/javascript"
@@ -247,7 +248,8 @@
 							"});",
 							"pm.test(\"Password updated\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.modifiedCount).to.eql(1);",
+							"    pm.expect(jsonData.value.password).to.eql(globals['newPassword'].replace('\"', '').replace('\"', ''));",
+							"    pm.globals.set(\"password\", jsonData.value.password);",
 							"});"
 						],
 						"type": "text/javascript"

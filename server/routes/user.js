@@ -93,8 +93,9 @@ userRoutes.route('/user/updateUsername').put(function(req, response) {
       username: req.body.newUsername,
     },
   };
+  const options = {returnDocument: 'after'}
   dbConnect.collection('users')
-      .updateOne(query, updatedUsername, function(err, res) {
+      .findOneAndUpdate(query, updatedUsername, options, function(err, res) {
         if (err) throw err;
         response.json(res);
       });
@@ -109,8 +110,9 @@ userRoutes.route('/user/updatePassword').put(function(req, response) {
       password: req.body.newPassword,
     },
   };
+  const options = {returnDocument: 'after'}
   dbConnect.collection('users')
-      .updateOne(query, updatedPassword, function(err, res) {
+      .findOneAndUpdate(query, updatedPassword, options, function(err, res) {
         if (err) throw err;
         response.json(res);
       });
