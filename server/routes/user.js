@@ -61,6 +61,7 @@ userRoutes.route('/user/register').post(function(req, response) {
 });
 
 // This route verifies a user's login
+// To retrieve specific user <field>: result.<field>
 userRoutes.route('/user/login').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {
@@ -343,5 +344,23 @@ userRoutes.route('/user/removePlaylistSong').put(function(req, res) {
         res.json(result);
       });
 });
+
+// This route retrieves the number of accounts following a user
+userRoutes.route('/user/followersCount').get(function(req, res) {});
+
+// This route retrieves a the number of accounts a user is following
+userRoutes.route('/user/followingCount').get(function(req, res) {});
+
+// This route retrieves the number of songs in a user's library
+userRoutes.route('/user/librarySongsCount').get(function(req, res) {});
+
+// This route retrieves the number of playlists that a user has
+userRoutes.route('/user/playlistsCount').get(function(req, res) {});
+
+// This route retrieves a the number of songs within a user's specific playlist
+userRoutes.route('/user/playlistSongsCount').get(function(req, res) {});
+
+// This route retrieves information about a user's specific playlist
+userRoutes.route('/user/viewPlaylist').get(function(req, res) {});
 
 module.exports = userRoutes;
