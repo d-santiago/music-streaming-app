@@ -90,7 +90,7 @@ userRoutes.route('/user/updateUsername').put(function(req, response) {
   const query = {_id: ObjectId(req.body.uid)};
   const updatedUsername = {
     $set: {
-      username: req.body.username,
+      username: req.body.newUsername,
     },
   };
   dbConnect.collection('users')
@@ -277,9 +277,10 @@ userRoutes.route('/user/createPlaylist').put(function(req, res) {
       },
     },
   };
+  const options = {returnDocument: 'after'}
 
   dbConnect.collection('users')
-      .updateOne(query, updatedUser, function(err, result) {
+      .findOneAndUpdate(query, updatedUser, options, function(err, result) {
         if (err) throw err;
         res.json(result);
       });
