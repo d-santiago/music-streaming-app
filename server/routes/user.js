@@ -287,6 +287,18 @@ userRoutes.route('/user/createPlaylist').put(function(req, res) {
       });
 });
 
+// This route retrieves information about a user's specific playlist
+userRoutes.route('/user/viewPlaylist').get(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid), 'playlists._id': ObjectId(req.body.pid)};
+  const projection = {projection: {"playlists.$" : 1}};
+  dbConnect.collection('users')
+      .findOne(query, projection, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
+
 // This route allows a user delete a playlist
 userRoutes.route('/user/deletePlaylist').put(function(req, res) {
   const dbConnect = dbo.getDb();
@@ -359,8 +371,5 @@ userRoutes.route('/user/playlistsCount').get(function(req, res) {});
 
 // This route retrieves a the number of songs within a user's specific playlist
 userRoutes.route('/user/playlistSongsCount').get(function(req, res) {});
-
-// This route retrieves information about a user's specific playlist
-userRoutes.route('/user/viewPlaylist').get(function(req, res) {});
 
 module.exports = userRoutes;
