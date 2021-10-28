@@ -1,8 +1,9 @@
 import './Dashboard.css';
-import Profile from './Profile';
+import ProfileCard from './ProfileCard';
 import MusicPlayer from './MusicPlayer';
 import Playlist from './Playlist';
-
+import Profile from './Profile';
+import Library from './Library';
 
 const Dashboard = () => {
 	return (
@@ -21,9 +22,11 @@ const Dashboard = () => {
             <div class="bg-circle-4 bg-circle"></div>
             
         </header>
-        <Profile />
+        <ProfileCard />
         <MusicPlayer />
         <Playlist />
+        <Profile />
+        <Library />
         </div>
 	)
 }
