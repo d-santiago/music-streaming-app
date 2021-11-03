@@ -198,7 +198,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"songName\": {{songName}},\n    \"isSignle\": {{isSignle}},\n    \"genre\": {{genre}},\n    \"releaseDate\": {{releaseDate}},\n    \"recordLabel\": {{recordLabel}}\n}",
+					"raw": "{\n    \"sid\": \"{{sid}}\",\n    \"songName\": {{songName}},\n    \"isSignle\": {{isSignle}},\n    \"genre\": {{genre}},\n    \"releaseDate\": {{releaseDate}},\n    \"recordLabel\": {{recordLabel}}\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -214,6 +214,47 @@
 					"path": [
 						"artist",
 						"editSongInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/artist/editAlbumInfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"aid\": \"{{aid}}\",\n    \"albumName\": {{albumName}},\n    \"genre\": {{genre}},\n    \"releaseDate\": {{releaseDate}},\n    \"recordLabel\": {{recordLabel}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/artist/editAlbumInfo",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"artist",
+						"editAlbumInfo"
 					]
 				}
 			},
