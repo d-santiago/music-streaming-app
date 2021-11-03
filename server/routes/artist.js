@@ -83,6 +83,22 @@ userRoutes.route('/artist/createAlbum').post(function(req, response) {
   });
 });
 
+// This route adds an album an artist's 'albums' array
+// Should be called directly after /artist/createAlbum
+userRoutes.route('/artist/addAlbumtoArtistAlbums').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid)};
+  const updatedAlbums = {
+    $push: {
+      albums: ObjectId(req.body.aid),
+    },
+  };
+  dbConnect.collection('users').findOneAndUpdate(query, updatedAlbums, function(err, res) {
+    if (err) throw err;
+    response.json(res);
+  });
+});
+
 // This route inserts the AWS URL for an songs' audio and cover
 userRoutes.route('/artist/uploadSongURLs').put(function(req, response) {
   const dbConnect = dbo.getDb();
