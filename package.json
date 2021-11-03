@@ -11,6 +11,7 @@
   "scripts": {
     "cl": "eslint client/src",
     "sl": "eslint server",
+    "routes": "newman run server/postman/userRoutes.postman_collection.json --globals server/postman/globals.postman_globals.json ; newman run server/postman/artistRoutes.postman_collection.json --globals server/postman/globals.postman_globals.json",
     "uroutes": "newman run server/postman/userRoutes.postman_collection.json --globals server/postman/globals.postman_globals.json",
     "aroutes": "newman run server/postman/artistRoutes.postman_collection.json --globals server/postman/globals.postman_globals.json"
   },
