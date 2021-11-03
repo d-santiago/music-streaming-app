@@ -33,12 +33,29 @@ userRoutes.route('/artist/createSong').post(function(req, response) {
   });
 });
 
-// This route adds a song that an artist created artist to upload a song
+// This route adds a song an artist's 'songs' array
+// Should be called directly after /artist/createSong
 userRoutes.route('/artist/addSongtoArtistSongs').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
   const updatedSongs = {
     $push: {
+      songs: ObjectId(req.body.sid),
+    },
+  };
+  dbConnect.collection('users').findOneAndUpdate(query, updatedSongs, function(err, res) {
+    if (err) throw err;
+    response.json(res);
+  });
+});
+
+// This route removes a song from an artist's 'songs' array
+// Should be called directly after /artist/deleteSingle
+userRoutes.route('/artist/removeSongfromArtistSongs').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid)};
+  const updatedSongs = {
+    $pull: {
       songs: ObjectId(req.body.sid),
     },
   };
