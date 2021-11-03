@@ -159,7 +159,7 @@ userRoutes.route('/artist/viewSongStreams').get(function(req, response) {
   const projection = {projection: {"streams" : 1}};
   dbConnect.collection('songs').findOne(query, projection, function(err, result) {
     if (err) throw err;
-    res.json(result);
+    response.json(result);
   });
 });
 
