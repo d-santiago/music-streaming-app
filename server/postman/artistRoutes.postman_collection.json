@@ -350,6 +350,47 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "localhost:5000/artist/addSongtoArtistSongs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"sid\": \"{{sid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/artist/addSongtoArtistSongs",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"artist",
+						"addSongtoArtistSongs"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

@@ -33,6 +33,21 @@ userRoutes.route('/artist/createSong').post(function(req, response) {
   });
 });
 
+// This route adds a song that an artist created artist to upload a song
+userRoutes.route('/artist/addSongtoArtistSongs').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid)};
+  const updatedSongs = {
+    $push: {
+      songs: ObjectId(req.body.sid),
+    },
+  };
+  dbConnect.collection('users').findOneAndUpdate(query, updatedSongs, function(err, res) {
+    if (err) throw err;
+    response.json(res);
+  });
+});
+
 // This route allows an artist to upload an album's information
 userRoutes.route('/artist/createAlbum').post(function(req, response) {
   const dbConnect = dbo.getDb();
@@ -127,8 +142,7 @@ userRoutes.route('/artist/editAlbumInfo').put(function(req, response) {
       });
 });
 
-// This route allows an artist to delete a song
-// Must remove song from album if it belongs to one
+// This route allows an artist to delete a song that is a single
 userRoutes.route('/artist/deleteSingle').delete((req, response) => {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId( req.body.sid ), isSignle: true};
