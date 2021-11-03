@@ -130,12 +130,12 @@ userRoutes.route('/artist/editAlbumInfo').put(function(req, response) {
 // This route allows an artist to delete a song
 // Must remove song from album if it belongs to one
 userRoutes.route('/artist/deleteSingle').delete((req, response) => {
-  // const dbConnect = dbo.getDb();
-  // const query = {_id: ObjectId( req.body.sid )};
-  // dbConnect.collection('songs').deleteOne(query, function(err, res) {
-  //   if (err) throw err;
-  //   response.json(res);
-  // });
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId( req.body.sid ), isSignle: true};
+  dbConnect.collection('songs').deleteOne(query, function(err, res) {
+    if (err) throw err;
+    response.json(res);
+  });
 });
 
 // This route allows an artist to delete an album

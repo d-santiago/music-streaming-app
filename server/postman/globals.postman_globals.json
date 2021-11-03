@@ -27,6 +27,11 @@
 			"enabled": true
 		},
 		{
+			"key": "dsid",
+			"value": "6182ea0f5a47465d606e45bb",
+			"enabled": true
+		},
+		{
 			"key": "ouid",
 			"value": "617993da4ffb8072f0aec7a4",
 			"enabled": true
@@ -98,7 +103,7 @@
 		},
 		{
 			"key": "albumName",
-			"value": "",
+			"value": "\"Album\"",
 			"enabled": true
 		},
 		{
@@ -113,22 +118,22 @@
 		},
 		{
 			"key": "releaseDate",
-			"value": "11/03/2021",
+			"value": "\"11/02/2021\"",
 			"enabled": true
 		},
 		{
 			"key": "songURL",
-			"value": "",
+			"value": "\"https://www.nyu.edu/\"",
 			"enabled": true
 		},
 		{
 			"key": "coverURL",
-			"value": "",
+			"value": "\"https://www.nyu.edu/\"",
 			"enabled": true
 		}
 	],
 	"name": "Globals",
 	"_postman_variable_scope": "globals",
-	"_postman_exported_at": "2021-11-03T19:35:20.475Z",
+	"_postman_exported_at": "2021-11-03T20:03:12.285Z",
 	"_postman_exported_using": "Postman/9.1.3"
 }
