@@ -303,7 +303,7 @@ userRoutes.route('/user/addLibrarySong').put(function(req, res) {
   const query = {_id: ObjectId(req.body.uid)};
   const updatedUser = {
     $push: {
-      library: {_id: ObjectId(req.body.sid)},
+      library: ObjectId(req.body.sid),
     },
   };
 
@@ -320,7 +320,7 @@ userRoutes.route('/user/removeLibrarySong').put(function(req, res) {
   const query = {_id: ObjectId(req.body.uid)};
   const updatedUser = {
     $pull: {
-      library: {_id: ObjectId(req.body.sid)},
+      library: ObjectId(req.body.sid),
     },
   };
 
