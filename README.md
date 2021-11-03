@@ -34,7 +34,8 @@ _________________
 ### Server
     npm start
 ### Root
-    npm run routes
+    npm run uroutes (user routes)
+    npm run aroutes (artist routes)
 
 ## Requirements
 
