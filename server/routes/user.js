@@ -105,6 +105,40 @@ userRoutes.route('/user/followingCount').get(function(req, res) {
   });
 });
 
+// This route allows a user to follow another user
+userRoutes.route('/user/follow').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid)};
+  const updatedFollowing = {
+    $push: {
+      following: {_id: ObjectId(req.body.ouid)}, // oid = other user id
+    },
+  };
+  const options = {returnDocument: 'after'}
+  dbConnect.collection('users')
+      .findOneAndUpdate(query, updatedFollowing, options, function(err, res) {
+        if (err) throw err;
+        response.json(res);
+      });
+});
+
+// This route allows a user to unfollow another user
+userRoutes.route('/user/unfollow').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid)};
+  const updatedFollowing = {
+    $pull: {
+      following: {_id: ObjectId(req.body.ouid)}, // oid = other user id
+    },
+  };
+  const options = {returnDocument: 'after'}
+  dbConnect.collection('users')
+      .findOneAndUpdate(query, updatedFollowing, options, function(err, res) {
+        if (err) throw err;
+        response.json(res);
+      });
+});
+
 // This route allows a user to update their username
 userRoutes.route('/user/updateUsername').put(function(req, response) {
   const dbConnect = dbo.getDb();
