@@ -33,6 +33,24 @@ userRoutes.route('/artist/createSong').post(function(req, response) {
   });
 });
 
+// This route inserts the AWS URL for an songs' audio and cover
+userRoutes.route('/artist/uploadSongURLs').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.sid)};
+  const updatedSong = {
+    $set: {
+      songURL: req.body.songURL,
+      coverURL: req.body.coverURL,
+    },
+  };
+  const options = {returnDocument: 'after'}
+  dbConnect.collection('songs')
+      .findOneAndUpdate(query, updatedSong, options, function(err, res) {
+        if (err) throw err;
+        response.json(res);
+      });
+});
+
 // This route adds a song an artist's 'songs' array
 // Should be called directly after /artist/createSong
 userRoutes.route('/artist/addSongtoArtistSongs').put(function(req, response) {
@@ -44,6 +62,16 @@ userRoutes.route('/artist/addSongtoArtistSongs').put(function(req, response) {
     },
   };
   dbConnect.collection('users').findOneAndUpdate(query, updatedSongs, function(err, res) {
+    if (err) throw err;
+    response.json(res);
+  });
+});
+
+// This route allows an artist to delete a song that is a single
+userRoutes.route('/artist/deleteSingle').delete((req, response) => {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId( req.body.sid ), isSignle: true};
+  dbConnect.collection('songs').deleteOne(query, function(err, res) {
     if (err) throw err;
     response.json(res);
   });
@@ -83,6 +111,23 @@ userRoutes.route('/artist/createAlbum').post(function(req, response) {
   });
 });
 
+// This route inserts the AWS URL for an album's cover
+userRoutes.route('/artist/uploadAlbumURLs').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.aid)};
+  const updatedAlbum = {
+    $set: {
+      coverURL: req.body.coverURL,
+    },
+  };
+  const options = {returnDocument: 'after'}
+  dbConnect.collection('albums')
+      .findOneAndUpdate(query, updatedAlbum, options, function(err, res) {
+        if (err) throw err;
+        response.json(res);
+      });
+});
+
 // This route adds an album an artist's 'albums' array
 // Should be called directly after /artist/createAlbum
 userRoutes.route('/artist/addAlbumtoArtistAlbums').put(function(req, response) {
@@ -97,6 +142,17 @@ userRoutes.route('/artist/addAlbumtoArtistAlbums').put(function(req, response) {
     if (err) throw err;
     response.json(res);
   });
+});
+
+// This route allows an artist to delete an album
+// Need to delete each song within album
+userRoutes.route('/artist/deleteAlbum').delete((req, response) => {
+  // const dbConnect = dbo.getDb();
+  // const query = {_id: ObjectId( req.body.aid )};
+  // dbConnect.collection('albums').deleteOne(query, function(err, res) {
+  //   if (err) throw err;
+  //   response.json(res);
+  // });
 });
 
 // This route removes an album an artist's 'albums' array
@@ -115,31 +171,13 @@ userRoutes.route('/artist/removeAlbumfromArtistAlbums').put(function(req, respon
   });
 });
 
-// This route inserts the AWS URL for an songs' audio and cover
-userRoutes.route('/artist/uploadSongURLs').put(function(req, response) {
-  const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.sid)};
-  const updatedSong = {
-    $set: {
-      songURL: req.body.songURL,
-      coverURL: req.body.coverURL,
-    },
-  };
-  const options = {returnDocument: 'after'}
-  dbConnect.collection('songs')
-      .findOneAndUpdate(query, updatedSong, options, function(err, res) {
-        if (err) throw err;
-        response.json(res);
-      });
-});
-
-// This route inserts the AWS URL for an album's cover
-userRoutes.route('/artist/uploadAlbumURLs').put(function(req, response) {
+// This route allows an artist to add a song to their album
+userRoutes.route('/artist/addSongtoAlbum').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.aid)};
   const updatedAlbum = {
-    $set: {
-      coverURL: req.body.coverURL,
+    $push: {
+      songs: ObjectId(req.body.sid)
     },
   };
   const options = {returnDocument: 'after'}
@@ -149,6 +187,25 @@ userRoutes.route('/artist/uploadAlbumURLs').put(function(req, response) {
         response.json(res);
       });
 });
+
+// Sets song's album_id to album it was added to
+// Should be called directly after /artist/addSongtoAlbum
+userRoutes.route('/artist/addAlbumIdtoSong').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.sid)};
+  const updatedSong = {
+    $set: {
+      album_id: ObjectId(req.body.aid)
+    }
+  };
+  const options = {returnDocument: 'after'}
+  dbConnect.collection('songs')
+      .findOneAndUpdate(query, updatedSong, options, function(err, res) {
+        if (err) throw err;
+        response.json(res);
+      });
+});
+
 
 // This route allows an artist to edit a song's information
 userRoutes.route('/artist/editSongInfo').put(function(req, response) {
@@ -190,30 +247,6 @@ userRoutes.route('/artist/editAlbumInfo').put(function(req, response) {
         response.json(res);
       });
 });
-
-// This route allows an artist to delete a song that is a single
-userRoutes.route('/artist/deleteSingle').delete((req, response) => {
-  const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId( req.body.sid ), isSignle: true};
-  dbConnect.collection('songs').deleteOne(query, function(err, res) {
-    if (err) throw err;
-    response.json(res);
-  });
-});
-
-// This route allows an artist to delete an album
-// Need to delete each song within album
-userRoutes.route('/artist/deleteAlbum').delete((req, response) => {
-  // const dbConnect = dbo.getDb();
-  // const query = {_id: ObjectId( req.body.aid )};
-  // dbConnect.collection('albums').deleteOne(query, function(err, res) {
-  //   if (err) throw err;
-  //   response.json(res);
-  // });
-});
-
-// This route allows an artist to add a song to their album
-userRoutes.route('/artist/addAlbumSong').put(function(req, response) {});
 
 // This route allows an artist view a song's streams
 userRoutes.route('/artist/viewSongStreams').get(function(req, response) {

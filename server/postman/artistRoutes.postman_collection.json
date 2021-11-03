@@ -49,6 +49,52 @@
 			"response": []
 		},
 		{
+			"name": "localhost:5000/artist/uploadSongURLs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Song and cover URLs uploaded\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value.songURL).to.eql(globals['songURL'].replace('\"', '').replace('\"', ''));",
+							"    pm.expect(jsonData.value.coverURL).to.eql(globals['coverURL'].replace('\"', '').replace('\"', ''));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sid\": \"{{sid}}\",\n    \"songURL\": {{songURL}},\n    \"coverURL\": {{coverURL}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/artist/uploadSongURLs",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"artist",
+						"uploadSongURLs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "localhost:5000/artist/addSongtoArtistSongs",
 			"event": [
 				{
@@ -84,6 +130,51 @@
 					"path": [
 						"artist",
 						"addSongtoArtistSongs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/artist/deleteSingle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Single Deleted\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.deletedCount).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sid\": \"{{dsid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/artist/deleteSingle",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"artist",
+						"deleteSingle"
 					]
 				}
 			},
@@ -172,6 +263,51 @@
 			"response": []
 		},
 		{
+			"name": "localhost:5000/artist/uploadAlbumURLs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Song and cover URLs uploaded\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value.coverURL).to.eql(globals['coverURL'].replace('\"', '').replace('\"', ''));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"aid\": \"{{aid}}\",\n    \"coverURL\": {{coverURL}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/artist/uploadAlbumURLs",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"artist",
+						"uploadAlbumURLs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "localhost:5000/artist/addAlbumtoArtistAlbums",
 			"event": [
 				{
@@ -254,31 +390,13 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5000/artist/uploadSongURLs",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"pm.test(\"Song and cover URLs uploaded\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.value.songURL).to.eql(globals['songURL'].replace('\"', '').replace('\"', ''));",
-							"    pm.expect(jsonData.value.coverURL).to.eql(globals['coverURL'].replace('\"', '').replace('\"', ''));",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
+			"name": "localhost:5000/artist/addSongtoAlbum",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"sid\": \"{{sid}}\",\n    \"songURL\": {{songURL}},\n    \"coverURL\": {{coverURL}}\n}",
+					"raw": "{\n    \"aid\": \"{{aid}}\",\n    \"sid\": \"{{sid}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -286,21 +404,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/artist/uploadSongURLs",
+					"raw": "localhost:5000/artist/addSongtoAlbum",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"artist",
-						"uploadSongURLs"
+						"addSongtoAlbum"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/artist/uploadAlbumURLs",
+			"name": "localhost:5000/artist/addAlbumIdtoSong",
 			"event": [
 				{
 					"listen": "test",
@@ -308,10 +426,6 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
-							"});",
-							"pm.test(\"Song and cover URLs uploaded\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.value.coverURL).to.eql(globals['coverURL'].replace('\"', '').replace('\"', ''));",
 							"});"
 						],
 						"type": "text/javascript"
@@ -323,7 +437,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"aid\": \"{{aid}}\",\n    \"coverURL\": {{coverURL}}\n}",
+					"raw": "{\n    \"sid\": \"{{sid}}\",\n    \"aid\": \"{{aid}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -331,14 +445,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/artist/uploadAlbumURLs",
+					"raw": "localhost:5000/artist/addAlbumIdtoSong",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"artist",
-						"uploadAlbumURLs"
+						"addAlbumIdtoSong"
 					]
 				}
 			},
@@ -465,51 +579,6 @@
 					"path": [
 						"artist",
 						"viewSongStreams"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5000/artist/deleteSingle",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"pm.test(\"Single Deleted\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.deletedCount).to.eql(1);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"sid\": \"{{dsid}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:5000/artist/deleteSingle",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"artist",
-						"deleteSingle"
 					]
 				}
 			},
