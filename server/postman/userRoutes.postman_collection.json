@@ -377,7 +377,7 @@
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
-							"pm.test(\"User followed\", function () {",
+							"pm.test(\"User unfollowed\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.lastErrorObject.updatedExisting).to.eql(true);",
 							"});"
