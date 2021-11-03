@@ -1,16 +1,14 @@
 [
     {
+        "publisher_id": "",
         "songURL": "",
         "songName": "",
-        "coverURL" : "",
-        "artists": [],
-        "writers": [],
+        "coverURL": "",
         "isSignle": true,
-        "fromAlbum" : false,
-        "albumName": "",
+        "album_id": "",
         "genre": "",
         "releaseDate": "",
-        "recordLabel" : "",
+        "recordLabel": "",
         "streams": 0
     }
 ]
