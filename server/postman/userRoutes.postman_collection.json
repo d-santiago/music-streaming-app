@@ -27,7 +27,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"hillrachel\",\n    \"password\": \"password\",\n    \"name\": \"Katherine\",\n    \"email\": \"timothy78@hotmail.com\",\n    \"dob\": \"1988-06-20T22:15:34Z\",\n    \"followers\": [\n        \"serranobrian\",\n        \"andrewhamilton\",\n        \"matthewray\"\n    ],\n    \"following\": [\n        \"serranobrian\",\n        \"andrewhamilton\",\n        \"matthewray\"\n    ],\n    \"bio\": \"\",\n    \"library\": [],\n    \"genres\": [],\n    \"isArtist\": false,\n    \"artistName\": \"\",\n    \"recordLabel\": \"\",\n    \"songs\": [],\n    \"albums\": [],\n    \"playlists\": []\n}",
+					"raw": "{\n    \"username\": \"hillrachel\",\n    \"password\": \"password\",\n    \"name\": \"Katherine\",\n    \"email\": \"timothy78@hotmail.com\",\n    \"dob\": \"1988-06-20T22:15:34Z\",\n    \"followers\": [],\n    \"following\": [],\n    \"bio\": \"\",\n    \"library\": [],\n    \"genres\": [],\n    \"isArtist\": false,\n    \"artistName\": \"\",\n    \"recordLabel\": \"\",\n    \"songs\": [],\n    \"albums\": [],\n    \"playlists\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -358,6 +358,47 @@
 					"path": [
 						"user",
 						"follow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/unfollow",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"ouid\": \"{{ouid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/unfollow",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"unfollow"
 					]
 				}
 			},
