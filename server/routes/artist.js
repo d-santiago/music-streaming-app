@@ -70,7 +70,7 @@ userRoutes.route('/artist/uploadSongURLs').put(function(req, response) {
 });
 
 // This route inserts the AWS URL for an album's cover
-userRoutes.route('/artist/uploadAlbumURL').put(function(req, response) {
+userRoutes.route('/artist/uploadAlbumURLs').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.aid)};
   const updatedAlbum = {
