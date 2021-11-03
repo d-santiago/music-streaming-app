@@ -1,11 +1,11 @@
 [
     {
-        "albumURL": "",
+        "publisher_id": "",
         "albumName": "",
-        "coverURL" : "",
-        "songs" : [],
+        "coverURL": "",
         "genre": "",
         "releaseDate": "",
-        "recordLabel" : ""
+        "recordLabel": "",
+        "songs": []
     }
 ]
