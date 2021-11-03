@@ -86,6 +86,52 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "localhost:5000/artist/uploadSongURLs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Song and cover URLs uploaded\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value.songURL).to.eql(globals['songURL'].replace('\"', '').replace('\"', ''));",
+							"    pm.expect(jsonData.value.coverURL).to.eql(globals['coverURL'].replace('\"', '').replace('\"', ''));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sid\": \"{{sid}}\",\n    \"songURL\": {{songURL}},\n    \"coverURL\": {{coverURL}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/artist/uploadSongURLs",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"artist",
+						"uploadSongURLs"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
