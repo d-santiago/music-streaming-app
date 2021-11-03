@@ -1,11 +1,54 @@
 import ProfileCard from './ProfileCard';
 import AlbumCover from './../albumcover.JPG';
+
+import {useState} from 'react';
+
+import Modal from 'react-bootstrap/Modal';
+
 const Profile = (props) => {
+	const [showFollowersModal, setShowFollowersModal] = useState(false);
+	const [showFollowingModal, setShowFollowingModal] = useState(false);
+
 	return (
 	<div className="container">
+
+		{/* SHOWING ALL FOLLOWING */}
+		<Modal show={showFollowingModal} onHide={() => setShowFollowingModal(false)}>
+	        <Modal.Header closeButton>
+	          <Modal.Title>Following</Modal.Title>
+	        </Modal.Header>
+	        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+	        <Modal.Footer>
+	          <button variant="secondary" className="btn btn-primary" onClick={() => setShowFollowingModal(false)}>
+	            Close
+	          </button>
+	        </Modal.Footer>
+       </Modal>
+
+		{/* SHOWING ALL FOLLOWERS */}
+       <Modal show={showFollowersModal} onHide={() => setShowFollowersModal(false)}>
+	        <Modal.Header closeButton>
+	          <Modal.Title>Followers</Modal.Title>
+	        </Modal.Header>
+	        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+	        <Modal.Footer>
+	          <button variant="secondary" className="btn btn-primary" onClick={() => setShowFollowersModal(false)}>
+	            Close
+	          </button>
+	        </Modal.Footer>
+       </Modal>
+
+
+
+		<div className="row">
+			<div className="col-md-12 text-right">
+			        	<button className="btn btn-primary btn-lg m-4">My library</button>
+			        	<button className="btn btn-primary btn-lg">Settings</button>
+			</div>
+		</div>
 		<div className="row">
 			<div className="col-md-4">
-				<ProfileCard />
+				<ProfileCard handleFollowers={() => setShowFollowersModal(true)} handleFollowing={() => setShowFollowingModal(true)} />
 				<h3> Playlists </h3>
 				<div class="row">
 				  <div class="card col-sm-6 p-0">
@@ -75,13 +118,7 @@ const Profile = (props) => {
 		                </div> 
 		        </div>   
 			</div>
-			<div className="col-md-2">
-					<br />
-		        	<button className="btn btn-primary">My library</button>
-		        	<br />
-		        	<br />
-		        	<button className="btn btn-primary">Settings</button>
-		    </div>
+			
 		</div>
 	</div>
 	)

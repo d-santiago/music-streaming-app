@@ -1,5 +1,6 @@
 import './Playlist.css';
 import PlaylistCover from './../playlistcover.JPG';
+import Song from './Song';
 
 const Playlist = (props) => {
 	return (
@@ -19,6 +20,7 @@ const Playlist = (props) => {
 		                </div>
 		            </div>
 		            <div class="p-3 card border border-dark">
+		            	<Song />
 		                <div class="d-flex justify-content-between align-items-center p-3 music">
 		                    <div class="d-flex flex-row align-items-center"> <i class="fas fa-play p-2 text-primary"></i> <small class="ml-2">Shannon jin pride - The Usual [Beat, Jess Scott]</small> </div> <i class="fa fa-check text-primary"></i>
 		                </div>
