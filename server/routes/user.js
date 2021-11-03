@@ -111,7 +111,7 @@ userRoutes.route('/user/follow').put(function(req, response) {
   const query = {_id: ObjectId(req.body.uid)};
   const updatedFollowing = {
     $push: {
-      following: {_id: ObjectId(req.body.ouid)}, // oid = other user id
+      following: ObjectId(req.body.ouid), // oid = other user id
     },
   };
   const options = {returnDocument: 'after'}
@@ -128,7 +128,7 @@ userRoutes.route('/user/unfollow').put(function(req, response) {
   const query = {_id: ObjectId(req.body.uid)};
   const updatedFollowing = {
     $pull: {
-      following: {_id: ObjectId(req.body.ouid)}, // oid = other user id
+      following: ObjectId(req.body.ouid), // oid = other user id
     },
   };
   const options = {returnDocument: 'after'}
