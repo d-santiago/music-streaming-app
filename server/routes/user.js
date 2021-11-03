@@ -63,6 +63,26 @@ userRoutes.route('/user/info').get(function(req, res) {
   });
 });
 
+// This route retrieves a user using their username
+userRoutes.route('/user/findUser').get(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {username: req.body.username};
+  dbConnect.collection('users').findOne(query, function(err, result) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
+
+// This route retrieves all artists with artistName
+userRoutes.route('/user/findArtist').get(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {artistName: req.body.artistName};
+  dbConnect.collection('users').findOne(query, function(err, result) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
+
 // This route retrieves the number of accounts following a user
 userRoutes.route('/user/followerCount').get(function(req, res) {
   const dbConnect = dbo.getDb();
