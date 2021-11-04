@@ -12,6 +12,14 @@ const dbo = require('../db/conn');
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require('mongodb').ObjectId;
 
+// This route lists all user routes
+userRoutes.route('/user/listUserRoutes').get(function(req, response) {
+  const listRoutes = require('express-list-routes');
+  console.log('\n ---------------- USER ROUTES ---------------- \n');
+  response.json(listRoutes(userRoutes));
+  console.log('\n ---------------- USER ROUTES ---------------- \n');
+});
+
 // This route registers a new user
 userRoutes.route('/user/register').post(function(req, response) {
   const dbConnect = dbo.getDb();

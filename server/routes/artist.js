@@ -12,6 +12,14 @@ const dbo = require('../db/conn');
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require('mongodb').ObjectId;
 
+// This route lists all artist routes
+artistRoutes.route('/user/listArtistRoutes').get(function(req, response) {
+  const listRoutes = require('express-list-routes');
+  console.log('\n ---------------- ARTIST ROUTES ---------------- \n');
+  response.json(listRoutes(artistRoutes));
+  console.log('\n ---------------- ARTIST ROUTES ---------------- \n');
+});
+
 // This route allows an artist to upload a song
 artistRoutes.route('/artist/createSong').post(function(req, response) {
   const dbConnect = dbo.getDb();

@@ -6,6 +6,25 @@
 	},
 	"item": [
 		{
+			"name": "localhost:5000/user/listArtistRoutes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/user/listArtistRoutes",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"listArtistRoutes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "localhost:5000/artist/createSong",
 			"event": [
 				{

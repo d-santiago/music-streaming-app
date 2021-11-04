@@ -6,6 +6,25 @@
 	},
 	"item": [
 		{
+			"name": "localhost:5000/user/listUserRoutes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/user/listUserRoutes",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"listUserRoutes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "localhost:5000/user/register",
 			"event": [
 				{
