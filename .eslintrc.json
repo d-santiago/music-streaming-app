@@ -19,5 +19,7 @@
         "react"
     ],
     "rules": {
+        "new-cap": "off",
+        "quote-props": "off"
     }
 }

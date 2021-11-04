@@ -87,22 +87,24 @@ userRoutes.route('/user/findArtist').get(function(req, res) {
 userRoutes.route('/user/followerCount').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
-  const projection = {projection: {count: {$size: "$followers"}}}
-  dbConnect.collection('users').findOne(query, projection, function(err, result) {
-    if (err) throw err;
-    res.json(result);
-  });
+  const projection = {projection: {count: {$size: '$followers'}}};
+  dbConnect.collection('users')
+      .findOne(query, projection, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
 });
 
 // This route retrieves a the number of accounts a user is following
 userRoutes.route('/user/followingCount').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
-  const projection = {projection: {count: {$size: "$following"} }}
-  dbConnect.collection('users').findOne(query, projection, function(err, result) {
-    if (err) throw err;
-    res.json(result);
-  });
+  const projection = {projection: {count: {$size: '$following'}}};
+  dbConnect.collection('users')
+      .findOne(query, projection, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
 });
 
 // This route allows a user to follow another user
@@ -114,7 +116,7 @@ userRoutes.route('/user/follow').put(function(req, response) {
       following: ObjectId(req.body.ouid), // oid = other user id
     },
   };
-  const options = {returnDocument: 'after'}
+  const options = {returnDocument: 'after'};
   dbConnect.collection('users')
       .findOneAndUpdate(query, updatedFollowing, options, function(err, res) {
         if (err) throw err;
@@ -131,7 +133,7 @@ userRoutes.route('/user/unfollow').put(function(req, response) {
       following: ObjectId(req.body.ouid), // oid = other user id
     },
   };
-  const options = {returnDocument: 'after'}
+  const options = {returnDocument: 'after'};
   dbConnect.collection('users')
       .findOneAndUpdate(query, updatedFollowing, options, function(err, res) {
         if (err) throw err;
@@ -148,7 +150,7 @@ userRoutes.route('/user/updateUsername').put(function(req, response) {
       username: req.body.newUsername,
     },
   };
-  const options = {returnDocument: 'after'}
+  const options = {returnDocument: 'after'};
   dbConnect.collection('users')
       .findOneAndUpdate(query, updatedUsername, options, function(err, res) {
         if (err) throw err;
@@ -165,7 +167,7 @@ userRoutes.route('/user/updatePassword').put(function(req, response) {
       password: req.body.newPassword,
     },
   };
-  const options = {returnDocument: 'after'}
+  const options = {returnDocument: 'after'};
   dbConnect.collection('users')
       .findOneAndUpdate(query, updatedPassword, options, function(err, res) {
         if (err) throw err;
@@ -290,11 +292,12 @@ userRoutes.route('/user/incrementSongStream').put(function(req, res) {
 userRoutes.route('/user/librarySongCount').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
-  const projection = {projection: {count: {$size: "$library"} }}
-  dbConnect.collection('users').findOne(query, projection, function(err, result) {
-    if (err) throw err;
-    res.json(result);
-  });
+  const projection = {projection: {count: {$size: '$library'}}};
+  dbConnect.collection('users')
+      .findOne(query, projection, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
 });
 
 // This route allows a user add a song to their library
@@ -344,8 +347,7 @@ userRoutes.route('/user/createPlaylist').put(function(req, res) {
       },
     },
   };
-  const options = {returnDocument: 'after'}
-
+  const options = {returnDocument: 'after'};
   dbConnect.collection('users')
       .findOneAndUpdate(query, updatedUser, options, function(err, result) {
         if (err) throw err;
@@ -356,8 +358,11 @@ userRoutes.route('/user/createPlaylist').put(function(req, res) {
 // This route retrieves information about a user's specific playlist
 userRoutes.route('/user/viewPlaylist').get(function(req, res) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.uid), 'playlists._id': ObjectId(req.body.pid)};
-  const projection = {projection: {"playlists.$" : 1}};
+  const query = {
+    _id: ObjectId(req.body.uid),
+    'playlists._id': ObjectId(req.body.pid),
+  };
+  const projection = {projection: {'playlists.$': 1}};
   dbConnect.collection('users')
       .findOne(query, projection, function(err, result) {
         if (err) throw err;
@@ -370,11 +375,12 @@ userRoutes.route('/user/viewPlaylist').get(function(req, res) {
 userRoutes.route('/user/playlistCount').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
-  const projection = {projection: {count: {$size: "$playlists"} }}
-  dbConnect.collection('users').findOne(query, projection, function(err, result) {
-    if (err) throw err;
-    res.json(result);
-  });
+  const projection = {projection: {count: {$size: '$playlists'}}};
+  dbConnect.collection('users')
+      .findOne(query, projection, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
 });
 
 // This route allows a user delete a playlist
@@ -388,7 +394,6 @@ userRoutes.route('/user/deletePlaylist').put(function(req, res) {
       },
     },
   };
-
   dbConnect.collection('users')
       .updateOne(query, updatedPlaylist, function(err, result) {
         if (err) throw err;
@@ -435,7 +440,8 @@ userRoutes.route('/user/removePlaylistSong').put(function(req, res) {
       });
 });
 
-// This route retrieves a the number of songs within a user's specific playlist (Incomplete)
+// This route retrieves a the number of songs
+// within a user's specific playlist
 userRoutes.route('/user/playlistSongCount').get(function(req, res) {});
 
 module.exports = userRoutes;
