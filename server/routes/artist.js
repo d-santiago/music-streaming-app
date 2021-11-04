@@ -76,6 +76,27 @@ artistRoutes.route('/artist/addSongtoArtistSongs').put(function(req, response) {
       });
 });
 
+// This route allows an artist to edit a song's information
+artistRoutes.route('/artist/editSongInfo').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.sid)};
+  const updatedSong = {
+    $set: {
+      songName: req.body.songName,
+      isSignle: req.body.isSignle,
+      genre: req.body.genre,
+      releaseDate: req.body.releaseDate,
+      recordLabel: req.body.recordLabel,
+    },
+  };
+  const options = {returnDocument: 'after'};
+  dbConnect.collection('songs')
+      .findOneAndUpdate(query, updatedSong, options, function(err, res) {
+        if (err) throw err;
+        response.json(res);
+      });
+});
+
 // This route removes a song from an artist's 'songs' array
 // Should be called directly before /artist/deleteSingle
 artistRoutes.route('/artist/removeSongfromArtistSongs')
@@ -158,45 +179,25 @@ artistRoutes.route('/artist/addAlbumtoArtistAlbums')
           });
     });
 
-// This route deletes each song within album
-// Should be called directly before /deleteAlbum
-// artistRoutes.route('/artist/deleteAlbumSongs').delete((req, response) => {
-//   const dbConnect = dbo.getDb();
-//   const query = {_id: ObjectId( req.body.aid )};
-//   dbConnect.collection('albums').deleteOne(query, function(err, res) {
-//     if (err) throw err;
-//     response.json(res);
-//   });
-// });
-
-// This route allows an artist to delete an album
-// Should be called directly before /deleteAlbumSongs
-artistRoutes.route('/artist/deleteAlbum').delete((req, response) => {
+// This route allows an artist to edit an album's information
+artistRoutes.route('/artist/editAlbumInfo').put(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId( req.body.aid )};
-  dbConnect.collection('albums').deleteOne(query, function(err, res) {
-    if (err) throw err;
-    response.json(res);
-  });
+  const query = {_id: ObjectId(req.body.aid)};
+  const updatedAlbum = {
+    $set: {
+      albumName: req.body.albumName,
+      genre: req.body.genre,
+      releaseDate: req.body.releaseDate,
+      recordLabel: req.body.recordLabel,
+    },
+  };
+  const options = {returnDocument: 'after'};
+  dbConnect.collection('albums')
+      .findOneAndUpdate(query, updatedAlbum, options, function(err, res) {
+        if (err) throw err;
+        response.json(res);
+      });
 });
-
-// This route removes an album an artist's 'albums' array
-// Should be called directly after /artist/deleteAlbum
-artistRoutes.route('/artist/removeAlbumfromArtistAlbums')
-    .put(function(req, response) {
-      const dbConnect = dbo.getDb();
-      const query = {_id: ObjectId(req.body.uid)};
-      const updatedAlbums = {
-        $pull: {
-          albums: ObjectId(req.body.aid),
-        },
-      };
-      dbConnect.collection('users')
-          .findOneAndUpdate(query, updatedAlbums, function(err, res) {
-            if (err) throw err;
-            response.json(res);
-          });
-    });
 
 // This route allows an artist to add a song to their album
 artistRoutes.route('/artist/addSongtoAlbum').put(function(req, response) {
@@ -233,45 +234,44 @@ artistRoutes.route('/artist/addAlbumIdtoSong').put(function(req, response) {
       });
 });
 
-// This route allows an artist to edit a song's information
-artistRoutes.route('/artist/editSongInfo').put(function(req, response) {
-  const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.sid)};
-  const updatedSong = {
-    $set: {
-      songName: req.body.songName,
-      isSignle: req.body.isSignle,
-      genre: req.body.genre,
-      releaseDate: req.body.releaseDate,
-      recordLabel: req.body.recordLabel,
-    },
-  };
-  const options = {returnDocument: 'after'};
-  dbConnect.collection('songs')
-      .findOneAndUpdate(query, updatedSong, options, function(err, res) {
-        if (err) throw err;
-        response.json(res);
-      });
-});
+// This route removes an album an artist's 'albums' array
+// Should be called directly after /artist/deleteAlbum
+artistRoutes.route('/artist/removeAlbumfromArtistAlbums')
+    .put(function(req, response) {
+      const dbConnect = dbo.getDb();
+      const query = {_id: ObjectId(req.body.uid)};
+      const updatedAlbums = {
+        $pull: {
+          albums: ObjectId(req.body.aid),
+        },
+      };
+      dbConnect.collection('users')
+          .findOneAndUpdate(query, updatedAlbums, function(err, res) {
+            if (err) throw err;
+            response.json(res);
+          });
+    });
 
-// This route allows an artist to edit an album's information
-artistRoutes.route('/artist/editAlbumInfo').put(function(req, response) {
+// This route deletes each song within album
+// Should be called directly before /deleteAlbum
+// artistRoutes.route('/artist/deleteAlbumSongs').delete((req, response) => {
+//   const dbConnect = dbo.getDb();
+//   const query = {_id: ObjectId( req.body.aid )};
+//   dbConnect.collection('albums').deleteOne(query, function(err, res) {
+//     if (err) throw err;
+//     response.json(res);
+//   });
+// });
+
+// This route allows an artist to delete an album
+// Should be called directly before /deleteAlbumSongs
+artistRoutes.route('/artist/deleteAlbum').delete((req, response) => {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.aid)};
-  const updatedAlbum = {
-    $set: {
-      albumName: req.body.albumName,
-      genre: req.body.genre,
-      releaseDate: req.body.releaseDate,
-      recordLabel: req.body.recordLabel,
-    },
-  };
-  const options = {returnDocument: 'after'};
-  dbConnect.collection('albums')
-      .findOneAndUpdate(query, updatedAlbum, options, function(err, res) {
-        if (err) throw err;
-        response.json(res);
-      });
+  const query = {_id: ObjectId( req.body.aid )};
+  dbConnect.collection('albums').deleteOne(query, function(err, res) {
+    if (err) throw err;
+    response.json(res);
+  });
 });
 
 // This route allows an artist view a song's streams

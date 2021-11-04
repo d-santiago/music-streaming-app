@@ -155,6 +155,47 @@
 			"response": []
 		},
 		{
+			"name": "localhost:5000/artist/editSongInfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sid\": \"{{sid}}\",\n    \"songName\": {{songName}},\n    \"isSignle\": {{isSignle}},\n    \"genre\": {{genre}},\n    \"releaseDate\": {{releaseDate}},\n    \"recordLabel\": {{recordLabel}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/artist/editSongInfo",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"artist",
+						"editSongInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "localhost:5000/artist/removeSongfromArtistSongs",
 			"event": [
 				{
@@ -368,7 +409,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5000/artist/removeAlbumfromArtistAlbums",
+			"name": "localhost:5000/artist/editAlbumInfo",
 			"event": [
 				{
 					"listen": "test",
@@ -387,7 +428,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"aid\": \"{{aid}}\"\n}",
+					"raw": "{\n    \"aid\": \"{{aid}}\",\n    \"albumName\": {{albumName}},\n    \"genre\": {{genre}},\n    \"releaseDate\": {{releaseDate}},\n    \"recordLabel\": {{recordLabel}}\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -395,14 +436,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/artist/removeAlbumfromArtistAlbums",
+					"raw": "localhost:5000/artist/editAlbumInfo",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"artist",
-						"removeAlbumfromArtistAlbums"
+						"editAlbumInfo"
 					]
 				}
 			},
@@ -478,7 +519,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5000/artist/editSongInfo",
+			"name": "localhost:5000/artist/removeAlbumfromArtistAlbums",
 			"event": [
 				{
 					"listen": "test",
@@ -497,7 +538,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"sid\": \"{{sid}}\",\n    \"songName\": {{songName}},\n    \"isSignle\": {{isSignle}},\n    \"genre\": {{genre}},\n    \"releaseDate\": {{releaseDate}},\n    \"recordLabel\": {{recordLabel}}\n}",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"aid\": \"{{aid}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -505,55 +546,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/artist/editSongInfo",
+					"raw": "localhost:5000/artist/removeAlbumfromArtistAlbums",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"artist",
-						"editSongInfo"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5000/artist/editAlbumInfo",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"aid\": \"{{aid}}\",\n    \"albumName\": {{albumName}},\n    \"genre\": {{genre}},\n    \"releaseDate\": {{releaseDate}},\n    \"recordLabel\": {{recordLabel}}\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:5000/artist/editAlbumInfo",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"artist",
-						"editAlbumInfo"
+						"removeAlbumfromArtistAlbums"
 					]
 				}
 			},
