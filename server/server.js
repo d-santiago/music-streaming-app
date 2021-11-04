@@ -9,6 +9,11 @@ app.use(require('./routes/user'));
 app.use(require('./routes/artist'));
 app.use(require('./routes/aws'));
 
+const listRoutes = require('express-list-routes')
+console.log("---------------- ALL ROUTES ---------------- \n")
+console.log(listRoutes(app));
+console.log("---------------- ALL ROUTES ---------------- \n")
+
 // get driver connection
 const dbo = require('./db/conn');
 
