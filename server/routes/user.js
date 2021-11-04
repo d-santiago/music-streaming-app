@@ -242,7 +242,7 @@ userRoutes.route('/user/delete').delete((req, response) => {
 });
 
 // This route allows a user to view a song's information
-userRoutes.route('/user/viewSong').get(function(req, res) {
+userRoutes.route('/user/viewSongInfo').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.sid)};
   dbConnect.collection('songs').findOne(query, function(err, result) {
@@ -252,7 +252,7 @@ userRoutes.route('/user/viewSong').get(function(req, res) {
 });
 
 // This route allows a user to view an album's information
-userRoutes.route('/user/viewAlbum').get(function(req, res) {
+userRoutes.route('/user/viewAlbumInfo').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.aid)};
   dbConnect.collection('albums').findOne(query, function(err, result) {
@@ -271,18 +271,6 @@ userRoutes.route('/user/incrementSongStream').put(function(req, res) {
 
   dbConnect.collection('songs')
       .updateOne(query, updatedSong, function(err, result) {
-        if (err) throw err;
-        res.json(result);
-      });
-});
-
-// This route retrieves the number of songs in a user's library
-userRoutes.route('/user/librarySongCount').get(function(req, res) {
-  const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.uid)};
-  const projection = {projection: {count: {$size: '$library'}}};
-  dbConnect.collection('users')
-      .findOne(query, projection, function(err, result) {
         if (err) throw err;
         res.json(result);
       });
@@ -322,6 +310,18 @@ userRoutes.route('/user/removeLibrarySong').put(function(req, res) {
       });
 });
 
+// This route retrieves the number of songs in a user's library
+userRoutes.route('/user/librarySongCount').get(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid)};
+  const projection = {projection: {count: {$size: '$library'}}};
+  dbConnect.collection('users')
+      .findOne(query, projection, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
+
 // This route allows a user create a playlist
 userRoutes.route('/user/createPlaylist').put(function(req, res) {
   const dbConnect = dbo.getDb();
@@ -343,47 +343,13 @@ userRoutes.route('/user/createPlaylist').put(function(req, res) {
       });
 });
 
-// This route retrieves information about a user's specific playlist
-userRoutes.route('/user/viewPlaylist').get(function(req, res) {
-  const dbConnect = dbo.getDb();
-  const query = {
-    _id: ObjectId(req.body.uid),
-    'playlists._id': ObjectId(req.body.pid),
-  };
-  const projection = {projection: {'playlists.$': 1}};
-  dbConnect.collection('users')
-      .findOne(query, projection, function(err, result) {
-        if (err) throw err;
-        res.json(result);
-      });
-});
-
-
 // This route retrieves the number of playlists that a user has
-userRoutes.route('/user/playlistCount').get(function(req, res) {
+userRoutes.route('/user/playlistsCount').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
   const projection = {projection: {count: {$size: '$playlists'}}};
   dbConnect.collection('users')
       .findOne(query, projection, function(err, result) {
-        if (err) throw err;
-        res.json(result);
-      });
-});
-
-// This route allows a user delete a playlist
-userRoutes.route('/user/deletePlaylist').put(function(req, res) {
-  const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.uid)};
-  const updatedPlaylist = {
-    $pull: {
-      playlists: {
-        _id: ObjectId(req.body.pid),
-      },
-    },
-  };
-  dbConnect.collection('users')
-      .updateOne(query, updatedPlaylist, function(err, result) {
         if (err) throw err;
         res.json(result);
       });
@@ -428,11 +394,44 @@ userRoutes.route('/user/removePlaylistSong').put(function(req, res) {
       });
 });
 
-// This route retrieves a the number of songs
+// This route retrieves information about a user's specific playlist
+userRoutes.route('/user/viewPlaylistInfo').get(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {
+    _id: ObjectId(req.body.uid),
+    'playlists._id': ObjectId(req.body.pid),
+  };
+  const projection = {projection: {'playlists.$': 1}};
+  dbConnect.collection('users')
+      .findOne(query, projection, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
+
+// This route retrieves the number of songs
 // within a user's specific playlist
 userRoutes.route('/user/playlistSongCount').get(function(req, res) {});
 
-// This route retrieves a user using their _id or username
+// This route allows a user delete a playlist
+userRoutes.route('/user/deletePlaylist').put(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid)};
+  const updatedPlaylist = {
+    $pull: {
+      playlists: {
+        _id: ObjectId(req.body.pid),
+      },
+    },
+  };
+  dbConnect.collection('users')
+      .updateOne(query, updatedPlaylist, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
+
+// This route retrieves user with _id or username
 userRoutes.route('/user/findUser').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {
@@ -447,7 +446,7 @@ userRoutes.route('/user/findUser').get(function(req, res) {
   });
 });
 
-// This route retrieves all artists with _id or artistName
+// This route retrieves artist with _id or all artists with artistName
 userRoutes.route('/user/findArtist').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {
@@ -462,7 +461,7 @@ userRoutes.route('/user/findArtist').get(function(req, res) {
   });
 });
 
-// This route retrieves all songs with _id or songName
+// This route retrieves all song with _id or all songs with songName
 userRoutes.route('/user/findSong').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {
@@ -477,7 +476,7 @@ userRoutes.route('/user/findSong').get(function(req, res) {
   });
 });
 
-// This route retrieves all songs with _id or albumName
+// This route retrieves album with _id or all albums with albumName
 userRoutes.route('/user/findAlbum').get(function(req, res) {
   const dbConnect = dbo.getDb();
   const query = {

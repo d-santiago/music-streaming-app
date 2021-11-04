@@ -660,7 +660,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/viewSong",
+			"name": "localhost:5000/user/viewSongInfo",
 			"event": [
 				{
 					"listen": "test",
@@ -694,21 +694,21 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/viewSong",
+					"raw": "localhost:5000/user/viewSongInfo",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"viewSong"
+						"viewSongInfo"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/viewAlbum",
+			"name": "localhost:5000/user/viewAlbumInfo",
 			"event": [
 				{
 					"listen": "test",
@@ -742,14 +742,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/viewAlbum",
+					"raw": "localhost:5000/user/viewAlbumInfo",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"viewAlbum"
+						"viewAlbumInfo"
 					]
 				}
 			},
@@ -795,50 +795,6 @@
 					"path": [
 						"user",
 						"incrementSongStream"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5000/user/librarySongCount",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"uid\": \"{{uid}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:5000/user/librarySongCount",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"user",
-						"librarySongCount"
 					]
 				}
 			},
@@ -935,6 +891,50 @@
 			"response": []
 		},
 		{
+			"name": "localhost:5000/user/librarySongCount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/librarySongCount",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"librarySongCount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "localhost:5000/user/createPlaylist",
 			"event": [
 				{
@@ -982,38 +982,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5000/user/viewPlaylist",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"pid\": \"{{pid}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:5000/user/viewPlaylist",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"user",
-						"viewPlaylist"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5000/user/playlistCount",
+			"name": "localhost:5000/user/playlistsCount",
 			"event": [
 				{
 					"listen": "test",
@@ -1043,14 +1012,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5000/user/playlistCount",
+					"raw": "localhost:5000/user/playlistsCount",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
 						"user",
-						"playlistCount"
+						"playlistsCount"
 					]
 				}
 			},
@@ -1141,6 +1110,37 @@
 					"path": [
 						"user",
 						"removePlaylistSong"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/viewPlaylistInfo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"pid\": \"{{pid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/viewPlaylistInfo",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"viewPlaylistInfo"
 					]
 				}
 			},
