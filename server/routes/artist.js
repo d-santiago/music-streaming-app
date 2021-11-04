@@ -158,17 +158,16 @@ artistRoutes.route('/artist/addAlbumtoArtistAlbums')
           });
     });
 
-
 // This route deletes each song within album
 // Should be called directly before /deleteAlbum
-artistRoutes.route('/artist/deleteAlbumSongs').delete((req, response) => {
+// artistRoutes.route('/artist/deleteAlbumSongs').delete((req, response) => {
   // const dbConnect = dbo.getDb();
   // const query = {_id: ObjectId( req.body.aid )};
   // dbConnect.collection('albums').deleteOne(query, function(err, res) {
   //   if (err) throw err;
   //   response.json(res);
   // });
-});
+// });
 
 // This route allows an artist to delete an album
 // Should be called directly before /deleteAlbumSongs
@@ -289,10 +288,10 @@ artistRoutes.route('/artist/viewSongStreams').get(function(req, response) {
 
 // This route allows an artist view an album's streams
 // Need to find each album song's streams and add them all together
-artistRoutes.route('/artist/viewAlbumStreams').get(function(req, response) {});
+// artistRoutes.route('/artist/viewAlbumStreams').get(function(req, response) {});
 
 // This route allows an artist view all of their streams
 // Find all of a user's published songs' streams and add them all together
-artistRoutes.route('/artist/viewAllStreams').get(function(req, response) {});
+// artistRoutes.route('/artist/viewAllStreams').get(function(req, response) {});
 
 module.exports = artistRoutes;

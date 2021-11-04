@@ -71,26 +71,6 @@ userRoutes.route('/user/info').get(function(req, res) {
   });
 });
 
-// This route retrieves a user using their username
-userRoutes.route('/user/findUser').get(function(req, res) {
-  const dbConnect = dbo.getDb();
-  const query = {username: req.body.username};
-  dbConnect.collection('users').findOne(query, function(err, result) {
-    if (err) throw err;
-    res.json(result);
-  });
-});
-
-// This route retrieves all artists with artistName
-userRoutes.route('/user/findArtist').get(function(req, res) {
-  const dbConnect = dbo.getDb();
-  const query = {artistName: req.body.artistName};
-  dbConnect.collection('users').findOne(query, function(err, result) {
-    if (err) throw err;
-    res.json(result);
-  });
-});
-
 // This route retrieves the number of accounts following a user
 userRoutes.route('/user/followerCount').get(function(req, res) {
   const dbConnect = dbo.getDb();
@@ -451,5 +431,46 @@ userRoutes.route('/user/removePlaylistSong').put(function(req, res) {
 // This route retrieves a the number of songs
 // within a user's specific playlist
 userRoutes.route('/user/playlistSongCount').get(function(req, res) {});
+
+
+// This route retrieves a user using their _id or username
+userRoutes.route('/user/findUser').get(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {$or: [{_id: ObjectId(req.body.uid)}, {username: req.body.username}]};
+  dbConnect.collection('users').findOne(query, function(err, result) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
+
+// This route retrieves all artists with _id or artistName
+userRoutes.route('/user/findArtist').get(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {$or: [{_id: ObjectId(req.body.uid)}, {artistName: req.body.artistName}]};
+  dbConnect.collection('users').findOne(query, function(err, result) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
+
+// This route retrieves all songs with _id or songName
+userRoutes.route('/user/findSong').get(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {$or: [{_id: ObjectId(req.body.sid)}, {songName: req.body.songName}]};
+  dbConnect.collection('songs').findOne(query, function(err, result) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
+
+// This route retrieves all songs with _id or albumName
+userRoutes.route('/user/findAlbum').get(function(req, res) {
+  const dbConnect = dbo.getDb();
+  const query = {$or: [{albumName: req.body.albumName}, {_id: ObjectId(req.body.aid)}]};
+  dbConnect.collection('albums').findOne(query, function(err, result) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
 
 module.exports = userRoutes;
