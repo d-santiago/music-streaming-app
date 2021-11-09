@@ -35,9 +35,9 @@ artistRoutes.route('/artist/createSong').post(function(req, response) {
     recordLabel: req.body.recordLabel,
     streams: 0,
   };
-  dbConnect.collection('songs').insertOne(song, function(err, res) {
+  dbConnect.collection('songs').insertOne(song, function(err, result) {
     if (err) throw err;
-    response.json(res);
+    response.json(result);
   });
 });
 
@@ -53,9 +53,9 @@ artistRoutes.route('/artist/uploadSongURLs').put(function(req, response) {
   };
   const options = {returnDocument: 'after'};
   dbConnect.collection('songs')
-      .findOneAndUpdate(query, updatedSong, options, function(err, res) {
+      .findOneAndUpdate(query, updatedSong, options, function(err, result) {
         if (err) throw err;
-        response.json(res);
+        response.json(result);
       });
 });
 
@@ -70,9 +70,9 @@ artistRoutes.route('/artist/addSongtoArtistSongs').put(function(req, response) {
     },
   };
   dbConnect.collection('users')
-      .findOneAndUpdate(query, updatedSongs, function(err, res) {
+      .findOneAndUpdate(query, updatedSongs, function(err, result) {
         if (err) throw err;
-        response.json(res);
+        response.json(result);
       });
 });
 
@@ -91,9 +91,9 @@ artistRoutes.route('/artist/editSongInfo').put(function(req, response) {
   };
   const options = {returnDocument: 'after'};
   dbConnect.collection('songs')
-      .findOneAndUpdate(query, updatedSong, options, function(err, res) {
+      .findOneAndUpdate(query, updatedSong, options, function(err, result) {
         if (err) throw err;
-        response.json(res);
+        response.json(result);
       });
 });
 
@@ -109,9 +109,9 @@ artistRoutes.route('/artist/removeSongfromArtistSongs')
         },
       };
       dbConnect.collection('users')
-          .findOneAndUpdate(query, updatedSongs, function(err, res) {
+          .findOneAndUpdate(query, updatedSongs, function(err, result) {
             if (err) throw err;
-            response.json(res);
+            response.json(result);
           });
     });
 
@@ -120,9 +120,9 @@ artistRoutes.route('/artist/removeSongfromArtistSongs')
 artistRoutes.route('/artist/deleteSingle').delete((req, response) => {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId( req.body.sid ), isSignle: true};
-  dbConnect.collection('songs').deleteOne(query, function(err, res) {
+  dbConnect.collection('songs').deleteOne(query, function(err, result) {
     if (err) throw err;
-    response.json(res);
+    response.json(result);
   });
 });
 
@@ -138,9 +138,9 @@ artistRoutes.route('/artist/createAlbum').post(function(req, response) {
     recordLabel: req.body.recordLabel,
     songs: [],
   };
-  dbConnect.collection('albums').insertOne(album, function(err, res) {
+  dbConnect.collection('albums').insertOne(album, function(err, result) {
     if (err) throw err;
-    response.json(res);
+    response.json(result);
   });
 });
 
@@ -155,9 +155,9 @@ artistRoutes.route('/artist/uploadAlbumURLs').put(function(req, response) {
   };
   const options = {returnDocument: 'after'};
   dbConnect.collection('albums')
-      .findOneAndUpdate(query, updatedAlbum, options, function(err, res) {
+      .findOneAndUpdate(query, updatedAlbum, options, function(err, result) {
         if (err) throw err;
-        response.json(res);
+        response.json(result);
       });
 });
 
@@ -173,9 +173,9 @@ artistRoutes.route('/artist/addAlbumtoArtistAlbums')
         },
       };
       dbConnect.collection('users')
-          .findOneAndUpdate(query, updatedAlbums, function(err, res) {
+          .findOneAndUpdate(query, updatedAlbums, function(err, result) {
             if (err) throw err;
-            response.json(res);
+            response.json(result);
           });
     });
 
@@ -193,9 +193,9 @@ artistRoutes.route('/artist/editAlbumInfo').put(function(req, response) {
   };
   const options = {returnDocument: 'after'};
   dbConnect.collection('albums')
-      .findOneAndUpdate(query, updatedAlbum, options, function(err, res) {
+      .findOneAndUpdate(query, updatedAlbum, options, function(err, result) {
         if (err) throw err;
-        response.json(res);
+        response.json(result);
       });
 });
 
@@ -210,9 +210,9 @@ artistRoutes.route('/artist/addSongtoAlbum').put(function(req, response) {
   };
   const options = {returnDocument: 'after'};
   dbConnect.collection('albums')
-      .findOneAndUpdate(query, updatedAlbum, options, function(err, res) {
+      .findOneAndUpdate(query, updatedAlbum, options, function(err, result) {
         if (err) throw err;
-        response.json(res);
+        response.json(result);
       });
 });
 
@@ -228,9 +228,9 @@ artistRoutes.route('/artist/addAlbumIdtoSong').put(function(req, response) {
   };
   const options = {returnDocument: 'after'};
   dbConnect.collection('songs')
-      .findOneAndUpdate(query, updatedSong, options, function(err, res) {
+      .findOneAndUpdate(query, updatedSong, options, function(err, result) {
         if (err) throw err;
-        response.json(res);
+        response.json(result);
       });
 });
 
@@ -246,9 +246,9 @@ artistRoutes.route('/artist/removeAlbumfromArtistAlbums')
         },
       };
       dbConnect.collection('users')
-          .findOneAndUpdate(query, updatedAlbums, function(err, res) {
+          .findOneAndUpdate(query, updatedAlbums, function(err, result) {
             if (err) throw err;
-            response.json(res);
+            response.json(result);
           });
     });
 
@@ -257,9 +257,9 @@ artistRoutes.route('/artist/removeAlbumfromArtistAlbums')
 // artistRoutes.route('/artist/deleteAlbumSongs').delete((req, response) => {
 //   const dbConnect = dbo.getDb();
 //   const query = {_id: ObjectId( req.body.aid )};
-//   dbConnect.collection('albums').deleteOne(query, function(err, res) {
+//   dbConnect.collection('albums').deleteOne(query, function(err, result) {
 //     if (err) throw err;
-//     response.json(res);
+//     response.json(result);
 //   });
 // });
 
@@ -268,9 +268,9 @@ artistRoutes.route('/artist/removeAlbumfromArtistAlbums')
 artistRoutes.route('/artist/deleteAlbum').delete((req, response) => {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId( req.body.aid )};
-  dbConnect.collection('albums').deleteOne(query, function(err, res) {
+  dbConnect.collection('albums').deleteOne(query, function(err, result) {
     if (err) throw err;
-    response.json(res);
+    response.json(result);
   });
 });
 
