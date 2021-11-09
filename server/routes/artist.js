@@ -23,7 +23,7 @@ artistRoutes.route('/user/listArtistRoutes').get(function(req, response) {
 // This route allows an artist to upload a song
 artistRoutes.route('/artist/createSong').post(function(req, response) {
   const dbConnect = dbo.getDb();
-  const song = {
+  const object = {
     publisher_id: ObjectId(req.body.uid),
     songURL: '',
     songName: req.body.songName,
@@ -35,7 +35,7 @@ artistRoutes.route('/artist/createSong').post(function(req, response) {
     recordLabel: req.body.recordLabel,
     streams: 0,
   };
-  dbConnect.collection('songs').insertOne(song, function(err, result) {
+  dbConnect.collection('songs').insertOne(object, function(err, result) {
     if (err) throw err;
     response.json(result);
   });
@@ -129,7 +129,7 @@ artistRoutes.route('/artist/deleteSingle').delete((req, response) => {
 // This route allows an artist to upload an album's information
 artistRoutes.route('/artist/createAlbum').post(function(req, response) {
   const dbConnect = dbo.getDb();
-  const album = {
+  const object = {
     publisher_id: ObjectId(req.body.uid),
     albumName: req.body.albumName,
     coverURL: '',
@@ -138,7 +138,7 @@ artistRoutes.route('/artist/createAlbum').post(function(req, response) {
     recordLabel: req.body.recordLabel,
     songs: [],
   };
-  dbConnect.collection('albums').insertOne(album, function(err, result) {
+  dbConnect.collection('albums').insertOne(object, function(err, result) {
     if (err) throw err;
     response.json(result);
   });

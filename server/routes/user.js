@@ -23,7 +23,7 @@ userRoutes.route('/user/listUserRoutes').get(function(req, response) {
 // This route registers a new user
 userRoutes.route('/user/register').post(function(req, response) {
   const dbConnect = dbo.getDb();
-  const user = {
+  const object = {
     username: req.body.username,
     password: req.body.password,
     name: req.body.name,
@@ -41,7 +41,7 @@ userRoutes.route('/user/register').post(function(req, response) {
     albums: [],
     playlist: [],
   };
-  dbConnect.collection('users').insertOne(user, function(err, result) {
+  dbConnect.collection('users').insertOne(object, function(err, result) {
     if (err) throw err;
     response.json(result);
   });
