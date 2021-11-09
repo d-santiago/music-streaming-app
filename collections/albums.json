@@ -1,11 +1,12 @@
-[
+[   
     {
-        "publisher_id": "",
-        "albumName": "",
-        "coverURL": "",
-        "genre": "",
-        "releaseDate": "",
-        "recordLabel": "",
-        "songs": []
+        
+        "albumURL":"https://myashamusic.s3.us-east-2.amazonaws.com/Growing+Pains+Vol+2/",
+        "albumName":"Growing Pains, Vol 2",
+        "coverURL":"https://myashamusic.s3.us-east-2.amazonaws.com/Growing+Pains+Vol+2/artwork.png",
+        "songs":[{"$oid":"61776035f20535a31b19d77d"},{"$oid":"61776035f20535a31b19d77d"},{"$oid":"61776035f20535a31b19d77d"},{"$oid":"61776035f20535a31b19d77d"},{"$oid":"61776035f20535a31b19d77d"},{"$oid":"61776035f20535a31b19d77d"},{"$oid":"61776035f20535a31b19d77d"},{"$oid":"61776035f20535a31b19d77d"},{"$oid":"61776035f20535a31b19d77d"},{"$oid":"61776035f20535a31b19d77d"}],
+        "genre":"Hip Hop",
+        "releaseDate":"11/04/2021",
+        "recordLabel":"Really Far Media"
     }
 ]
