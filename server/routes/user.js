@@ -845,17 +845,6 @@ userRoutes.route('/user/viewPlaylistInfo').get(function(req, response) {
 });
 
 /**
-  * GET /user/playlistSongCount
-  * @summary Counts number of songs in user's playlist
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} pid [(p)laylist _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
-  * {}
-*/
-userRoutes.route('/user/playlistSongCount').get(function(req, response) {});
-
-/**
   * DELETE /user/deletePlaylist
   * @summary Deletes user's playlist
   * @bodyParam {string} uid [(u)ser _id]
@@ -886,5 +875,26 @@ userRoutes.route('/user/deletePlaylist').put(function(req, response) {
         response.json(result);
       });
 });
+
+/**
+  * GET /user/playlistSongCount
+  * @summary Counts number of songs in user's playlist
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} pid [(p)laylist _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {}
+*/
+userRoutes.route('/user/playlistSongCount').get(function(req, response) {});
+
+/**
+  * GET /user/recentlyAddedSongs
+  * @summary Retrieves last five songs added to user's library
+  * @bodyParam {string} uid [(u)ser _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {}
+*/
+userRoutes.route('/user/recentlyAddedSongs').get(function(req, response) {});
 
 module.exports = userRoutes;
