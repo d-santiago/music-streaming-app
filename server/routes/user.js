@@ -57,8 +57,6 @@ userRoutes.route('/user/register').post(function(req, response) {
     isArtist: false,
     artistName: '',
     recordLabel: '',
-    songs: [],
-    albums: [],
     playlist: [],
   };
   dbConnect.collection('users').insertOne(object, function(err, result) {
@@ -89,9 +87,7 @@ userRoutes.route('/user/register').post(function(req, response) {
   *   "isArtist": false,
   *   "artistName": "",
   *   "recordLabel": "",
-  *   "songs": [],
-  *   "albums": [],
-  *   "playlist": []
+  *   "playlists": []
   * }
 */
 userRoutes.route('/user/login').get(function(req, response) {
@@ -439,9 +435,7 @@ userRoutes.route('/user/delete').delete((req, response) => {
   *   "isArtist": false,
   *   "artistName": "",
   *   "recordLabel": "",
-  *   "songs": [],
-  *   "albums": [],
-  *   "playlist": []
+  *   "playlists": []
   * }
 */
 userRoutes.route('/user/getUser').get(function(req, response) {
@@ -480,9 +474,7 @@ userRoutes.route('/user/getUser').get(function(req, response) {
   *   "isArtist": true,
   *   "artistName": "Rachel Hill",
   *   "recordLabel": "Hill Records",
-  *   "songs": [],
-  *   "albums": [],
-  *   "playlist": []
+  *   "playlists": []
   * }
 */
 userRoutes.route('/user/getArtist').get(function(req, response) {
@@ -508,6 +500,7 @@ userRoutes.route('/user/getArtist').get(function(req, response) {
   * @example response - 200 - success response example
   * {
   *   "publisher_id": "618180e6be267e1ce26a8095",
+  *   "isPublished" : false,
   *   "songURL": "www.nyu.edu",
   *   "songName": "Song",
   *   "coverURL": "www.nyu.edu",
@@ -542,11 +535,13 @@ userRoutes.route('/user/getSong').get(function(req, response) {
   * @example response - 200 - success response example
   * {
   *   "publisher_id": "618180e6be267e1ce26a8095",
+  *   "isPublished" : false,
   *   "albumName": "Album",
   *   "coverURL": "www.nyu.edu",
   *   "genre": "Hip Hop",
   *   "releaseDate": "11/09/2021",
   *   "recordLabel": "Hill Records",
+  *   "songs": [],
   *   "streams": 23
   * }
 */
