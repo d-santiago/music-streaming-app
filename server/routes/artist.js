@@ -45,7 +45,7 @@ artistRoutes.route('/artist/createSong').post(function(req, response) {
 artistRoutes.route('/artist/uploadSongURLs').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.sid)};
-  const updatedSong = {
+  const update = {
     $set: {
       songURL: req.body.songURL,
       coverURL: req.body.coverURL,
@@ -53,7 +53,7 @@ artistRoutes.route('/artist/uploadSongURLs').put(function(req, response) {
   };
   const options = {returnDocument: 'after'};
   dbConnect.collection('songs')
-      .findOneAndUpdate(query, updatedSong, options, function(err, result) {
+      .findOneAndUpdate(query, update, options, function(err, result) {
         if (err) throw err;
         response.json(result);
       });
@@ -64,13 +64,13 @@ artistRoutes.route('/artist/uploadSongURLs').put(function(req, response) {
 artistRoutes.route('/artist/addSongtoArtistSongs').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
-  const updatedSongs = {
+  const update = {
     $push: {
       songs: ObjectId(req.body.sid),
     },
   };
   dbConnect.collection('users')
-      .findOneAndUpdate(query, updatedSongs, function(err, result) {
+      .findOneAndUpdate(query, update, function(err, result) {
         if (err) throw err;
         response.json(result);
       });
@@ -80,7 +80,7 @@ artistRoutes.route('/artist/addSongtoArtistSongs').put(function(req, response) {
 artistRoutes.route('/artist/editSongInfo').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.sid)};
-  const updatedSong = {
+  const update = {
     $set: {
       songName: req.body.songName,
       isSignle: req.body.isSignle,
@@ -91,7 +91,7 @@ artistRoutes.route('/artist/editSongInfo').put(function(req, response) {
   };
   const options = {returnDocument: 'after'};
   dbConnect.collection('songs')
-      .findOneAndUpdate(query, updatedSong, options, function(err, result) {
+      .findOneAndUpdate(query, update, options, function(err, result) {
         if (err) throw err;
         response.json(result);
       });
@@ -103,13 +103,13 @@ artistRoutes.route('/artist/removeSongfromArtistSongs')
     .put(function(req, response) {
       const dbConnect = dbo.getDb();
       const query = {_id: ObjectId(req.body.uid)};
-      const updatedSongs = {
+      const update = {
         $pull: {
           songs: ObjectId(req.body.sid),
         },
       };
       dbConnect.collection('users')
-          .findOneAndUpdate(query, updatedSongs, function(err, result) {
+          .findOneAndUpdate(query, update, function(err, result) {
             if (err) throw err;
             response.json(result);
           });
@@ -148,14 +148,14 @@ artistRoutes.route('/artist/createAlbum').post(function(req, response) {
 artistRoutes.route('/artist/uploadAlbumURLs').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.aid)};
-  const updatedAlbum = {
+  const update = {
     $set: {
       coverURL: req.body.coverURL,
     },
   };
   const options = {returnDocument: 'after'};
   dbConnect.collection('albums')
-      .findOneAndUpdate(query, updatedAlbum, options, function(err, result) {
+      .findOneAndUpdate(query, update, options, function(err, result) {
         if (err) throw err;
         response.json(result);
       });
@@ -167,13 +167,13 @@ artistRoutes.route('/artist/addAlbumtoArtistAlbums')
     .put(function(req, response) {
       const dbConnect = dbo.getDb();
       const query = {_id: ObjectId(req.body.uid)};
-      const updatedAlbums = {
+      const update = {
         $push: {
           albums: ObjectId(req.body.aid),
         },
       };
       dbConnect.collection('users')
-          .findOneAndUpdate(query, updatedAlbums, function(err, result) {
+          .findOneAndUpdate(query, update, function(err, result) {
             if (err) throw err;
             response.json(result);
           });
@@ -183,7 +183,7 @@ artistRoutes.route('/artist/addAlbumtoArtistAlbums')
 artistRoutes.route('/artist/editAlbumInfo').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.aid)};
-  const updatedAlbum = {
+  const update = {
     $set: {
       albumName: req.body.albumName,
       genre: req.body.genre,
@@ -193,7 +193,7 @@ artistRoutes.route('/artist/editAlbumInfo').put(function(req, response) {
   };
   const options = {returnDocument: 'after'};
   dbConnect.collection('albums')
-      .findOneAndUpdate(query, updatedAlbum, options, function(err, result) {
+      .findOneAndUpdate(query, update, options, function(err, result) {
         if (err) throw err;
         response.json(result);
       });
@@ -203,14 +203,14 @@ artistRoutes.route('/artist/editAlbumInfo').put(function(req, response) {
 artistRoutes.route('/artist/addSongtoAlbum').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.aid)};
-  const updatedAlbum = {
+  const update = {
     $push: {
       songs: ObjectId(req.body.sid),
     },
   };
   const options = {returnDocument: 'after'};
   dbConnect.collection('albums')
-      .findOneAndUpdate(query, updatedAlbum, options, function(err, result) {
+      .findOneAndUpdate(query, update, options, function(err, result) {
         if (err) throw err;
         response.json(result);
       });
@@ -221,14 +221,14 @@ artistRoutes.route('/artist/addSongtoAlbum').put(function(req, response) {
 artistRoutes.route('/artist/addAlbumIdtoSong').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.sid)};
-  const updatedSong = {
+  const update = {
     $set: {
       album_id: ObjectId(req.body.aid),
     },
   };
   const options = {returnDocument: 'after'};
   dbConnect.collection('songs')
-      .findOneAndUpdate(query, updatedSong, options, function(err, result) {
+      .findOneAndUpdate(query, update, options, function(err, result) {
         if (err) throw err;
         response.json(result);
       });
@@ -240,13 +240,13 @@ artistRoutes.route('/artist/removeAlbumfromArtistAlbums')
     .put(function(req, response) {
       const dbConnect = dbo.getDb();
       const query = {_id: ObjectId(req.body.uid)};
-      const updatedAlbums = {
+      const update = {
         $pull: {
           albums: ObjectId(req.body.aid),
         },
       };
       dbConnect.collection('users')
-          .findOneAndUpdate(query, updatedAlbums, function(err, result) {
+          .findOneAndUpdate(query, update, function(err, result) {
             if (err) throw err;
             response.json(result);
           });
