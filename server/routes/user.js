@@ -12,15 +12,35 @@ const dbo = require('../db/conn');
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require('mongodb').ObjectId;
 
-// This route lists all user routes
+/**
+  * GET /user/listUserRoutes
+  * @summary Lists all /user routes
+  * @return {object} 200 - success response
+  * @example response - 200 - success response example
+  *   GET      /user/listUserRoutes
+  *   POST     /user/register
+  *   GET      /user/login
+*/
 userRoutes.route('/user/listUserRoutes').get(function(req, response) {
   const listRoutes = require('express-list-routes');
-  console.log('\n ---------------- USER ROUTES ---------------- \n');
   response.json(listRoutes(userRoutes));
-  console.log('\n ---------------- USER ROUTES ---------------- \n');
 });
 
-// This route registers a new user
+/**
+  * POST /user/register
+  * @summary Registers a new user
+  * @bodyParam {string} username
+  * @bodyParam {string} password
+  * @bodyParam {string} name
+  * @bodyParam {string} email
+  * @bodyParam {string} dob
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  *  {
+  *   "acknowledged": true,
+  *   "insertedId": "618abe92566a75abbb72af02"
+  *  }
+*/
 userRoutes.route('/user/register').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const object = {
@@ -47,8 +67,33 @@ userRoutes.route('/user/register').post(function(req, response) {
   });
 });
 
-// This route verifies a user's login
-// To retrieve specific user <field>: result.<field>
+/**
+  * GET /user/login
+  * @summary Verifies a user's login
+  * @bodyParam {string} username
+  * @bodyParam {string} password
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "_id": "618180e6be267e1ce26a8095",
+  *   "username": "hillrachel",
+  *   "password": "password",
+  *   "name": "Katherine",
+  *   "email": "timothy78@hotmail.com",
+  *   "dob": "1988-06-20T22:15:34Z",
+  *   "followers": [],
+  *   "following": [],
+  *   "bio": "",
+  *   "library": [],
+  *   "genres": [],
+  *   "isArtist": false,
+  *   "artistName": "",
+  *   "recordLabel": "",
+  *   "songs": [],
+  *   "albums": [],
+  *   "playlist": []
+  * }
+*/
 userRoutes.route('/user/login').get(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {
@@ -61,17 +106,17 @@ userRoutes.route('/user/login').get(function(req, response) {
   });
 });
 
-// This route retrieves a user's information
-userRoutes.route('/user/info').get(function(req, response) {
-  const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.uid)};
-  dbConnect.collection('users').findOne(query, function(err, result) {
-    if (err) throw err;
-    response.json(result);
-  });
-});
-
-// This route retrieves the number of accounts following a user
+/**
+  * GET /user/followerCount
+  * @summary Retrieves the number of accounts following a user
+  * @bodyParam {string} uid [(u)ser _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  *  {
+  *   "_id": "617993da4ffb8072f0aec7a3",
+  *   "count": 0
+  *  }
+*/
 userRoutes.route('/user/followerCount').get(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -83,7 +128,17 @@ userRoutes.route('/user/followerCount').get(function(req, response) {
       });
 });
 
-// This route retrieves a the number of accounts a user is following
+/**
+  * GET /user/followingCount
+  * @summary Retrieves the number of accounts a user is following
+  * @bodyParam {string} uid [(u)ser _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  *  {
+  *   "_id": "617993da4ffb8072f0aec7a3",
+  *   "count": 0
+  *  }
+*/
 userRoutes.route('/user/followingCount').get(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -95,41 +150,81 @@ userRoutes.route('/user/followingCount').get(function(req, response) {
       });
 });
 
-// This route allows a user to follow another user
+/**
+  * PUT /user/follow
+  * @summary Allows user to follow an account
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} ouid [(o)ther (u)ser _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/follow').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
   const update = {
     $push: {
-      following: ObjectId(req.body.ouid), // oid = other user id
+      following: ObjectId(req.body.ouid),
     },
   };
-  const options = {returnDocument: 'after'};
   dbConnect.collection('users')
-      .findOneAndUpdate(query, update, options, function(err, result) {
+      .updateOne(query, update, function(err, result) {
         if (err) throw err;
         response.json(result);
       });
 });
 
-// This route allows a user to unfollow another user
+/**
+  * PUT /user/unfollow
+  * @summary Allows a user to unfollow an account
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} ouid [(o)ther (u)ser _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/unfollow').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
   const update = {
     $pull: {
-      following: ObjectId(req.body.ouid), // oid = other user id
+      following: ObjectId(req.body.ouid),
     },
   };
-  const options = {returnDocument: 'after'};
   dbConnect.collection('users')
-      .findOneAndUpdate(query, update, options, function(err, result) {
+      .updateOne(query, update, function(err, result) {
         if (err) throw err;
         response.json(result);
       });
 });
 
-// This route allows a user to update their username
+/**
+  * PUT /user/updateUsername
+  * @summary Updates user's username
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} newUsername
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/updateUsername').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -138,15 +233,28 @@ userRoutes.route('/user/updateUsername').put(function(req, response) {
       username: req.body.newUsername,
     },
   };
-  const options = {returnDocument: 'after'};
   dbConnect.collection('users')
-      .findOneAndUpdate(query, update, options, function(err, result) {
+      .updateOne(query, update, function(err, result) {
         if (err) throw err;
         response.json(result);
       });
 });
 
-// This route allows a user to update their password
+/**
+  * PUT /user/updatePassword
+  * @summary Updates user's password
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} newPassword
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/updatePassword').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -155,15 +263,29 @@ userRoutes.route('/user/updatePassword').put(function(req, response) {
       password: req.body.newPassword,
     },
   };
-  const options = {returnDocument: 'after'};
   dbConnect.collection('users')
-      .findOneAndUpdate(query, update, options, function(err, result) {
+      .updateOne(query, update, function(err, result) {
         if (err) throw err;
         response.json(result);
       });
 });
 
-// This route allows a user to update their profile
+/**
+  * PUT /user/updateProfile
+  * @summary Updates user's profile
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} name
+  * @bodyParam {string} bio
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/updateProfile').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -180,7 +302,22 @@ userRoutes.route('/user/updateProfile').put(function(req, response) {
       });
 });
 
-// This route allows a user to update their personal information
+/**
+  * PUT /user/updatePersonalInfo
+  * @summary Updates user's personal information
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} email
+  * @bodyParam {string} dob
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/updatePersonalInfo').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -197,7 +334,21 @@ userRoutes.route('/user/updatePersonalInfo').put(function(req, response) {
       });
 });
 
-// This route allows a user to update their preferred genres
+/**
+  * PUT /user/updateGenres
+  * @summary Updates user's preferred genres of music
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {list} genres
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/updateGenres').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -213,7 +364,22 @@ userRoutes.route('/user/updateGenres').put(function(req, response) {
       });
 });
 
-// This route allows a user to update their status to 'Artist'
+/**
+  * PUT /user/switchToArtist
+  * @summary Updates user to 'Artist' status
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} artistName
+  * @bodyParam {string} recordLabel
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/switchToArtist').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -231,7 +397,17 @@ userRoutes.route('/user/switchToArtist').put(function(req, response) {
       });
 });
 
-// This route allows a user to delete their account
+/**
+  * DELETE /user/delete
+  * @summary Deletes user's account
+  * @bodyParam {string} uid [(u)ser _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "deletedCount": 1
+  * }
+*/
 userRoutes.route('/user/delete').delete((req, response) => {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId( req.body.uid )};
@@ -241,34 +417,174 @@ userRoutes.route('/user/delete').delete((req, response) => {
   });
 });
 
-// This route allows a user to view a song's information
-userRoutes.route('/user/viewSongInfo').get(function(req, response) {
+/**
+  * GET /user/getUser
+  * @summary Retrieves user with uid or username
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} username
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  *  {
+  *   "_id": "618180e6be267e1ce26a8095",
+  *   "username": "hillrachel",
+  *   "password": "password",
+  *   "name": "Katherine",
+  *   "email": "timothy78@hotmail.com",
+  *   "dob": "1988-06-20T22:15:34Z",
+  *   "followers": [],
+  *   "following": [],
+  *   "bio": "",
+  *   "library": [],
+  *   "genres": [],
+  *   "isArtist": false,
+  *   "artistName": "",
+  *   "recordLabel": "",
+  *   "songs": [],
+  *   "albums": [],
+  *   "playlist": []
+  * }
+*/
+userRoutes.route('/user/getUser').get(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.sid)};
+  const query = {
+    $or: [
+      {_id: ObjectId(req.body.uid)},
+      {username: req.body.username},
+    ],
+  };
+  dbConnect.collection('users').findOne(query, function(err, result) {
+    if (err) throw err;
+    response.json(result);
+  });
+});
+
+/**
+  * GET /user/getArtist
+  * @summary Retrieves artist with uid or multiple artists with artistName
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} artistName
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  *  {
+  *   "_id": "618180e6be267e1ce26a8095",
+  *   "username": "hillrachel",
+  *   "password": "password",
+  *   "name": "Katherine",
+  *   "email": "timothy78@hotmail.com",
+  *   "dob": "1988-06-20T22:15:34Z",
+  *   "followers": [],
+  *   "following": [],
+  *   "bio": "",
+  *   "library": [],
+  *   "genres": [],
+  *   "isArtist": true,
+  *   "artistName": "Rachel Hill",
+  *   "recordLabel": "Hill Records",
+  *   "songs": [],
+  *   "albums": [],
+  *   "playlist": []
+  * }
+*/
+userRoutes.route('/user/getArtist').get(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {
+    $or: [
+      {_id: ObjectId(req.body.uid)},
+      {artistName: req.body.artistName},
+    ],
+  };
+  dbConnect.collection('users').findOne(query, function(err, result) {
+    if (err) throw err;
+    response.json(result);
+  });
+});
+
+/**
+  * GET /user/getSong
+  * @summary Retrieves song with sid or all songs with songName
+  * @bodyParam {string} sid [(s)ong _id]
+  * @bodyParam {string} songName
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "publisher_id": "618180e6be267e1ce26a8095",
+  *   "songURL": "www.nyu.edu",
+  *   "songName": "Song",
+  *   "coverURL": "www.nyu.edu",
+  *   "isSignle": true,
+  *   "album_id": "6172164ab0a90ecefbc9f391",
+  *   "genre": "Hip Hop",
+  *   "releaseDate": "11/09/2021",
+  *   "recordLabel": "Hill Records",
+  *   "streams": 23
+  * }
+*/
+userRoutes.route('/user/getSong').get(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {
+    $or: [
+      {_id: ObjectId(req.body.sid)},
+      {songName: req.body.songName},
+    ],
+  };
   dbConnect.collection('songs').findOne(query, function(err, result) {
     if (err) throw err;
     response.json(result);
   });
 });
 
-// This route allows a user to view an album's information
-userRoutes.route('/user/viewAlbumInfo').get(function(req, response) {
+/**
+  * GET /user/getAlbum
+  * @summary Retrieves album with aid or all albums with albumName
+  * @bodyParam {string} aid [(a)lbum _id]
+  * @bodyParam {string} albumName
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "publisher_id": "618180e6be267e1ce26a8095",
+  *   "albumName": "Album",
+  *   "coverURL": "www.nyu.edu",
+  *   "genre": "Hip Hop",
+  *   "releaseDate": "11/09/2021",
+  *   "recordLabel": "Hill Records",
+  *   "streams": 23
+  * }
+*/
+// This route retrieves album with _id or all albums with albumName
+userRoutes.route('/user/getAlbum').get(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.aid)};
+  const query = {
+    $or: [
+      {albumName: req.body.albumName},
+      {_id: ObjectId(req.body.aid)},
+    ],
+  };
   dbConnect.collection('albums').findOne(query, function(err, result) {
     if (err) throw err;
     response.json(result);
   });
 });
 
-// This route increment's a song's stream count by 1
+/**
+  * PUT /user/incrementSongStream
+  * @summary Increments a song's stream count by 1
+  * @bodyParam {string} sid [(s)ong _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/incrementSongStream').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.sid)};
   const update = {
     $inc: {streams: 1},
   };
-
   dbConnect.collection('songs')
       .updateOne(query, update, function(err, result) {
         if (err) throw err;
@@ -276,7 +592,21 @@ userRoutes.route('/user/incrementSongStream').put(function(req, response) {
       });
 });
 
-// This route allows a user add a song to their library
+/**
+  * PUT /user/addLibrarySong
+  * @summary Adds song to user's library
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} sid [(s)ong _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/addLibrarySong').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -285,7 +615,6 @@ userRoutes.route('/user/addLibrarySong').put(function(req, response) {
       library: ObjectId(req.body.sid),
     },
   };
-
   dbConnect.collection('users')
       .updateOne(query, update, function(err, result) {
         if (err) throw err;
@@ -293,7 +622,21 @@ userRoutes.route('/user/addLibrarySong').put(function(req, response) {
       });
 });
 
-// This route allows a user remove a song from their library
+/**
+  * PUT /user/removeLibrarySong
+  * @summary Removes song from user's library
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} sid [(s)ong _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/removeLibrarySong').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -302,7 +645,6 @@ userRoutes.route('/user/removeLibrarySong').put(function(req, response) {
       library: ObjectId(req.body.sid),
     },
   };
-
   dbConnect.collection('users')
       .updateOne(query, update, function(err, result) {
         if (err) throw err;
@@ -310,7 +652,17 @@ userRoutes.route('/user/removeLibrarySong').put(function(req, response) {
       });
 });
 
-// This route retrieves the number of songs in a user's library
+/**
+  * GET /user/librarySongCount
+  * @summary Counts number of songs in user's library
+  * @bodyParam {string} uid [(u)ser _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "_id": "617993da4ffb8072f0aec7a3",
+  *   "count": 1
+  * }
+*/
 userRoutes.route('/user/librarySongCount').get(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -322,7 +674,21 @@ userRoutes.route('/user/librarySongCount').get(function(req, response) {
       });
 });
 
-// This route allows a user create a playlist
+/**
+  * PUT /user/createPlaylist
+  * @summary Creates a playlist
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} name
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/createPlaylist').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -335,15 +701,24 @@ userRoutes.route('/user/createPlaylist').put(function(req, response) {
       },
     },
   };
-  const options = {returnDocument: 'after'};
   dbConnect.collection('users')
-      .findOneAndUpdate(query, update, options, function(err, result) {
+      .updateOne(query, update, function(err, result) {
         if (err) throw err;
         response.json(result);
       });
 });
 
-// This route retrieves the number of playlists that a user has
+/**
+  * GET /user/playlistsCount
+  * @summary Counts number of user's playlists
+  * @bodyParam {string} uid [(u)ser _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "_id": "617993da4ffb8072f0aec7a3",
+  *   "count": 3
+  * }
+*/
 userRoutes.route('/user/playlistsCount').get(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -355,7 +730,22 @@ userRoutes.route('/user/playlistsCount').get(function(req, response) {
       });
 });
 
-// This route allows a user add a song to their playlist
+/**
+  * PUT /user/addPlaylistSong
+  * @summary Adds song to user's playlist
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} pid [(p)laylist _id]
+  * @bodyParam {string} sid [(s)ong _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/addPlaylistSong').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {
@@ -374,7 +764,22 @@ userRoutes.route('/user/addPlaylistSong').put(function(req, response) {
       });
 });
 
-// This route allows a user remove a song from their playlist
+/**
+  * PUT /user/removePlaylistSong
+  * @summary Removes song from user's playlist
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} pid [(p)laylist _id]
+  * @bodyParam {string} sid [(s)ong _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/removePlaylistSong').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {
@@ -393,7 +798,24 @@ userRoutes.route('/user/removePlaylistSong').put(function(req, response) {
       });
 });
 
-// This route retrieves information about a user's specific playlist
+/**
+  * GET /user/viewPlaylistInfo
+  * @summary Retrieves a playlist's information
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} pid [(p)laylist _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "_id": "617993da4ffb8072f0aec7a3",
+  *   "playlists": [
+  *     {
+  *       "_id": "618acbc7ab41952375cab208",
+  *       "name": "Favorite Songs",
+  *       "songs": []
+  *     }
+  *   ]
+  * }
+*/
 userRoutes.route('/user/viewPlaylistInfo').get(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {
@@ -408,11 +830,32 @@ userRoutes.route('/user/viewPlaylistInfo').get(function(req, response) {
       });
 });
 
-// This route retrieves the number of songs
-// within a user's specific playlist
+/**
+  * GET /user/playlistSongCount
+  * @summary Counts number of songs in user's playlist
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} pid [(p)laylist _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {}
+*/
 userRoutes.route('/user/playlistSongCount').get(function(req, response) {});
 
-// This route allows a user delete a playlist
+/**
+  * DELETE /user/deletePlaylist
+  * @summary Deletes user's playlist
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} pid [(p)laylist _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
 userRoutes.route('/user/deletePlaylist').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
@@ -428,66 +871,6 @@ userRoutes.route('/user/deletePlaylist').put(function(req, response) {
         if (err) throw err;
         response.json(result);
       });
-});
-
-// This route retrieves user with _id or username
-userRoutes.route('/user/findUser').get(function(req, response) {
-  const dbConnect = dbo.getDb();
-  const query = {
-    $or: [
-      {_id: ObjectId(req.body.uid)},
-      {username: req.body.username},
-    ],
-  };
-  dbConnect.collection('users').findOne(query, function(err, result) {
-    if (err) throw err;
-    response.json(result);
-  });
-});
-
-// This route retrieves artist with _id or all artists with artistName
-userRoutes.route('/user/findArtist').get(function(req, response) {
-  const dbConnect = dbo.getDb();
-  const query = {
-    $or: [
-      {_id: ObjectId(req.body.uid)},
-      {artistName: req.body.artistName},
-    ],
-  };
-  dbConnect.collection('users').findOne(query, function(err, result) {
-    if (err) throw err;
-    response.json(result);
-  });
-});
-
-// This route retrieves all song with _id or all songs with songName
-userRoutes.route('/user/findSong').get(function(req, response) {
-  const dbConnect = dbo.getDb();
-  const query = {
-    $or: [
-      {_id: ObjectId(req.body.sid)},
-      {songName: req.body.songName},
-    ],
-  };
-  dbConnect.collection('songs').findOne(query, function(err, result) {
-    if (err) throw err;
-    response.json(result);
-  });
-});
-
-// This route retrieves album with _id or all albums with albumName
-userRoutes.route('/user/findAlbum').get(function(req, response) {
-  const dbConnect = dbo.getDb();
-  const query = {
-    $or: [
-      {albumName: req.body.albumName},
-      {_id: ObjectId(req.body.aid)},
-    ],
-  };
-  dbConnect.collection('albums').findOne(query, function(err, result) {
-    if (err) throw err;
-    response.json(result);
-  });
 });
 
 module.exports = userRoutes;
