@@ -38,7 +38,7 @@ userRoutes.route('/user/listUserRoutes').get(function(req, response) {
   * @example response - 200 - success response example
   *  {
   *   "acknowledged": true,
-  *   "insertedId": "618abe92566a75abbb72af02"
+  *   "insertedId": "618aed07fe81ff536b7b3cfc"
   *  }
 */
 userRoutes.route('/user/register').post(function(req, response) {
@@ -73,20 +73,20 @@ userRoutes.route('/user/register').post(function(req, response) {
   * @return {object} 200 - success response - application/json
   * @example response - 200 - success response example
   * {
-  *   "_id": "618180e6be267e1ce26a8095",
-  *   "username": "hillrachel",
+  *   "_id": "618aed07fe81ff536b7b3cfc",
+  *   "username": "abedislam",
   *   "password": "password",
-  *   "name": "Katherine",
-  *   "email": "timothy78@hotmail.com",
-  *   "dob": "1988-06-20T22:15:34Z",
+  *   "name": "Abed Islam",
+  *   "email": "abedislam@music.com",
+  *   "dob": "",
   *   "followers": [],
   *   "following": [],
   *   "bio": "",
   *   "library": [],
   *   "genres": [],
-  *   "isArtist": false,
-  *   "artistName": "",
-  *   "recordLabel": "",
+  *   "isArtist": true,
+  *   "artistName": "Abed Islam",
+  *   "recordLabel": "Really Far Media",
   *   "playlists": []
   * }
 */
@@ -109,7 +109,7 @@ userRoutes.route('/user/login').get(function(req, response) {
   * @return {object} 200 - success response - application/json
   * @example response - 200 - success response example
   *  {
-  *   "_id": "617993da4ffb8072f0aec7a3",
+  *   "_id": "618aed07fe81ff536b7b3cfc",
   *   "count": 0
   *  }
 */
@@ -131,7 +131,7 @@ userRoutes.route('/user/followerCount').get(function(req, response) {
   * @return {object} 200 - success response - application/json
   * @example response - 200 - success response example
   *  {
-  *   "_id": "617993da4ffb8072f0aec7a3",
+  *   "_id": "618aed07fe81ff536b7b3cfc",
   *   "count": 0
   *  }
 */
@@ -420,21 +420,21 @@ userRoutes.route('/user/delete').delete((req, response) => {
   * @bodyParam {string} username
   * @return {object} 200 - success response - application/json
   * @example response - 200 - success response example
-  *  {
-  *   "_id": "618180e6be267e1ce26a8095",
-  *   "username": "hillrachel",
+  * {
+  *   "_id": "618aed07fe81ff536b7b3cfc",
+  *   "username": "abedislam",
   *   "password": "password",
-  *   "name": "Katherine",
-  *   "email": "timothy78@hotmail.com",
-  *   "dob": "1988-06-20T22:15:34Z",
+  *   "name": "Abed Islam",
+  *   "email": "abedislam@music.com",
+  *   "dob": "",
   *   "followers": [],
   *   "following": [],
   *   "bio": "",
   *   "library": [],
   *   "genres": [],
-  *   "isArtist": false,
-  *   "artistName": "",
-  *   "recordLabel": "",
+  *   "isArtist": true,
+  *   "artistName": "Abed Islam",
+  *   "recordLabel": "Really Far Media",
   *   "playlists": []
   * }
 */
@@ -459,21 +459,21 @@ userRoutes.route('/user/getUser').get(function(req, response) {
   * @bodyParam {string} artistName
   * @return {object} 200 - success response - application/json
   * @example response - 200 - success response example
-  *  {
-  *   "_id": "618180e6be267e1ce26a8095",
-  *   "username": "hillrachel",
+  * {
+  *   "_id": "618aed07fe81ff536b7b3cfc",
+  *   "username": "abedislam",
   *   "password": "password",
-  *   "name": "Katherine",
-  *   "email": "timothy78@hotmail.com",
-  *   "dob": "1988-06-20T22:15:34Z",
+  *   "name": "Abed Islam",
+  *   "email": "abedislam@music.com",
+  *   "dob": "",
   *   "followers": [],
   *   "following": [],
   *   "bio": "",
   *   "library": [],
   *   "genres": [],
   *   "isArtist": true,
-  *   "artistName": "Rachel Hill",
-  *   "recordLabel": "Hill Records",
+  *   "artistName": "Abed Islam",
+  *   "recordLabel": "Really Far Media",
   *   "playlists": []
   * }
 */
@@ -499,17 +499,20 @@ userRoutes.route('/user/getArtist').get(function(req, response) {
   * @return {object} 200 - success response - application/json
   * @example response - 200 - success response example
   * {
-  *   "publisher_id": "618180e6be267e1ce26a8095",
-  *   "isPublished" : false,
-  *   "songURL": "www.nyu.edu",
-  *   "songName": "Song",
-  *   "coverURL": "www.nyu.edu",
-  *   "isSignle": true,
-  *   "album_id": "6172164ab0a90ecefbc9f391",
+  *   "_id": "618ae4c46d23e189de72d67f",
+  *   "publisher_id": "618aed07fe81ff536b7b3cfc",
+  *   "isPublished": true,
+  *   "songURL": "https://myashamusic.s3.us-east-2.amazonaws.com/Growing+Pains+Vol+2/Act+1+Night.mp3",
+  *   "songName": "Act 1: Night",
+  *   "coverURL": "https://myashamusic.s3.us-east-2.amazonaws.com/Growing+Pains+Vol+2/artwork.png",
+  *   "isSignle": false,
+  *   "fromAlbum": true,
+  *   "albumName": "Growing Pains, Vol 2",
   *   "genre": "Hip Hop",
-  *   "releaseDate": "11/09/2021",
-  *   "recordLabel": "Hill Records",
-  *   "streams": 23
+  *   "releaseDate": "11/04/2021",
+  *   "recordLabel": "Really Far Media",
+  *   "streams": 87,
+  *   "album_id": "618ae4f86d23e189de72f3cb"
   * }
 */
 userRoutes.route('/user/getSong').get(function(req, response) {
@@ -534,15 +537,31 @@ userRoutes.route('/user/getSong').get(function(req, response) {
   * @return {object} 200 - success response - application/json
   * @example response - 200 - success response example
   * {
-  *   "publisher_id": "618180e6be267e1ce26a8095",
-  *   "isPublished" : false,
-  *   "albumName": "Album",
-  *   "coverURL": "www.nyu.edu",
-  *   "genre": "Hip Hop",
-  *   "releaseDate": "11/09/2021",
-  *   "recordLabel": "Hill Records",
-  *   "songs": [],
-  *   "streams": 23
+  *   "_id": "618ae4f86d23e189de72f3cb",
+  *   "publisher_id": "618aed07fe81ff536b7b3cfc",
+  *   "isPublished": "true",
+  *   "albumURL": "https://myashamusic.s3.us-east-2.amazonaws.com/Growing+Pains+Vol+2/",
+  *   "albumName": "Growing Pains, Vol 2",
+  *   "coverURL": "https://myashamusic.s3.us-east-2.amazonaws.com/Growing+Pains+Vol+2/artwork.png",
+  *   "songs": [
+  *     "618ae4c46d23e189de72d67f",
+  *     "618ae4c46d23e189de72d680",
+  *     "618ae4c46d23e189de72d681",
+  *     "618ae4c46d23e189de72d682",
+  *     "618ae4c46d23e189de72d683",
+  *     "618ae4c46d23e189de72d684",
+  *     "618ae4c46d23e189de72d685",
+  *     "618ae4c46d23e189de72d686",
+  *     "618ae4c46d23e189de72d687",
+  *     "618ae4c46d23e189de72d688",
+  *     "618ae4c46d23e189de72d68a",
+  *     "618ae4c46d23e189de72d68b",
+  *     "618ae4c46d23e189de72d68c",
+  *     "618ae4c46d23e189de72d68d"
+  *   ],
+  * "genre": "Hip Hop",
+  * "releaseDate": "11/04/2021",
+  * "recordLabel": "Really Far Media"
   * }
 */
 // This route retrieves album with _id or all albums with albumName
@@ -710,8 +729,8 @@ userRoutes.route('/user/createPlaylist').put(function(req, response) {
   * @return {object} 200 - success response - application/json
   * @example response - 200 - success response example
   * {
-  *   "_id": "617993da4ffb8072f0aec7a3",
-  *   "count": 3
+  *   "_id": "618aed07fe81ff536b7b3cfc",
+  *   "count": 1
   * }
 */
 userRoutes.route('/user/playlistsCount').get(function(req, response) {
@@ -801,11 +820,11 @@ userRoutes.route('/user/removePlaylistSong').put(function(req, response) {
   * @return {object} 200 - success response - application/json
   * @example response - 200 - success response example
   * {
-  *   "_id": "617993da4ffb8072f0aec7a3",
+  *   "_id": "618aed07fe81ff536b7b3cfc",
   *   "playlists": [
   *     {
-  *       "_id": "618acbc7ab41952375cab208",
-  *       "name": "Favorite Songs",
+  *       "_id": "618afd6bfe81ff536b7b3d00",
+  *       "name": "Favorites",
   *       "songs": []
   *     }
   *   ]

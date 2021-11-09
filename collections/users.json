@@ -1,19 +1,19 @@
 [
     {
         "_id": {"$oid": "618aed07fe81ff536b7b3cfc"},
-        "username": "abed",
+        "username": "abedislam",
         "password": "password",
         "name": "Abed Islam",
-        "email": "",
+        "email": "abedislam@music.com",
         "dob": "",
         "followers": [],
         "following": [],
         "bio": "",
         "library": [],
         "genres": [],
-        "isArtist": false,
-        "artistName": "",
-        "recordLabel": "",
+        "isArtist": true,
+        "artistName": "Abed Islam",
+        "recordLabel": "Really Far Media",
         "playlists": []
     },
     {
