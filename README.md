@@ -40,8 +40,8 @@ _________________
 
 # To Read Routes Documentation:
 ### Root
-    npm run udoc (user routes documentaion)
-    npm run adoc (artist routes documentaion)
+    npm run jsdoc (user and artist routes documentaion)
+    Open server/jsdoc/index.html in browser
 
 ## Requirements
 
