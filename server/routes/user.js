@@ -334,7 +334,7 @@ userRoutes.route('/user/updatePersonalInfo').put(function(req, response) {
   * PUT /user/updateGenres
   * @summary Updates user's preferred genres of music
   * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {list} genres
+  * @bodyParam {string[]} genres
   * @return {object} 200 - success response - application/json
   * @example response - 200 - success response example
   * {

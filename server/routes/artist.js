@@ -75,7 +75,7 @@ artistRoutes.route('/artist/createSong').post(function(req, response) {
 */
 artistRoutes.route('/artist/uploadSongAudio').put(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.sid)};
+  const query = {_id: ObjectId(req.body.sid), isPublished: false};
   const update = {
     $set: {
       songURL: req.body.songURL,
@@ -102,7 +102,7 @@ artistRoutes.route('/artist/uploadSongAudio').put(function(req, response) {
 */
 artistRoutes.route('/artist/uploadSongCover').put(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.sid)};
+  const query = {_id: ObjectId(req.body.sid), isPublished: false};
   const update = {
     $set: {
       coverURL: req.body.coverURL,
@@ -189,11 +189,13 @@ artistRoutes.route('/artist/createAlbum').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const object = {
     publisher_id: ObjectId(req.body.uid),
+    isPublished: false,
     albumName: req.body.albumName,
     coverURL: '',
+    songs: [],
     genre: req.body.genre,
     recordLabel: req.body.recordLabel,
-    songs: [],
+    releaseDate: '',
   };
   dbConnect.collection('albums').insertOne(object, function(err, result) {
     if (err) throw err;
@@ -219,7 +221,7 @@ artistRoutes.route('/artist/createAlbum').post(function(req, response) {
 // This route inserts the AWS URL for an album's cover
 artistRoutes.route('/artist/uploadAlbumCover').put(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.aid)};
+  const query = {_id: ObjectId(req.body.aid), isPublished: false};
   const update = {
     $set: {
       coverURL: req.body.coverURL,
@@ -252,7 +254,7 @@ artistRoutes.route('/artist/uploadAlbumCover').put(function(req, response) {
 // This route allows an artist to edit an album's information
 artistRoutes.route('/artist/editAlbumInfo').put(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.aid)};
+  const query = {_id: ObjectId(req.body.aid), isPublished: false};
   const update = {
     $set: {
       albumName: req.body.albumName,
@@ -284,7 +286,7 @@ artistRoutes.route('/artist/editAlbumInfo').put(function(req, response) {
 */
 artistRoutes.route('/artist/addSongtoAlbum').put(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.aid)};
+  const query = {_id: ObjectId(req.body.aid), isPublished: false};
   const update = {
     $push: {
       songs: ObjectId(req.body.sid),
@@ -299,7 +301,7 @@ artistRoutes.route('/artist/addSongtoAlbum').put(function(req, response) {
 
 /**
   * PUT /artist/addAlbumIdtoSong
-  * @summary Updates song's album_id. Should be called after /artist/addSongtoAlbum
+  * @summary Updates song's album_id. Called after /artist/addSongtoAlbum
   * @bodyParam {string} sid [(s)ong _id]
   * @bodyParam {string} aid [(a)lbum _id]
   * @return {object} 200 - success response - application/json
@@ -314,7 +316,7 @@ artistRoutes.route('/artist/addSongtoAlbum').put(function(req, response) {
 */
 artistRoutes.route('/artist/addAlbumIdtoSong').put(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.sid)};
+  const query = {_id: ObjectId(req.body.sid), isPublished: false};
   const update = {
     $set: {
       album_id: ObjectId(req.body.aid),
@@ -344,7 +346,7 @@ artistRoutes.route('/artist/addAlbumIdtoSong').put(function(req, response) {
 */
 artistRoutes.route('/artist/removeSongfromAlbum').put(function(req, response) {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.aid)};
+  const query = {_id: ObjectId(req.body.aid), isPublished: false};
   const update = {
     $pull: {
       songs: ObjectId(req.body.sid),
@@ -359,7 +361,7 @@ artistRoutes.route('/artist/removeSongfromAlbum').put(function(req, response) {
 
 /**
   * PUT /artist/removeAlbumIdfromSong
-  * @summary Removes song's album_id. Should be called after /artist/removeSongfromAlbum
+  * @summary Removes song's album_id. Called after /artist/removeSongfromAlbum
   * @bodyParam {string} sid [(s)ong _id]
   * @bodyParam {string} aid [(a)lbum _id]
   * @return {object} 200 - success response - application/json
@@ -372,39 +374,121 @@ artistRoutes.route('/artist/removeSongfromAlbum').put(function(req, response) {
   *   "matchedCount": 1
   * }
 */
-artistRoutes.route('/artist/removeAlbumIdfromSong').put(function(req, response) {
-  const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.sid)};
-  const update = {
-    $set: {
-      album_id: '',
-    },
-  };
-  dbConnect.collection('songs')
-      .findOneAndUpdate(query, update, function(err, result) {
-        if (err) throw err;
-        response.json(result);
-      });
-});
+artistRoutes.route('/artist/removeAlbumIdfromSong')
+    .put(function(req, response) {
+      const dbConnect = dbo.getDb();
+      const query = {_id: ObjectId(req.body.sid), isPublished: false};
+      const update = {
+        $set: {
+          album_id: '',
+        },
+      };
+      dbConnect.collection('songs')
+          .findOneAndUpdate(query, update, function(err, result) {
+            if (err) throw err;
+            response.json(result);
+          });
+    });
 
 /**
-  * DELETE /artist/deleteAlbum
-  * @summary Deletes artist's album if album is empty.
+  * DELETE /artist/deleteAlbumSongs
+  * @summary Deletes all songs in artist's album
   * @bodyParam {string} aid [(a)lbum _id]
   * @return {object} 200 - success response - application/json
   * @example response - 200 - success response example
   * {
   *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+  *   "deletedCount": 14
+  * }
+*/
+artistRoutes.route('/artist/deleteAlbumSongs').delete((req, response) => {
+  const dbConnect = dbo.getDb();
+  const query = {album_id: ObjectId(req.body.aid)};
+  dbConnect.collection('songs').deleteMany(query, function(err, result) {
+    if (err) throw err;
+    response.json(result);
+  });
+});
+
+/**
+  * DELETE /artist/deleteAlbum
+  * @summary Deletes artist's album
+  * @bodyParam {string} aid [(a)lbum _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "deletedCount": 1
   * }
 */
 artistRoutes.route('/artist/deleteAlbum').delete((req, response) => {
   const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId( req.body.aid )};
+  const query = {_id: ObjectId(req.body.aid)};
   dbConnect.collection('albums').deleteOne(query, function(err, result) {
+    if (err) throw err;
+    response.json(result);
+  });
+});
+
+/**
+  * GET /artist/getSongs
+  * @summary Retrieves all songs from an artist
+  * @bodyParam {string} uid [(u)ser _id]
+  * @return {array} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "_id": "618ae85ffe81ff536b7b3cfb",
+  *   "streams": 23
+  * }
+*/
+artistRoutes.route('/artist/getSongs').get(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {publisher_id: ObjectId(req.body.uid)};
+  dbConnect.collection('songs').find(query).toArray(function(err, result) {
+    if (err) throw err;
+    response.json(result);
+  });
+});
+
+/**
+  * GET /artist/getAlbums
+  * @summary Retrieves all albums from an artist
+  * @bodyParam {string} uid [(u)ser _id]
+  * @return {array} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "_id": "618ae85ffe81ff536b7b3cfb",
+  *   "streams": 23
+  * }
+*/
+artistRoutes.route('/artist/getAlbums').get(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {publisher_id: ObjectId(req.body.uid)};
+  dbConnect.collection('albums').find(query).toArray(function(err, result) {
+    if (err) throw err;
+    response.json(result);
+  });
+});
+
+/**
+  * GET /artist/getAlbumSongs
+  * @summary Retrieves all songs from an album
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} aid [(a)lbum _id]
+  * @return {array} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "_id": "618ae85ffe81ff536b7b3cfb",
+  *   "streams": 23
+  * }
+*/
+artistRoutes.route('/artist/getAlbumSongs').get(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {
+    publisher_id: ObjectId(req.body.uid),
+    album_id: ObjectId(req.body.aid),
+  };
+  dbConnect.collection('songs').find(query).toArray(function(err, result) {
     if (err) throw err;
     response.json(result);
   });
@@ -433,9 +517,48 @@ artistRoutes.route('/artist/getSongStreams').get(function(req, response) {
 });
 
 /**
-  * GET /artist/viewAlbumStreams
+  * GET /artist/getAlbumStreams
   * @summary Adds all streams from artist's album's songs
   * @bodyParam {string} aid [(a)lbum _id]
+  * @return {array} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * [
+  *   {
+  *     "streams": 1218
+  *   }
+  * ]
+*/
+artistRoutes.route('/artist/getAlbumStreams').get(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = [
+    {
+      $match: {
+        album_id: ObjectId(req.body.aid),
+      },
+   },
+   {
+      $group: {
+        _id: '',
+        streams: { $sum: '$streams' }
+      },
+   },
+   {
+      $project: {
+        _id: 0,
+        streams: '$streams',
+    },
+  },
+]
+  dbConnect.collection('songs').aggregate(query).toArray(function(err, result) {
+    if (err) throw err;
+    response.json(result);
+  });
+});
+
+/**
+  * GET /artist/getAllStreams
+  * @summary Adds all streams from artist's songs
+  * @bodyParam {string} uid [(u)ser _id]
   * @return {object} 200 - success response - application/json
   * @example response - 200 - success response example
   * {
@@ -443,19 +566,89 @@ artistRoutes.route('/artist/getSongStreams').get(function(req, response) {
   *   "streams": 23
   * }
 */
-artistRoutes.route('/artist/viewAlbumStreams').get(function(req, response) {});
+artistRoutes.route('/artist/getAllStreams').get(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = [
+    {
+      $match: {
+        publisher_id: ObjectId(req.body.uid),
+      },
+   },
+   {
+      $group: {
+        _id: '',
+        streams: { $sum: '$streams' }
+      },
+   },
+   {
+      $project: {
+        _id: 0,
+        streams: '$streams',
+    },
+  },
+]
+  dbConnect.collection('songs').aggregate(query).toArray(function(err, result) {
+    if (err) throw err;
+    response.json(result);
+  });
+});
 
 /**
-  * GET /artist/viewAlbumStreams
-  * @summary Adds all streams from artist's songs
+  * PUT /artist/publishSingle
+  * @summary Publishes artist's single
+  * @bodyParam {string} sid [(s)ong _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
+  * }
+*/
+artistRoutes.route('/artist/publishSingle').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.sid), isSingle: true, isPublished: false};
+  const update = {
+    $set: {
+      isPublished: true,
+    },
+  };
+  dbConnect.collection('songs')
+      .updateOne(query, update, function(err, result) {
+        if (err) throw err;
+        response.json(result);
+      });
+});
+
+/**
+  * PUT /artist/publishAlbum
+  * @summary Publishes artist's album
   * @bodyParam {string} aid [(a)lbum _id]
   * @return {object} 200 - success response - application/json
   * @example response - 200 - success response example
   * {
-  *   "_id": "618ae85ffe81ff536b7b3cfb",
-  *   "streams": 23
+  *   "acknowledged": true,
+  *   "modifiedCount": 1,
+  *   "upsertedId": null,
+  *   "upsertedCount": 0,
+  *   "matchedCount": 1
   * }
 */
-artistRoutes.route('/artist/viewAllStreams').get(function(req, response) {});
+artistRoutes.route('/artist/publishAlbum').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.aid), isPublished: false};
+  const update = {
+    $set: {
+      isPublished: true,
+    },
+  };
+  dbConnect.collection('albums')
+      .updateOne(query, update, function(err, result) {
+        if (err) throw err;
+        response.json(result);
+      });
+});
 
 module.exports = artistRoutes;
