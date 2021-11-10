@@ -1,9 +1,18 @@
+/** Express router providing artist related routes
+ * @module routers/artist
+ * @requires express
+ */
 const express = require('express');
 
 // artistRoutes is an instance of the express router.
 // We use it to define our routes.
 // The router will be added as a middleware and will
 // take control of requests starting with path /user.
+
+/**
+ * Express router to mount artist related functions on.
+ * @namespace artistRoutes
+ */
 const artistRoutes = express.Router();
 
 // This will help us connect to the database
@@ -12,29 +21,23 @@ const dbo = require('../db/conn');
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require('mongodb').ObjectId;
 
-/**
-  * GET /artist/listArtistRoutes
-  * @summary Lists all /artist routes
-  * @return {object} 200 - success response
-  * @example response - 200 - success response example
-  *   POST     /artist/createSong
-  *   PUT      /artist/uploadSongURLs
-  *   PUT      /artist/addSongtoArtistSongs
-*/
 artistRoutes.route('/user/listArtistRoutes').get(function(req, response) {
   const listRoutes = require('express-list-routes');
   response.json(listRoutes(artistRoutes));
 });
 
 /**
-  * POST /artist/createSong
+  * @name POST user/createSong
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Creates a new song
-  * @bodyParam {string} songName
-  * @bodyParam {boolean} isSignle
-  * @bodyParam {string} genre
-  * @bodyParam {string} recordLabel
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} songName
+  * @param {boolean} isSignle
+  * @param {string} genre
+  * @param {string} recordLabel
+  * @return {object}
+  * @example
   *  {
   *   "acknowledged": true,
   *   "insertedId": "618ad779c2c43d391bf73919"
@@ -62,12 +65,15 @@ artistRoutes.route('/artist/createSong').post(function(req, response) {
 });
 
 /**
-  * PUT /artist/uploadSongAudio
+  * @name PUT user/uploadSongAudio
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Uploads AWS URLs containing song's audio
-  * @bodyParam {string} sid [(s)ong _id]
-  * @bodyParam {string} songURL
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} sid song _id
+  * @param {string} songURL
+  * @return {object}
+  * @example
   *  {
   *   "acknowledged": true,
   *   "insertedId": "618ad779c2c43d391bf73919"
@@ -89,12 +95,15 @@ artistRoutes.route('/artist/uploadSongAudio').put(function(req, response) {
 });
 
 /**
-  * PUT /artist/uploadSongCover
+  * @name PUT user/uploadSongCover
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Uploads AWS URLs containing song's cover
-  * @bodyParam {string} sid [(s)ong _id]
-  * @bodyParam {string} coverURL
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} sid song _id
+  * @param {string} coverURL
+  * @return {object}
+  * @example
   *  {
   *   "acknowledged": true,
   *   "insertedId": "618ad779c2c43d391bf73919"
@@ -116,15 +125,18 @@ artistRoutes.route('/artist/uploadSongCover').put(function(req, response) {
 });
 
 /**
-  * PUT /artist/editSongInfo
+  * @name PUT user/editSongInfo
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Edits artist's unpublished song's information
-  * @bodyParam {string} sid [(s)ong _id]
-  * @bodyParam {string} songName
-  * @bodyParam {boolean} isSignle
-  * @bodyParam {string} genre
-  * @bodyParam {string} recordLabel
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} sid song _id
+  * @param {string} songName
+  * @param {boolean} isSignle
+  * @param {string} genre
+  * @param {string} recordLabel
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -152,11 +164,14 @@ artistRoutes.route('/artist/editSongInfo').put(function(req, response) {
 });
 
 /**
-  * DELETE /artist/deleteSingle
+  * @name DELETE user/deleteSingle
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Deletes artist's song if it is a single
-  * @bodyParam {string} sid [(s)ong _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} sid song _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "deletedCount": 1
@@ -172,13 +187,16 @@ artistRoutes.route('/artist/deleteSingle').delete((req, response) => {
 });
 
 /**
-  * POST /artist/createAlbum
+  * @name POST user/createAlbum
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Creates a new album
-  * @bodyParam {string} albumName
-  * @bodyParam {string} genre
-  * @bodyParam {string} recordLabel
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} albumName
+  * @param {string} genre
+  * @param {string} recordLabel
+  * @return {object}
+  * @example
   *  {
   *   "acknowledged": true,
   *   "insertedId": "618ae2fe05315faa2ee23c85"
@@ -204,12 +222,15 @@ artistRoutes.route('/artist/createAlbum').post(function(req, response) {
 });
 
 /**
-  * PUT /artist/uploadAlbumCover
+  * @name PUT user/uploadAlbumCover
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Uploads AWS URL containing album's cover
-  * @bodyParam {string} aid [(a)lbum _id]
-  * @bodyParam {string} coverURL
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} aid album _id
+  * @param {string} coverURL
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -235,14 +256,17 @@ artistRoutes.route('/artist/uploadAlbumCover').put(function(req, response) {
 });
 
 /**
-  * PUT /artist/editAlbumInfo
+  * @name PUT user/editAlbumInfo
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Edits artist's unpublished album's information
-  * @bodyParam {string} aid [(a)lbum _id]
-  * @bodyParam {string} albumName
-  * @bodyParam {string} genre
-  * @bodyParam {string} recordLabel
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} aid album _id
+  * @param {string} albumName
+  * @param {string} genre
+  * @param {string} recordLabel
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -270,12 +294,15 @@ artistRoutes.route('/artist/editAlbumInfo').put(function(req, response) {
 });
 
 /**
-  * PUT /artist/addSongtoAlbum
+  * @name PUT user/addSongtoAlbum
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Adds song to artist's album
-  * @bodyParam {string} sid [(s)ong _id]
-  * @bodyParam {string} aid [(a)lbum _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} sid song _id
+  * @param {string} aid album _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -300,12 +327,15 @@ artistRoutes.route('/artist/addSongtoAlbum').put(function(req, response) {
 });
 
 /**
-  * PUT /artist/addAlbumIdtoSong
+  * @name PUT user/addAlbumIdtoSong
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Updates song's album_id. Called after /artist/addSongtoAlbum
-  * @bodyParam {string} sid [(s)ong _id]
-  * @bodyParam {string} aid [(a)lbum _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} sid song _id
+  * @param {string} aid album _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -330,12 +360,15 @@ artistRoutes.route('/artist/addAlbumIdtoSong').put(function(req, response) {
 });
 
 /**
-  * PUT /artist/removeSongfromAlbum
+  * @name PUT user/removeSongfromAlbum
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Removes song from artist's album
-  * @bodyParam {string} sid [(s)ong _id]
-  * @bodyParam {string} aid [(a)lbum _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} sid song _id
+  * @param {string} aid album _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -360,12 +393,15 @@ artistRoutes.route('/artist/removeSongfromAlbum').put(function(req, response) {
 });
 
 /**
-  * PUT /artist/removeAlbumIdfromSong
+  * @name PUT user/removeAlbumIdfromSong
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Removes song's album_id. Called after /artist/removeSongfromAlbum
-  * @bodyParam {string} sid [(s)ong _id]
-  * @bodyParam {string} aid [(a)lbum _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} sid song _id
+  * @param {string} aid album _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -392,11 +428,14 @@ artistRoutes.route('/artist/removeAlbumIdfromSong')
 
 
 /**
-  * PUT /artist/publishSingle
+  * @name PUT user/publishSingle
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Publishes artist's single
-  * @bodyParam {string} sid [(s)ong _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} sid song _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -424,11 +463,14 @@ artistRoutes.route('/artist/publishSingle').put(function(req, response) {
 });
 
 /**
-  * PUT /artist/publishAlbum
+  * @name PUT user/publishAlbum
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Publishes artist's album
-  * @bodyParam {string} aid [(a)lbum _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} aid album _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -453,11 +495,14 @@ artistRoutes.route('/artist/publishAlbum').put(function(req, response) {
 });
 
 /**
-  * DELETE /artist/deleteAlbumSongs
+  * @name DELETE user/deleteAlbumSongs
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Deletes all songs in artist's album
-  * @bodyParam {string} aid [(a)lbum _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} aid album _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "deletedCount": 14
@@ -473,11 +518,14 @@ artistRoutes.route('/artist/deleteAlbumSongs').delete((req, response) => {
 });
 
 /**
-  * DELETE /artist/deleteAlbum
+  * @name DELETE user/deleteAlbum
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Deletes artist's album
-  * @bodyParam {string} aid [(a)lbum _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} aid album _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "deletedCount": 1
@@ -493,11 +541,14 @@ artistRoutes.route('/artist/deleteAlbum').delete((req, response) => {
 });
 
 /**
-  * GET /artist/getSongs
+  * @name GET user/getSongs
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Retrieves all songs from an artist
-  * @bodyParam {string} uid [(u)ser _id]
-  * @return {array} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid [(u)ser _id]
+  * @return {array}
+  * @example
   * {
   *   "_id": "618ae85ffe81ff536b7b3cfb",
   *   "streams": 23
@@ -513,11 +564,14 @@ artistRoutes.route('/artist/getSongs').get(function(req, response) {
 });
 
 /**
-  * GET /artist/getAlbums
+  * @name GET user/getAlbums
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Retrieves all albums from an artist
-  * @bodyParam {string} uid [(u)ser _id]
-  * @return {array} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid [(u)ser _id]
+  * @return {array}
+  * @example
   * {
   *   "_id": "618ae85ffe81ff536b7b3cfb",
   *   "streams": 23
@@ -533,12 +587,15 @@ artistRoutes.route('/artist/getAlbums').get(function(req, response) {
 });
 
 /**
-  * GET /artist/getAlbumSongs
+  * @name GET user/getAlbumSongs
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Retrieves all songs from an album
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} aid [(a)lbum _id]
-  * @return {array} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid [(u)ser _id]
+  * @param {string} aid album _id
+  * @return {array}
+  * @example
   * {
   *   "_id": "618ae85ffe81ff536b7b3cfb",
   *   "streams": 23
@@ -557,11 +614,14 @@ artistRoutes.route('/artist/getAlbumSongs').get(function(req, response) {
 });
 
 /**
-  * GET /artist/getSongStreams
+  * @name GET user/getSongStreams
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Retrieves song's stream count
-  * @bodyParam {string} sid [(s)ong _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} sid song _id
+  * @return {object}
+  * @example
   * {
   *   "_id": "618ae85ffe81ff536b7b3cfb",
   *   "streams": 23
@@ -579,11 +639,14 @@ artistRoutes.route('/artist/getSongStreams').get(function(req, response) {
 });
 
 /**
-  * GET /artist/getAlbumStreams
+  * @name GET user/getAlbumStreams
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Adds all streams from artist's album's songs
-  * @bodyParam {string} aid [(a)lbum _id]
-  * @return {array} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} aid album _id
+  * @return {array}
+  * @example
   * [
   *   {
   *     "streams": 1218
@@ -618,11 +681,14 @@ artistRoutes.route('/artist/getAlbumStreams').get(function(req, response) {
 });
 
 /**
-  * GET /artist/getAllStreams
+  * @name GET user/getAllStreams
+  * @memberof module:routers/artist~artistRoutes
+  * @inner
+  * @function
   * @summary Adds all streams from artist's songs
-  * @bodyParam {string} uid [(u)ser _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid [(u)ser _id]
+  * @return {object}
+  * @example
   * {
   *   "_id": "618ae85ffe81ff536b7b3cfb",
   *   "streams": 23

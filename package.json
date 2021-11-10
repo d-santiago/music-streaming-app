@@ -15,7 +15,8 @@
     "routes": "newman run server/postman/userRoutes.postman_collection.json --globals server/postman/globals.postman_globals.json ; newman run server/postman/artistRoutes.postman_collection.json --globals server/postman/globals.postman_globals.json",
     "uroutes": "newman run server/postman/userRoutes.postman_collection.json --globals server/postman/globals.postman_globals.json",
     "aroutes": "newman run server/postman/artistRoutes.postman_collection.json --globals server/postman/globals.postman_globals.json",
-    "udoc": "./node_modules/.bin/jsdoc server/routes/user.js -d server/jsdoc"
+    "udoc": "./node_modules/.bin/jsdoc server/routes/user.js -d server/jsdoc",
+    "adoc": "./node_modules/.bin/jsdoc server/routes/artist.js -d server/jsdoc"
   },
   "dependencies": {
     "aws-sdk": "^2.1022.0",

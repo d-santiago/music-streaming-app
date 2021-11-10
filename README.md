@@ -41,6 +41,7 @@ _________________
 # To Read Routes Documentation:
 ### Root
     npm run udoc (user routes documentaion)
+    npm run adoc (artist routes documentaion)
 
 ## Requirements
 

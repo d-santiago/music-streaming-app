@@ -18,6 +18,9 @@
     "plugins": [
         "react"
     ],
+    "ignorePatterns": [
+        "jsdoc/"
+    ],
     "rules": {
         "new-cap": "off",
         "quote-props": "off"
