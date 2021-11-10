@@ -667,6 +667,25 @@ userRoutes.route('/user/removeLibrarySong').put(function(req, response) {
 });
 
 /**
+  * GET /user/recentlyAddedtoLibrary
+  * @summary Retrieves last five songs added to user's library
+  * @bodyParam {string} uid [(u)ser _id]
+  * @return {object} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * {}
+*/
+userRoutes.route('/user/recentlyAddedtoLibrary').get(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid)};
+  const projection = {projection: {recentlyAdded: {$slice: ['$library', -5]}}};
+  dbConnect.collection('users').
+      findOne(query, projection, function(err, result) {
+        if (err) throw err;
+        response.json(result);
+      });
+});
+
+/**
   * GET /user/librarySongCount
   * @summary Counts number of songs in user's library
   * @bodyParam {string} uid [(u)ser _id]
@@ -745,6 +764,41 @@ userRoutes.route('/user/playlistsCount').get(function(req, response) {
 });
 
 /**
+  * GET /user/playlistSongCount
+  * @summary Counts number of songs in user's playlist
+  * @bodyParam {string} uid [(u)ser _id]
+  * @bodyParam {string} pid [(p)laylist _id]
+  * @return {array} 200 - success response - application/json
+  * @example response - 200 - success response example
+  * [
+  *   {
+  *     "_id": "61776035f20535a31b19d77d",
+  *     "count": 7
+  *   }
+  * ]
+*/
+userRoutes.route('/user/playlistSongCount').get(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = [
+    {$match: {
+      _id: ObjectId(req.body.uid),
+      'playlists._id': ObjectId(req.body.pid)},
+    },
+    {$unwind: '$playlists'},
+    {$unwind: '$playlists.songs'},
+    {$group: {
+      _id: '$playlists.songs',
+      count: {$sum: 1}},
+    },
+  ];
+  dbConnect.collection('users')
+      .aggregate(query).toArray(function(err, result) {
+        if (err) throw err;
+        response.json(result);
+      });
+});
+
+/**
   * PUT /user/addPlaylistSong
   * @summary Adds song to user's playlist
   * @bodyParam {string} uid [(u)ser _id]
@@ -813,7 +867,7 @@ userRoutes.route('/user/removePlaylistSong').put(function(req, response) {
 });
 
 /**
-  * GET /user/viewPlaylistInfo
+  * GET /user/getPlaylistInfo
   * @summary Retrieves a playlist's information
   * @bodyParam {string} uid [(u)ser _id]
   * @bodyParam {string} pid [(p)laylist _id]
@@ -830,7 +884,7 @@ userRoutes.route('/user/removePlaylistSong').put(function(req, response) {
   *   ]
   * }
 */
-userRoutes.route('/user/viewPlaylistInfo').get(function(req, response) {
+userRoutes.route('/user/getPlaylistInfo').get(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {
     _id: ObjectId(req.body.uid),
@@ -875,26 +929,5 @@ userRoutes.route('/user/deletePlaylist').put(function(req, response) {
         response.json(result);
       });
 });
-
-/**
-  * GET /user/playlistSongCount
-  * @summary Counts number of songs in user's playlist
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} pid [(p)laylist _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
-  * {}
-*/
-userRoutes.route('/user/playlistSongCount').get(function(req, response) {});
-
-/**
-  * GET /user/recentlyAddedSongs
-  * @summary Retrieves last five songs added to user's library
-  * @bodyParam {string} uid [(u)ser _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
-  * {}
-*/
-userRoutes.route('/user/recentlyAddedSongs').get(function(req, response) {});
 
 module.exports = userRoutes;
