@@ -109,7 +109,7 @@ userRoutes.route('/user/login').post(function(req, response) {
 });
 
 /**
-  * @name GET user/followerCount
+  * @name POST user/followerCount
   * @memberof module:routers/user~userRoutes
   * @inner
   * @function
@@ -122,7 +122,7 @@ userRoutes.route('/user/login').post(function(req, response) {
   *   "count": 0
   *  }
 */
-userRoutes.route('/user/followerCount').get(function(req, response) {
+userRoutes.route('/user/followerCount').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
   const projection = {projection: {count: {$size: '$followers'}}};
@@ -134,7 +134,7 @@ userRoutes.route('/user/followerCount').get(function(req, response) {
 });
 
 /**
-  * @name GET user/followingCount
+  * @name POST user/followingCount
   * @memberof module:routers/user~userRoutes
   * @inner
   * @function
@@ -147,7 +147,7 @@ userRoutes.route('/user/followerCount').get(function(req, response) {
   *   "count": 0
   *  }
 */
-userRoutes.route('/user/followingCount').get(function(req, response) {
+userRoutes.route('/user/followingCount').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
   const projection = {projection: {count: {$size: '$following'}}};
@@ -453,7 +453,7 @@ userRoutes.route('/user/deleteAccount').delete((req, response) => {
 });
 
 /**
-  * @name GET user/getUser
+  * @name POST user/getUser
   * @memberof module:routers/user~userRoutes
   * @inner
   * @function
@@ -480,7 +480,7 @@ userRoutes.route('/user/deleteAccount').delete((req, response) => {
   *   "playlists": []
   * }
 */
-userRoutes.route('/user/getUser').get(function(req, response) {
+userRoutes.route('/user/getUser').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {
     $or: [
@@ -495,7 +495,7 @@ userRoutes.route('/user/getUser').get(function(req, response) {
 });
 
 /**
-  * @name GET user/getArtist
+  * @name POST user/getArtist
   * @memberof module:routers/user~userRoutes
   * @inner
   * @function
@@ -522,7 +522,7 @@ userRoutes.route('/user/getUser').get(function(req, response) {
   *   "playlists": []
   * }
 */
-userRoutes.route('/user/getArtist').get(function(req, response) {
+userRoutes.route('/user/getArtist').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {
     $or: [
@@ -537,7 +537,7 @@ userRoutes.route('/user/getArtist').get(function(req, response) {
 });
 
 /**
-  * @name GET user/getSong
+  * @name POST user/getSong
   * @memberof module:routers/user~userRoutes
   * @inner
   * @function
@@ -563,7 +563,7 @@ userRoutes.route('/user/getArtist').get(function(req, response) {
   *   "album_id": "618ae4f86d23e189de72f3cb"
   * }
 */
-userRoutes.route('/user/getSong').get(function(req, response) {
+userRoutes.route('/user/getSong').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {
     $or: [
@@ -578,7 +578,7 @@ userRoutes.route('/user/getSong').get(function(req, response) {
 });
 
 /**
-  * @name GET user/getAlbum
+  * @name POST user/getAlbum
   * @memberof module:routers/user~userRoutes
   * @inner
   * @function
@@ -616,7 +616,7 @@ userRoutes.route('/user/getSong').get(function(req, response) {
   * }
 */
 // This route retrieves album with _id or all albums with albumName
-userRoutes.route('/user/getAlbum').get(function(req, response) {
+userRoutes.route('/user/getAlbum').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {
     $or: [
@@ -727,7 +727,7 @@ userRoutes.route('/user/removeLibrarySong').put(function(req, response) {
 });
 
 /**
-  * @name GET user/recentlyAddedtoLibrary
+  * @name POST user/recentlyAddedtoLibrary
   * @memberof module:routers/user~userRoutes
   * @inner
   * @function
@@ -737,7 +737,7 @@ userRoutes.route('/user/removeLibrarySong').put(function(req, response) {
   * @example
   * {}
 */
-userRoutes.route('/user/recentlyAddedtoLibrary').get(function(req, response) {
+userRoutes.route('/user/recentlyAddedtoLibrary').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
   const projection = {projection: {recentlyAdded: {$slice: ['$library', -5]}}};
@@ -749,7 +749,7 @@ userRoutes.route('/user/recentlyAddedtoLibrary').get(function(req, response) {
 });
 
 /**
-  * @name GET user/librarySongCount
+  * @name POST user/librarySongCount
   * @memberof module:routers/user~userRoutes
   * @inner
   * @function
@@ -762,7 +762,7 @@ userRoutes.route('/user/recentlyAddedtoLibrary').get(function(req, response) {
   *   "count": 1
   * }
 */
-userRoutes.route('/user/librarySongCount').get(function(req, response) {
+userRoutes.route('/user/librarySongCount').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
   const projection = {projection: {count: {$size: '$library'}}};
@@ -811,7 +811,7 @@ userRoutes.route('/user/createPlaylist').put(function(req, response) {
 });
 
 /**
-  * @name GET user/playlistsCount
+  * @name POST user/playlistsCount
   * @memberof module:routers/user~userRoutes
   * @inner
   * @function
@@ -824,7 +824,7 @@ userRoutes.route('/user/createPlaylist').put(function(req, response) {
   *   "count": 1
   * }
 */
-userRoutes.route('/user/playlistsCount').get(function(req, response) {
+userRoutes.route('/user/playlistsCount').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.uid)};
   const projection = {projection: {count: {$size: '$playlists'}}};
@@ -836,7 +836,7 @@ userRoutes.route('/user/playlistsCount').get(function(req, response) {
 });
 
 /**
-  * @name GET user/playlistSongCount
+  * @name POST user/playlistSongCount
   * @memberof module:routers/user~userRoutes
   * @inner
   * @function
@@ -852,7 +852,7 @@ userRoutes.route('/user/playlistsCount').get(function(req, response) {
   *   }
   * ]
 */
-userRoutes.route('/user/playlistSongCount').get(function(req, response) {
+userRoutes.route('/user/playlistSongCount').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = [
     {$match: {
@@ -948,7 +948,7 @@ userRoutes.route('/user/removePlaylistSong').put(function(req, response) {
 });
 
 /**
-  * @name GET user/getPlaylistInfo
+  * @name POST user/getPlaylistInfo
   * @memberof module:routers/user~userRoutes
   * @inner
   * @function
@@ -968,7 +968,7 @@ userRoutes.route('/user/removePlaylistSong').put(function(req, response) {
   *   ]
   * }
 */
-userRoutes.route('/user/getPlaylistInfo').get(function(req, response) {
+userRoutes.route('/user/getPlaylistInfo').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {
     _id: ObjectId(req.body.uid),
