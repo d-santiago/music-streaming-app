@@ -1,9 +1,20 @@
+/** Express router providing user related routes
+ * @module routers/user
+ * @requires express
+ */
 const express = require('express');
 
 // userRoutes is an instance of the express router.
 // We use it to define our routes.
 // The router will be added as a middleware and will
 // take control of requests starting with path /user.
+
+/**
+ * Express router to mount user related functions on.
+ * @type {object}
+ * @const
+ * @namespace userRoutes
+ */
 const userRoutes = express.Router();
 
 // This will help us connect to the database
@@ -12,30 +23,24 @@ const dbo = require('../db/conn');
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require('mongodb').ObjectId;
 
-/**
-  * GET /user/listUserRoutes
-  * @summary Lists all /user routes
-  * @return {object} 200 - success response
-  * @example response - 200 - success response example
-  *   GET      /user/listUserRoutes
-  *   POST     /user/register
-  *   GET      /user/login
-*/
 userRoutes.route('/user/listUserRoutes').get(function(req, response) {
   const listRoutes = require('express-list-routes');
   response.json(listRoutes(userRoutes));
 });
 
 /**
-  * POST /user/register
+  * @name POST user/register
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Registers a new user
-  * @bodyParam {string} username
-  * @bodyParam {string} password
-  * @bodyParam {string} name
-  * @bodyParam {string} email
-  * @bodyParam {string} dob
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} username
+  * @param {string} password
+  * @param {string} name
+  * @param {string} email
+  * @param {string} dob
+  * @return {object}
+  * @example
   *  {
   *   "acknowledged": true,
   *   "insertedId": "618aed07fe81ff536b7b3cfc"
@@ -66,12 +71,15 @@ userRoutes.route('/user/register').post(function(req, response) {
 });
 
 /**
-  * GET /user/login
+  * @name GET user/login
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Verifies a user's login
-  * @bodyParam {string} username
-  * @bodyParam {string} password
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} username
+  * @param {string} password
+  * @return {object}
+  * @example
   * {
   *   "_id": "618aed07fe81ff536b7b3cfc",
   *   "username": "abedislam",
@@ -103,11 +111,14 @@ userRoutes.route('/user/login').get(function(req, response) {
 });
 
 /**
-  * GET /user/followerCount
+  * @name GET user/followerCount
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Retrieves the number of accounts following a user
-  * @bodyParam {string} uid [(u)ser _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user _id
+  * @return {object}
+  * @example
   *  {
   *   "_id": "618aed07fe81ff536b7b3cfc",
   *   "count": 0
@@ -125,11 +136,14 @@ userRoutes.route('/user/followerCount').get(function(req, response) {
 });
 
 /**
-  * GET /user/followingCount
+  * @name GET user/followingCount
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Retrieves the number of accounts a user is following
-  * @bodyParam {string} uid [(u)ser _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user _id
+  * @return {object}
+  * @example
   *  {
   *   "_id": "618aed07fe81ff536b7b3cfc",
   *   "count": 0
@@ -147,12 +161,15 @@ userRoutes.route('/user/followingCount').get(function(req, response) {
 });
 
 /**
-  * PUT /user/follow
+  * @name PUT user/follow
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Allows user to follow an account
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} ouid [(o)ther (u)ser _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user _id
+  * @param {string} ouid other user _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -177,12 +194,15 @@ userRoutes.route('/user/follow').put(function(req, response) {
 });
 
 /**
-  * PUT /user/unfollow
+  * @name PUT user/unfollow
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Allows a user to unfollow an account
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} ouid [(o)ther (u)ser _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user _id
+  * @param {string} ouid other user _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -207,12 +227,15 @@ userRoutes.route('/user/unfollow').put(function(req, response) {
 });
 
 /**
-  * PUT /user/updateUsername
+  * @name PUT user/updateUsername
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Updates user's username
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} newUsername
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @param {string} newUsername
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -237,12 +260,15 @@ userRoutes.route('/user/updateUsername').put(function(req, response) {
 });
 
 /**
-  * PUT /user/updatePassword
+  * @name PUT user/updatePassword
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Updates user's password
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} newPassword
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user _id
+  * @param {string} newPassword
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -267,13 +293,16 @@ userRoutes.route('/user/updatePassword').put(function(req, response) {
 });
 
 /**
-  * PUT /user/updateProfile
+  * @name PUT user/updateProfile
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Updates user's profile
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} name
-  * @bodyParam {string} bio
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user _id
+  * @param {string} name
+  * @param {string} bio
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -299,13 +328,16 @@ userRoutes.route('/user/updateProfile').put(function(req, response) {
 });
 
 /**
-  * PUT /user/updatePersonalInfo
+  * @name PUT user/updatePersonalInfo
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Updates user's personal information
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} email
-  * @bodyParam {string} dob
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @param {string} email
+  * @param {string} dob
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -331,12 +363,15 @@ userRoutes.route('/user/updatePersonalInfo').put(function(req, response) {
 });
 
 /**
-  * PUT /user/updateGenres
+  * @name PUT user/updateGenres
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Updates user's preferred genres of music
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string[]} genres
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @param {string[]} genres
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -361,13 +396,16 @@ userRoutes.route('/user/updateGenres').put(function(req, response) {
 });
 
 /**
-  * PUT /user/switchToArtist
+  * @name PUT user/switchToArtist
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Updates user to 'Artist' status
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} artistName
-  * @bodyParam {string} recordLabel
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @param {string} artistName
+  * @param {string} recordLabel
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -394,17 +432,20 @@ userRoutes.route('/user/switchToArtist').put(function(req, response) {
 });
 
 /**
-  * DELETE /user/delete
+  * @name DELETE user/deleteAccount
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Deletes user's account
-  * @bodyParam {string} uid [(u)ser _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "deletedCount": 1
   * }
 */
-userRoutes.route('/user/delete').delete((req, response) => {
+userRoutes.route('/user/deleteAccount').delete((req, response) => {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId( req.body.uid )};
   dbConnect.collection('users').deleteOne(query, function(err, result) {
@@ -414,12 +455,15 @@ userRoutes.route('/user/delete').delete((req, response) => {
 });
 
 /**
-  * GET /user/getUser
+  * @name GET user/getUser
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Retrieves user with uid or username
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} username
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @param {string} username
+  * @return {object}
+  * @example
   * {
   *   "_id": "618aed07fe81ff536b7b3cfc",
   *   "username": "abedislam",
@@ -453,12 +497,15 @@ userRoutes.route('/user/getUser').get(function(req, response) {
 });
 
 /**
-  * GET /user/getArtist
+  * @name GET user/getArtist
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Retrieves artist with uid or multiple artists with artistName
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} artistName
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @param {string} artistName
+  * @return {object}
+  * @example
   * {
   *   "_id": "618aed07fe81ff536b7b3cfc",
   *   "username": "abedislam",
@@ -492,12 +539,15 @@ userRoutes.route('/user/getArtist').get(function(req, response) {
 });
 
 /**
-  * GET /user/getSong
+  * @name GET user/getSong
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Retrieves song with sid or all songs with songName
-  * @bodyParam {string} sid [(s)ong _id]
-  * @bodyParam {string} songName
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} sid song _id
+  * @param {string} songName
+  * @return {object}
+  * @example
   * {
   *   "_id": "618ae4c46d23e189de72d67f",
   *   "publisher_id": "618aed07fe81ff536b7b3cfc",
@@ -530,12 +580,15 @@ userRoutes.route('/user/getSong').get(function(req, response) {
 });
 
 /**
-  * GET /user/getAlbum
+  * @name GET user/getAlbum
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Retrieves album with aid or all albums with albumName
-  * @bodyParam {string} aid [(a)lbum _id]
-  * @bodyParam {string} albumName
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} aid album _id
+  * @param {string} albumName
+  * @return {object}
+  * @example
   * {
   *   "_id": "618ae4f86d23e189de72f3cb",
   *   "publisher_id": "618aed07fe81ff536b7b3cfc",
@@ -580,11 +633,14 @@ userRoutes.route('/user/getAlbum').get(function(req, response) {
 });
 
 /**
-  * PUT /user/incrementSongStream
+  * @name PUT user/incrementSongStream
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Increments a song's stream count by 1
-  * @bodyParam {string} sid [(s)ong _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} sid song _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -607,12 +663,15 @@ userRoutes.route('/user/incrementSongStream').put(function(req, response) {
 });
 
 /**
-  * PUT /user/addLibrarySong
+  * @name PUT user/addLibrarySong
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Adds song to user's library
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} sid [(s)ong _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @param {string} sid song _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -637,12 +696,15 @@ userRoutes.route('/user/addLibrarySong').put(function(req, response) {
 });
 
 /**
-  * PUT /user/removeLibrarySong
+  * @name PUT user/removeLibrarySong
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Removes song from user's library
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} sid [(s)ong _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @param {string} sid song _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -667,11 +729,14 @@ userRoutes.route('/user/removeLibrarySong').put(function(req, response) {
 });
 
 /**
-  * GET /user/recentlyAddedtoLibrary
+  * @name GET user/recentlyAddedtoLibrary
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Retrieves last five songs added to user's library
-  * @bodyParam {string} uid [(u)ser _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @return {object}
+  * @example
   * {}
 */
 userRoutes.route('/user/recentlyAddedtoLibrary').get(function(req, response) {
@@ -686,11 +751,14 @@ userRoutes.route('/user/recentlyAddedtoLibrary').get(function(req, response) {
 });
 
 /**
-  * GET /user/librarySongCount
+  * @name GET user/librarySongCount
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Counts number of songs in user's library
-  * @bodyParam {string} uid [(u)ser _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @return {object}
+  * @example
   * {
   *   "_id": "617993da4ffb8072f0aec7a3",
   *   "count": 1
@@ -708,12 +776,15 @@ userRoutes.route('/user/librarySongCount').get(function(req, response) {
 });
 
 /**
-  * PUT /user/createPlaylist
+  * @name PUT user/createPlaylist
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Creates a playlist
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} name
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @param {string} name
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -742,11 +813,14 @@ userRoutes.route('/user/createPlaylist').put(function(req, response) {
 });
 
 /**
-  * GET /user/playlistsCount
+  * @name GET user/playlistsCount
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Counts number of user's playlists
-  * @bodyParam {string} uid [(u)ser _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @return {object}
+  * @example
   * {
   *   "_id": "618aed07fe81ff536b7b3cfc",
   *   "count": 1
@@ -764,12 +838,15 @@ userRoutes.route('/user/playlistsCount').get(function(req, response) {
 });
 
 /**
-  * GET /user/playlistSongCount
+  * @name GET user/playlistSongCount
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Counts number of songs in user's playlist
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} pid [(p)laylist _id]
-  * @return {array} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @param {string} pid [(p)laylist _id]
+  * @return {array}
+  * @example
   * [
   *   {
   *     "_id": "61776035f20535a31b19d77d",
@@ -799,13 +876,16 @@ userRoutes.route('/user/playlistSongCount').get(function(req, response) {
 });
 
 /**
-  * PUT /user/addPlaylistSong
+  * @name PUT user/addPlaylistSong
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Adds song to user's playlist
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} pid [(p)laylist _id]
-  * @bodyParam {string} sid [(s)ong _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @param {string} pid [(p)laylist _id]
+  * @param {string} sid song _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -833,13 +913,16 @@ userRoutes.route('/user/addPlaylistSong').put(function(req, response) {
 });
 
 /**
-  * PUT /user/removePlaylistSong
+  * @name PUT user/removePlaylistSong
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Removes song from user's playlist
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} pid [(p)laylist _id]
-  * @bodyParam {string} sid [(s)ong _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @param {string} pid [(p)laylist _id]
+  * @param {string} sid song _id
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,
@@ -867,12 +950,15 @@ userRoutes.route('/user/removePlaylistSong').put(function(req, response) {
 });
 
 /**
-  * GET /user/getPlaylistInfo
+  * @name GET user/getPlaylistInfo
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Retrieves a playlist's information
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} pid [(p)laylist _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @param {string} pid [(p)laylist _id]
+  * @return {object}
+  * @example
   * {
   *   "_id": "618aed07fe81ff536b7b3cfc",
   *   "playlists": [
@@ -899,12 +985,15 @@ userRoutes.route('/user/getPlaylistInfo').get(function(req, response) {
 });
 
 /**
-  * DELETE /user/deletePlaylist
+  * @name DELETE user/deletePlaylist
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
   * @summary Deletes user's playlist
-  * @bodyParam {string} uid [(u)ser _id]
-  * @bodyParam {string} pid [(p)laylist _id]
-  * @return {object} 200 - success response - application/json
-  * @example response - 200 - success response example
+  * @param {string} uid user_id
+  * @param {string} pid [(p)laylist _id]
+  * @return {object}
+  * @example
   * {
   *   "acknowledged": true,
   *   "modifiedCount": 1,

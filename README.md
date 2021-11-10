@@ -38,6 +38,10 @@ _________________
     npm run uroutes (user routes)
     npm run aroutes (artist routes)
 
+# To Read Routes Documentation:
+### Root
+    npm run udoc (user routes documentaion)
+
 ## Requirements
 
 ### User and Artist Requirements
