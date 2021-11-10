@@ -541,12 +541,12 @@ artistRoutes.route('/artist/deleteAlbum').delete((req, response) => {
 });
 
 /**
-  * @name GET user/getSongs
+  * @name POST user/getSongs
   * @memberof module:routers/artist~artistRoutes
   * @inner
   * @function
   * @summary Retrieves all songs from an artist
-  * @param {string} uid [(u)ser _id]
+  * @param {string} uid user _id
   * @return {array}
   * @example
   * {
@@ -554,7 +554,7 @@ artistRoutes.route('/artist/deleteAlbum').delete((req, response) => {
   *   "streams": 23
   * }
 */
-artistRoutes.route('/artist/getSongs').get(function(req, response) {
+artistRoutes.route('/artist/getSongs').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {publisher_id: ObjectId(req.body.uid)};
   dbConnect.collection('songs').find(query).toArray(function(err, result) {
@@ -564,12 +564,12 @@ artistRoutes.route('/artist/getSongs').get(function(req, response) {
 });
 
 /**
-  * @name GET user/getAlbums
+  * @name POST user/getAlbums
   * @memberof module:routers/artist~artistRoutes
   * @inner
   * @function
   * @summary Retrieves all albums from an artist
-  * @param {string} uid [(u)ser _id]
+  * @param {string} uid user _id
   * @return {array}
   * @example
   * {
@@ -577,7 +577,7 @@ artistRoutes.route('/artist/getSongs').get(function(req, response) {
   *   "streams": 23
   * }
 */
-artistRoutes.route('/artist/getAlbums').get(function(req, response) {
+artistRoutes.route('/artist/getAlbums').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {publisher_id: ObjectId(req.body.uid)};
   dbConnect.collection('albums').find(query).toArray(function(err, result) {
@@ -587,12 +587,12 @@ artistRoutes.route('/artist/getAlbums').get(function(req, response) {
 });
 
 /**
-  * @name GET user/getAlbumSongs
+  * @name POST user/getAlbumSongs
   * @memberof module:routers/artist~artistRoutes
   * @inner
   * @function
   * @summary Retrieves all songs from an album
-  * @param {string} uid [(u)ser _id]
+  * @param {string} uid user _id
   * @param {string} aid album _id
   * @return {array}
   * @example
@@ -601,7 +601,7 @@ artistRoutes.route('/artist/getAlbums').get(function(req, response) {
   *   "streams": 23
   * }
 */
-artistRoutes.route('/artist/getAlbumSongs').get(function(req, response) {
+artistRoutes.route('/artist/getAlbumSongs').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {
     publisher_id: ObjectId(req.body.uid),
@@ -614,7 +614,7 @@ artistRoutes.route('/artist/getAlbumSongs').get(function(req, response) {
 });
 
 /**
-  * @name GET user/getSongStreams
+  * @name POST user/getSongStreams
   * @memberof module:routers/artist~artistRoutes
   * @inner
   * @function
@@ -627,7 +627,7 @@ artistRoutes.route('/artist/getAlbumSongs').get(function(req, response) {
   *   "streams": 23
   * }
 */
-artistRoutes.route('/artist/getSongStreams').get(function(req, response) {
+artistRoutes.route('/artist/getSongStreams').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.sid)};
   const projection = {projection: {'streams': 1}};
@@ -639,7 +639,7 @@ artistRoutes.route('/artist/getSongStreams').get(function(req, response) {
 });
 
 /**
-  * @name GET user/getAlbumStreams
+  * @name POST user/getAlbumStreams
   * @memberof module:routers/artist~artistRoutes
   * @inner
   * @function
@@ -653,7 +653,7 @@ artistRoutes.route('/artist/getSongStreams').get(function(req, response) {
   *   }
   * ]
 */
-artistRoutes.route('/artist/getAlbumStreams').get(function(req, response) {
+artistRoutes.route('/artist/getAlbumStreams').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = [
     {
@@ -681,12 +681,12 @@ artistRoutes.route('/artist/getAlbumStreams').get(function(req, response) {
 });
 
 /**
-  * @name GET user/getAllStreams
+  * @name POST user/getAllStreams
   * @memberof module:routers/artist~artistRoutes
   * @inner
   * @function
   * @summary Adds all streams from artist's songs
-  * @param {string} uid [(u)ser _id]
+  * @param {string} uid user _id
   * @return {object}
   * @example
   * {
@@ -694,7 +694,7 @@ artistRoutes.route('/artist/getAlbumStreams').get(function(req, response) {
   *   "streams": 23
   * }
 */
-artistRoutes.route('/artist/getAllStreams').get(function(req, response) {
+artistRoutes.route('/artist/getAllStreams').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = [
     {
