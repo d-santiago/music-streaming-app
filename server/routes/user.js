@@ -69,7 +69,7 @@ userRoutes.route('/user/register').post(function(req, response) {
 });
 
 /**
-  * @name GET user/login
+  * @name POST user/login
   * @memberof module:routers/user~userRoutes
   * @inner
   * @function
@@ -96,7 +96,7 @@ userRoutes.route('/user/register').post(function(req, response) {
   *   "playlists": []
   * }
 */
-userRoutes.route('/user/login').get(function(req, response) {
+userRoutes.route('/user/login').post(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {
     username: req.body.username,
