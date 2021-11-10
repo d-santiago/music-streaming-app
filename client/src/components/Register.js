@@ -21,7 +21,7 @@ const Register = () => {
 	 			dob: dobValue
 	 		};
  		axios.post("http://localhost:5000/user/register", values)
- 		.then(response => alert(response.data))
+ 		.then(response => console.log(response.data))
  	}
  	
  	const [userType, setUserType] = useState("");

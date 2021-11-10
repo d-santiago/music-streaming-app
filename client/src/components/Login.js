@@ -22,20 +22,19 @@ const Login = (props) => {
  			username: usernameValue,
  			password: passwordValue
  		};
- 		axios.get("http://localhost:5000/user/login", values)
- 		.then(res => {
- 			console.log(res);
+ 		axios.get("http://localhost:5000/user/login", {params: values })
+ 		.then(response => console.log(response))
+ 			/*
  			setUserDetails({
  				id: "hello",
 		    	username: "jello",
-		    	email: res.email,
-		    	name: res.name,
-		    	password: res.password
+		    	email: response.email,
+		    	name: response.name,
+		    	password: response.password
  			});
  			console.log("it worked!");
  			setTimeout(() => {console.log(userDetails)}, 5000);
-
- 		})
+			*/
  	}
 
 	return (
