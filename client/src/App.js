@@ -1,10 +1,11 @@
+import { useState } from 'react';
+
 import './App.css';
 import Navbar from './components/Navbar';
 import Dashboard from  './components/Dashboard';
 import Login from './components/Login';
 import Register from './components/Register';
 
-import {useState} from 'react';
 
 function App() {
   const [page, setPage] = useState("Dashboard");

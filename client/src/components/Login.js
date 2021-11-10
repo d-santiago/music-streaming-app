@@ -1,8 +1,8 @@
-import {useState, useEffect } from 'react';
+import {useState, useEffect, useContext } from 'react';
+import {userDetailsContext} from './../UserDetailsProvider';
 //import { Link} from "react-router-dom";
 const axios = require('axios');
 const Login = (props) => {
-	var success = null;
 
 	function useInput({ type, className, id /*...*/ }) {
 	   const [value, setValue] = useState("");
@@ -11,14 +11,31 @@ const Login = (props) => {
 	   return [value, input];
  	}
  	const [userType, setUserType] = useState("");
-	const [emailValue, setEmailValue] = useInput({ type: "text", className: "form-control", id: "username" });
+	const [usernameValue, setUsernameValue] = useInput({ type: "text", className: "form-control", id: "username" });
  	const [passwordValue, setPasswordValue] = useInput({ type: "password", className: "form-control", id: "password" });
+
+ 	const [userDetails, setUserDetails] = useContext(userDetailsContext);
 
  	const handleLogin = (e) => {
  		e.preventDefault();
- 		let values = {userType, emailValue, passwordValue}
- 		axios.post("http://localhost:5000/login", values)
- 		.then(response => alert(response.data))
+ 		let values = {
+ 			username: usernameValue,
+ 			password: passwordValue
+ 		};
+ 		axios.get("http://localhost:5000/user/login", values)
+ 		.then(res => {
+ 			console.log(res);
+ 			setUserDetails({
+ 				id: "hello",
+		    	username: "jello",
+		    	email: res.email,
+		    	name: res.name,
+		    	password: res.password
+ 			});
+ 			console.log("it worked!");
+ 			setTimeout(() => {console.log(userDetails)}, 5000);
+
+ 		})
  	}
 
 	return (
@@ -26,6 +43,7 @@ const Login = (props) => {
 			<div>
 				<h2 class="mt-3">Login</h2>
 				<form>
+					{ /*
 					<p className="mb-1"> Choose user type: </p>
 					<div class="form-check form-check-inline">
 					  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onClick={() => setUserType("listener")}/>
@@ -35,9 +53,10 @@ const Login = (props) => {
 					  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onClick={() => setUserType("artist")}/>
 					  <label class="form-check-label" for="flexRadioDefault2">Artist</label>
 					</div>
+					*/ }
 					<div class="mb-3">
-				    	<label for="username" class="form-label">Email</label>
-				    	{setEmailValue}
+				    	<label for="username" class="form-label">Username</label>
+				    	{setUsernameValue}
 				  	</div>
 				  	<div class="mb-3">
 				    	<label for="password" class="form-label">Password</label>
