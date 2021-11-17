@@ -1,4 +1,4 @@
-
+import { Link } from 'react-router-dom';
 
 const Navbar = (props) => {
 	const notLoggedIn = (
@@ -7,7 +7,7 @@ const Navbar = (props) => {
 	          <a class="nav-link" aria-current="page" onClick={() => props.setPage("Register")}><h2>Register</h2></a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" onClick={() => props.setPage("Login")}><h2>Login</h2></a>
+	          <Link to="/login" className="nav-link"><h2>Login</h2></Link>
 	        </li>
 	    </>
 	)
@@ -25,7 +25,7 @@ const Navbar = (props) => {
 	return (
 		<nav class="navbar navbar-light navbar-expand-lg bg-primary py-3">
 		  	<div class="container-fluid">
-		    	<h1 onClick={() => props.setPage("Dashboard")}> ASHA Music </h1>
+		    	<Link to="/"> <h1>ASHA Music </h1> </Link>
 		  	</div>
 		  	<div class="collapse navbar-collapse" id="navbarNav">
 		      	<ul class="navbar-nav ml-auto mx-0">

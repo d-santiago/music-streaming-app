@@ -1,13 +1,26 @@
 import ProfileCard from './ProfileCard';
 import AlbumCover from './../albumcover.JPG';
 
-import {useState} from 'react';
+import {useState, useEffect } from 'react';
 
 import Modal from 'react-bootstrap/Modal';
+
+const axios = require('axios');
 
 const Profile = (props) => {
 	const [showFollowersModal, setShowFollowersModal] = useState(false);
 	const [showFollowingModal, setShowFollowingModal] = useState(false);
+
+	const [profileData, setProfileData] = useState({});
+
+	useEffect(() => {
+		const values = { uid: sessionStorage.uid, username: sessionStorage.username };
+		axios.post('http://localhost:5000/user/getUser', values)
+		.then(res => {
+			console.log(res.data);
+			setProfileData(res.data);
+		})
+	}, []);
 
 	return (
 	<div className="container">
@@ -17,7 +30,7 @@ const Profile = (props) => {
 	        <Modal.Header closeButton>
 	          <Modal.Title>Following</Modal.Title>
 	        </Modal.Header>
-	        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+	        <Modal.Body>{profileData.following}</Modal.Body>
 	        <Modal.Footer>
 	          <button variant="secondary" className="btn btn-primary" onClick={() => setShowFollowingModal(false)}>
 	            Close
@@ -30,7 +43,7 @@ const Profile = (props) => {
 	        <Modal.Header closeButton>
 	          <Modal.Title>Followers</Modal.Title>
 	        </Modal.Header>
-	        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+	        <Modal.Body>{profileData.followers}</Modal.Body>
 	        <Modal.Footer>
 	          <button variant="secondary" className="btn btn-primary" onClick={() => setShowFollowersModal(false)}>
 	            Close
@@ -48,7 +61,14 @@ const Profile = (props) => {
 		</div>
 		<div className="row">
 			<div className="col-md-4">
-				<ProfileCard handleFollowers={() => setShowFollowersModal(true)} handleFollowing={() => setShowFollowingModal(true)} />
+				<ProfileCard name={profileData.name}
+				username={profileData.username}
+				artistName={profileData.artistName}
+
+				handleFollowers={() => setShowFollowersModal(true)} 
+				handleFollowing={() => setShowFollowingModal(true)} 
+
+				/>
 				<h3> Playlists </h3>
 				<div class="row">
 				  <div class="card col-sm-6 p-0">
@@ -99,7 +119,7 @@ const Profile = (props) => {
 		                </div> 
 		        </div>
 		        <br />
-		        <h3> Liked songs </h3>
+		        <h3> Recently added songs to library </h3>
 				<div class="p-3 card">
 		                <div class="d-flex justify-content-between align-items-center p-3 music">
 		                    <div class="d-flex flex-row align-items-center"> <i class="fas fa-play p-2 text-primary"></i> <small class="ml-2">Shannon jin pride - The Usual [Beat, Jess Scott]</small> </div> <i class="fa fa-check text-primary"></i>

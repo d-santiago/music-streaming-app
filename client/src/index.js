@@ -27,9 +27,9 @@ import {
 
 ReactDOM.render(
   <React.StrictMode>
-    
+    <UserDetailsProvider>
     <BrowserRouter>
-      <UserDetailsProvider>
+      
     	<Routes>
     		<Route path="/" element={<App />} />
     		<Route path="/login" element={<Login />} />
@@ -44,8 +44,8 @@ ReactDOM.render(
     		<Route path="/profile" element={<Profile />} />
     		<Route path="/library" element={<Library />} />
     	</Routes>
-      </UserDetailsProvider>
     </BrowserRouter>
+    </UserDetailsProvider>
     
   </React.StrictMode>,
   document.getElementById("root")
