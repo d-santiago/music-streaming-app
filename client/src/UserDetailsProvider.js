@@ -5,7 +5,13 @@ export const userDetailsContext = createContext();
 
 const UserDetailsProvider = (props) => {
         // this state will be shared with all components 
-    const [userDetails, setUserDetails] = useState();
+    const [userDetails, setUserDetails] = useState({
+    	id: "",
+    	username: "",
+    	email: "",
+    	name: "",
+    	password: ""
+    });
 
     return (
                 // this is the provider providing state
