@@ -15,7 +15,7 @@ import ChangeUsername from './components/ChangeUsername';
 import EditPersonalInfo from './components/EditPersonalInfo';
 import EditProfile from './components/EditProfile';
 import EditGenres from './components/EditGenres';
-
+import Upload from './components/Upload';
 import UserDetailsProvider from './UserDetailsProvider';
 
 import { render } from 'react-dom';
@@ -43,6 +43,7 @@ ReactDOM.render(
     		<Route path="/register" element={<Register />} />
     		<Route path="/profile" element={<Profile />} />
     		<Route path="/library" element={<Library />} />
+			<Route path= "settings/upload" element={<Upload/>} />
     	</Routes>
     </BrowserRouter>
     </UserDetailsProvider>

@@ -4,6 +4,7 @@ import EditPersonalInfo from './EditPersonalInfo';
 import EditGenres from './EditGenres';
 import ChangeUsername from './ChangeUsername';
 import ChangePassword from './ChangePassword';
+import Upload from './Upload';
 
 const EditSettings = () => {
     return (
@@ -23,6 +24,9 @@ const EditSettings = () => {
         </div>
         <div>
             <Link to="/settings/changepassword" className="btn btn-primary">Change Password</Link> 
+        </div> 
+        <div>
+            <Link to="/settings/Upload" className="btn btn-primary">Upload</Link> 
         </div> 
         </header>
         </div>
