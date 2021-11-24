@@ -28,18 +28,14 @@ const CreatePlaylist = () => {
 		<div className="container">
 			<Modal show={showPlaylistModal} onHide={() => setShowPlaylistModal(false)}>
 		        <Modal.Header closeButton>
-		          <Modal.Title>Name your playlist</Modal.Title>
+		          <Modal.Title>Create playlist</Modal.Title>
 		        </Modal.Header>
 		        <Modal.Body>
 		        	<label for="name" class="form-label">Name of playlist:</label>
 		        	{setNameValue}
+		        	<br />
 		        	<button type="submit" class="btn btn-primary" onClick={handleSubmit}>Create playlist</button>
 		        </Modal.Body>
-		        <Modal.Footer>
-		          <button variant="secondary" className="btn btn-primary" onClick={() => setShowPlaylistModal(false)}>
-		            Close
-		          </button>
-		        </Modal.Footer>
     		</Modal>
 
     		<button className="btn btn-primary" onClick={() => setShowPlaylistModal(true)}> 

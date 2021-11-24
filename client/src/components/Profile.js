@@ -1,11 +1,12 @@
 import ProfileCard from './ProfileCard';
-import AlbumCover from './../albumcover.JPG';
+
 
 import {useState, useEffect } from 'react';
 
 import Modal from 'react-bootstrap/Modal';
 import { Link } from "react-router-dom";
 import CreatePlaylist from './CreatePlaylist';
+import CreateAlbum from './CreateAlbum';
 import PlaylistProfileCard from './PlaylistProfileCard';
 
 const axios = require('axios');
@@ -70,6 +71,8 @@ const Profile = (props) => {
 			</div>
 		</div>
 		<CreatePlaylist />
+		<br />
+		<CreateAlbum />
 		<div className="row">
 			<div className="col-md-4">
 				<ProfileCard name={profileData.name}
