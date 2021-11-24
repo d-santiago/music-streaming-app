@@ -25,12 +25,12 @@ const Navbar = (props) => {
 	return (
 		<nav class="navbar navbar-light navbar-expand-lg bg-primary py-3">
 		  	<div class="container-fluid">
-		    	<Link to="/"> <h1>ASHA Music </h1> </Link>
+		    	<Link to="/" style={{textDecoration: 'none', color: 'black'}}> <h1>ASHA Music </h1> </Link>
 		  	</div>
 		  	<div class="collapse navbar-collapse" id="navbarNav">
 		      	<ul class="navbar-nav ml-auto mx-0">
 		      	{notLoggedIn}
-		      		{/*sessionStorage.getItem('type') ? loggedIn : notLoggedIn*/}
+		      		
 		        </ul>
 	    	</div>
 		</nav>

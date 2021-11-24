@@ -10,19 +10,19 @@ const EditSettings = () => {
         <div>
         <header>
         <div>
-		    <Link to="/EditProfile" className="btn btn-primary">Edit Profile</Link> 		    	
+		    <Link to="/settings/editprofile" className="btn btn-primary">Edit Profile</Link> 		    	
         </div>
         <div>
-            <Link to="/EditPersonalInfo" className="btn btn-primary">Edit Personal Information</Link> 
+            <Link to="/settings/editpersonalinfo" className="btn btn-primary">Edit Personal Information</Link> 
         </div>
         <div>
-            <Link to="/EditGenres" className="btn btn-primary">Edit Genres</Link> 
+            <Link to="/settings/editgenres" className="btn btn-primary">Edit Genres</Link> 
         </div>
         <div>
-            <Link to="/ChangeUsername" className="btn btn-primary">Change Username</Link>  
+            <Link to="/settings/changeusername" className="btn btn-primary">Change Username</Link>  
         </div>
         <div>
-            <Link to="/ChangePassword" className="btn btn-primary">Change Password</Link> 
+            <Link to="/settings/changepassword" className="btn btn-primary">Change Password</Link> 
         </div> 
         </header>
         </div>

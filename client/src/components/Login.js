@@ -3,6 +3,8 @@ import {userDetailsContext} from './../UserDetailsProvider';
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
+
+
 //import { Link} from "react-router-dom";
 const axios = require('axios');
 const Login = (props) => {
@@ -13,6 +15,7 @@ const Login = (props) => {
 	   type={type} className={className} name={id} />;
 	   return [value, input];
  	}
+ 	const navigate = useNavigate();
  	const [userType, setUserType] = useState("");
 	const [usernameValue, setUsernameValue] = useInput({ type: "text", className: "form-control", id: "username" });
  	const [passwordValue, setPasswordValue] = useInput({ type: "password", className: "form-control", id: "password" });
@@ -30,6 +33,7 @@ const Login = (props) => {
  			console.log(response.data);
  			sessionStorage.setItem("uid", response.data._id);
  			sessionStorage.setItem("username", response.data.username);
+ 			navigate("/profile");
  		})
  	}
 

@@ -29,6 +29,7 @@ const Dashboard = () => {
             <div class="bg-circle-4 bg-circle"></div>
             
         </header>
+        {/*
         <NavLink to="/settings">Edit Settings</NavLink> 
         <EditProfile />
         <EditPersonalInfo />
@@ -40,7 +41,9 @@ const Dashboard = () => {
         <Playlist />
         <Profile />
         <Library />
+        */}
         </div>
+
 	)
 }
 
