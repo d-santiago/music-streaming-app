@@ -1,5 +1,8 @@
 //Email and DOB
 import {useState, useEffect } from 'react';
+import {userDetailsContext} from './../UserDetailsProvider';
+import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar"
 const axios = require('axios');
 const EditPersonalInfo = (props) => {
 	var success = null;
@@ -9,15 +12,25 @@ const EditPersonalInfo = (props) => {
 	   const input = <input value={value} id={id} onChange={e => setValue(e.target.value)} 
 	   type={type} className={className} name={id} />;
 	   return [value, input];
- 	}
+	 }
+	const navigate = useNavigate();
     const [emailValue, setEmailValue] = useInput({ type: "text", className: "form-control", id: "username" });
     const [dobValue, setDobValue] = useInput({ type: "date", className: "form-control", id: "dob" });
+	const[uid, setUid] = useState("")
 
- 	const UpdateInfo = (e) => {
- 		e.preventDefault();
- 		let values = {emailValue, dobValue}
- 		axios.post("http://localhost:5000/login", values)
- 		.then(response => alert(response.data))
+
+ 	const updateInfo = (e) => {
+		e.preventDefault();
+ 		let values = {
+			email: emailValue, 
+			dob: dobValue,
+			uid: sessionStorage.getItem("uid")
+		};
+ 		axios.put("http://localhost:5000/user/updatePersonalInfo", values)
+		.then(response => {
+			console.log(response.data);
+			navigate("/profile");
+		})
  	}
 
 	return (
@@ -34,7 +47,7 @@ const EditPersonalInfo = (props) => {
 				    	{setDobValue}
                    
 				  	</div>
-				  	<button type="submit" class="btn btn-primary" onClick={UpdateInfo}>Update Information</button>
+				  	<button type="submit" class="btn btn-primary" onClick={updateInfo}>Update Information</button>
 				</form>
 			</div>
 		</div>

@@ -1,6 +1,9 @@
 //current name and bio
 
 import {useState, useEffect } from 'react';
+import {userDetailsContext} from './../UserDetailsProvider';
+import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar"
 //import { Link} from "react-router-dom";
 const axios = require('axios');
 const EditProfile = (props) => {
@@ -15,15 +18,24 @@ const EditProfile = (props) => {
  	//const [userType, setUserType] = useState("");
 	//const [emailValue, setEmailValue] = useInput({ type: "text", className: "form-control", id: "username" });
  	//const [passwordValue, setPasswordValue] = useInput({ type: "password", className: "form-control", id: "password" });
-    const [userName, setUserName] = useInput({ type: "text", className: "form-control", id: "username" });
-    const [userBio, setUserBio] = useInput({ type: "text", className: "form-control", id: "bio" });
+	const navigate = useNavigate();
+	const [userName, setUserName] = useInput({ type: "text", className: "form-control", id: "username" });
+	const [userBio, setUserBio] = useInput({ type: "text", className: "form-control", id: "bio" });
 
- 	const UpdateProfile = (e) => {
- 		e.preventDefault();
-        //let values = {userType, emailValue, passwordValue}
-        let values = {userName, userBio}
- 		axios.post("http://localhost:5000/login", values)
- 		.then(response => alert(response.data))
+
+ 	const updateProfile = (e) => {
+		e.preventDefault();
+        let values = {
+			name: userName,
+			bio: userBio,
+			uid: sessionStorage.getItem("uid")
+
+		};
+ 		axios.put("http://localhost:5000/user/updateProfile", values)
+		.then(response => {
+			console.log(response.data);
+			navigate("/profile");
+		})
  	}
 
 	return (
@@ -39,7 +51,7 @@ const EditProfile = (props) => {
 				    	<label for="bio" class="form-label">Bio</label>
 				    	{setUserBio}
 				  	</div>
-				  	<button type="submit" class="btn btn-primary" onClick={UpdateProfile}>Update Profile Settings</button>
+				  	<button type="submit" class="btn btn-primary" onClick={updateProfile}>Update Profile Settings</button>
 				</form>
 			</div>
 		</div>
