@@ -12,9 +12,9 @@
   "scripts": {
     "cl": "eslint client/src",
     "sl": "eslint server",
-    "routes": "newman run server/postman/userRoutes.postman_collection.json --globals server/postman/globals.postman_globals.json ; newman run server/postman/artistRoutes.postman_collection.json --globals server/postman/globals.postman_globals.json",
-    "uroutes": "newman run server/postman/userRoutes.postman_collection.json --globals server/postman/globals.postman_globals.json",
-    "aroutes": "newman run server/postman/artistRoutes.postman_collection.json --globals server/postman/globals.postman_globals.json",
+    "routes": "newman run server/postman/user.postman_collection.json -e server/postman/env.postman_environment.json ; newman run server/postman/artist.postman_collection.json -e server/postman/env.postman_environment.json",
+    "uroutes": "newman run server/postman/user.postman_collection.json -e server/postman/env.postman_environment.json",
+    "aroutes": "newman run server/postman/artist.postman_collection.json -e server/postman/env.postman_environment.json",
     "jsdoc": "./node_modules/.bin/jsdoc server/routes/user.js server/routes/artist.js -d server/jsdoc"
   },
   "dependencies": {

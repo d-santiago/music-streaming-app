@@ -1,0 +1,4533 @@
+{
+	"info": {
+		"_postman_id": "8ba3704f-edec-43b4-a515-ff3e33de1af2",
+		"name": "Asha Music User Routes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:5000/user/register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User Registered Successfully\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"insertedId\");",
+							"    var jsonData = pm.response.json();",
+							"    uid = jsonData.insertedId;",
+							"});",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteAccount, (error, response) => {",
+							"    if (error) console.log(error);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"password\",\n    \"name\": \"Test User\",\n    \"email\": \"testuser@gmail.com\",\n    \"dob\": \"11/17/2021\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/register",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"",
+							"pm.test(\"User Login Successful\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql(uid);",
+							"    console.log('Retrieved User ID', jsonData._id);",
+							"});",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteAccount, (error, response) => {",
+							"      if (error) {console.log(error)}",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"username\");",
+							"pm.environment.unset(\"password\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    pm.environment.set(\"username\", '\"testuser\"');",
+							"    pm.environment.set(\"password\", '\"password\"');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": {{username}},\n    \"password\": {{password}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/follow",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\")",
+							"ouid = pm.environment.get(\"ouid\")",
+							"",
+							"pm.test(\"User Followed Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.following[0]).to.eql(ouid);",
+							"    console.log('Retrieved User1 ID', jsonData.value._id);",
+							"    console.log('User1 Following List', jsonData.value.following);",
+							"});",
+							"",
+							"const deleteU1 = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"const deleteU2 = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: ouid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteU1, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteU2, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"ouid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerU1 = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"user1\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"User 1\",",
+							"        \"email\": \"user1@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"const registerU2 = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"user2\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"User 2\",",
+							"        \"email\": \"user2@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerU1, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User1 ID', response.json().insertedId);}",
+							"    uid = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", uid);",
+							"",
+							"    pm.sendRequest(registerU2, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {",
+							"            console.log('Registered User2 ID', response.json().insertedId);",
+							"            console.log('User1 Will Follow User2');",
+							"        }",
+							"        ouid = response.json().insertedId;",
+							"        pm.environment.set(\"ouid\", ouid);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"ouid\": \"{{ouid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/follow",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"follow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/addFollower",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerU1 = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"user1\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"User 1\",",
+							"        \"email\": \"user1@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"const registerU2 = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"user2\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"User 2\",",
+							"        \"email\": \"user2@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerU1, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User1 ID', response.json().insertedId);}",
+							"    uid = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", uid);",
+							"",
+							"    pm.sendRequest(registerU2, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {",
+							"            console.log('Registered User2 ID', response.json().insertedId);",
+							"            console.log('User2 Will Be Added to User1 Followers List');",
+							"        }",
+							"        ouid = response.json().insertedId;",
+							"        pm.environment.set(\"ouid\", ouid);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\")",
+							"ouid = pm.environment.get(\"ouid\")",
+							"",
+							"pm.test(\"Follower Added Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.followers[0]).to.eql(ouid);",
+							"    console.log('Retrieved User1 ID', jsonData.value._id);",
+							"    console.log('User1 Followers List', jsonData.value.followers);",
+							"});",
+							"",
+							"const deleteU1 = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"const deleteU2 = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: ouid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteU1, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteU2, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"ouid\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"ouid\": \"{{ouid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/addFollower",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"addFollower"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/unfollow",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\")",
+							"ouid = pm.environment.get(\"ouid\")",
+							"",
+							"pm.test(\"User Unfollowed Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.followers.length).to.eql(0);",
+							"    console.log('Retrieved User1 ID', jsonData.value._id);",
+							"    console.log('User1 Followers List', jsonData.value.following);",
+							"});",
+							"",
+							"const deleteU1 = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"const deleteU2 = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: ouid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteU1, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteU2, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"ouid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerU1 = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"user1\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"User 1\",",
+							"        \"email\": \"user1@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"const registerU2 = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"user2\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"User 2\",",
+							"        \"email\": \"user2@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerU1, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User1 ID', response.json().insertedId);}",
+							"    uid = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", uid);",
+							"",
+							"    pm.sendRequest(registerU2, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User2 ID', response.json().insertedId);}",
+							"        ouid = response.json().insertedId;",
+							"        pm.environment.set(\"ouid\", ouid);",
+							"",
+							"        const u1FollowsU2 = {",
+							"            url: 'localhost:5000/user/follow',",
+							"            method: 'PUT',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"ouid\": ouid,",
+							"                })",
+							"            }",
+							"        };",
+							"",
+							"        pm.sendRequest(u1FollowsU2, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {",
+							"                console.log('User1 Following List', response.json().value.following);",
+							"                console.log('User1 Will Unfollow User2');",
+							"            }",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"ouid\": \"{{ouid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/unfollow",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"unfollow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/removeFollower",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerU1 = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"user1\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"User 1\",",
+							"        \"email\": \"user1@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"const registerU2 = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"user2\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"User 2\",",
+							"        \"email\": \"user2@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerU1, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User1 ID', response.json().insertedId);}",
+							"    uid = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", uid);",
+							"",
+							"    pm.sendRequest(registerU2, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User2 ID', response.json().insertedId);}",
+							"        ouid = response.json().insertedId;",
+							"        pm.environment.set(\"ouid\", ouid);",
+							"",
+							"        const addU2toU1Followers = {",
+							"            url: 'localhost:5000/user/addFollower',",
+							"            method: 'PUT',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"ouid\": ouid,",
+							"                })",
+							"            }",
+							"        };",
+							"",
+							"        pm.sendRequest(addU2toU1Followers, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {",
+							"                console.log('User1 Followers List', response.json().value.followers);",
+							"                console.log('User2 Will Be Removed From User1 Followers List');",
+							"            }",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\")",
+							"ouid = pm.environment.get(\"ouid\")",
+							"",
+							"pm.test(\"Follower Removed Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.followers.length).to.eql(0);",
+							"    console.log('Retrieved User1 ID', jsonData.value._id);",
+							"    console.log('User1 Followers List', jsonData.value.followers);",
+							"});",
+							"",
+							"const deleteU1 = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"const deleteU2 = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: ouid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteU1, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    ",
+							"    pm.sendRequest(deleteU2, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"ouid\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"ouid\": \"{{ouid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/removeFollower",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"removeFollower"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/followingCount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\")",
+							"ouid = pm.environment.get(\"ouid\")",
+							"",
+							"pm.test(\"User Following Count Retrieved Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql(uid);",
+							"    pm.expect(jsonData.count).to.eql(1);",
+							"    console.log('Retrieved User1 ID', jsonData._id);",
+							"    console.log('User1 Following Count', jsonData.count);",
+							"});",
+							"",
+							"const deleteU1 = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"const deleteU2 = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: ouid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteU1, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteU2, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"ouid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerU1 = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"user1\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"User 1\",",
+							"        \"email\": \"user1@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"const registerU2 = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"user2\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"User 2\",",
+							"        \"email\": \"user2@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerU1, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User1 ID', response.json().insertedId);}",
+							"    uid = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", uid);",
+							"",
+							"    pm.sendRequest(registerU2, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User2 ID', response.json().insertedId);}",
+							"        ouid = response.json().insertedId;",
+							"        pm.environment.set(\"ouid\", ouid);",
+							"",
+							"        const u1FollowsU2 = {",
+							"            url: 'localhost:5000/user/follow',",
+							"            method: 'PUT',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"ouid\": ouid,",
+							"                })",
+							"            }",
+							"        };",
+							"",
+							"        pm.sendRequest(u1FollowsU2, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {",
+							"                console.log('User1 Following List', response.json().value.following);",
+							"                console.log('User1 Following Count Will Be Retrieved');",
+							"            }",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/followingCount",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"followingCount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/followerCount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\")",
+							"ouid = pm.environment.get(\"ouid\")",
+							"",
+							"pm.test(\"User Follower Count Retrieved Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql(uid);",
+							"    pm.expect(jsonData.count).to.eql(1);",
+							"    console.log('Retrieved User1 ID', jsonData._id);",
+							"    console.log('User1 Followers Count', jsonData.count);",
+							"});",
+							"",
+							"const deleteU1 = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"const deleteU2 = {",
+							"  url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: ouid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteU1, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteU2, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"ouid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerU1 = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"user1\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"User 1\",",
+							"        \"email\": \"user1@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"const registerU2 = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"user2\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"User 2\",",
+							"        \"email\": \"user2@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerU1, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User1 ID', response.json().insertedId);}",
+							"    uid = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", uid);",
+							"",
+							"    pm.sendRequest(registerU2, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User2 ID', response.json().insertedId);}",
+							"        ouid = response.json().insertedId;",
+							"        pm.environment.set(\"ouid\", ouid);",
+							"",
+							"        const addU2toU1Followers = {",
+							"            url: 'localhost:5000/user/addFollower',",
+							"            method: 'PUT',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"ouid\": ouid,",
+							"                })",
+							"            }",
+							"        }",
+							"",
+							"        pm.sendRequest(addU2toU1Followers, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {",
+							"                console.log('User1 Followers List', response.json().value.followers);",
+							"                console.log('User1 Followers Count Will Be Retrieved');",
+							"            }",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/followerCount",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"followerCount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/updateUsername",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"newUsername = pm.environment.get(\"newUsername\").replace('\"','').replace('\"','');",
+							"",
+							"pm.test(\"Username Updated Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.username).to.eql(newUsername);",
+							"    console.log('Retrieved User ID', jsonData.value._id);",
+							"    console.log('Retrieved User Username', jsonData.value.username);",
+							"});",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteAccount, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"newUsername\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {",
+							"        console.log('Registered User ID', response.json().insertedId);",
+							"        console.log('Registered User Username', 'testuser');",
+							"    }",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    pm.environment.set(\"newUsername\", '\"updatedtestuser\"');",
+							"    console.log('New Username', 'updatedtestuser');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"newUsername\": {{newUsername}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/updateUsername",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"updateUsername"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/updatePassword",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"newPassword = pm.environment.get(\"newPassword\").replace('\"','').replace('\"','');",
+							"",
+							"pm.test(\"Password Updated Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.password).to.eql(newPassword);",
+							"    console.log('Retrieved User ID', jsonData.value._id);",
+							"    console.log('Retrieved User Password', jsonData.value.password);",
+							"});",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteAccount, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"newPassword\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {",
+							"        console.log('Registered User ID', response.json().insertedId);",
+							"        console.log('Registered User Password', 'password');",
+							"    }",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    pm.environment.set(\"newPassword\", '\"newPassword\"');",
+							"    console.log('New Password', 'newPassword');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"newPassword\": {{newPassword}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/updatePassword",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"updatePassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/updateProfile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"name = pm.environment.get(\"name\").replace('\"','').replace('\"','');",
+							"bio = pm.environment.get(\"bio\").replace('\"','').replace('\"','');",
+							"",
+							"pm.test(\"Profile Updated Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.name).to.eql(name);",
+							"    pm.expect(jsonData.value.bio).to.eql(bio);",
+							"    console.log('Retrieved User ID', jsonData.value._id);",
+							"    console.log('Retrieved User Name', jsonData.value.name);",
+							"    console.log('Retrieved User Bio', jsonData.value.bio);",
+							"});",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteAccount, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"name\");",
+							"pm.environment.unset(\"bio\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {",
+							"        console.log('Registered User ID', response.json().insertedId);",
+							"        console.log('Registered User Name', 'Test User');",
+							"        console.log('Registered User Bio', '');",
+							"    }",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    pm.environment.set(\"name\", '\"Fake User\"');",
+							"    pm.environment.set(\"bio\", '\"I love music!\"');",
+							"    console.log('New Name', 'Fake User');",
+							"    console.log('New Bio', 'I love music!');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"name\": {{name}},\n    \"bio\": {{bio}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/updateProfile",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"updateProfile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/updatePersonalInfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"email = pm.environment.get(\"email\").replace('\"','').replace('\"','');",
+							"dob = pm.environment.get(\"dob\").replace('\"','').replace('\"','');",
+							"",
+							"pm.test(\"Personal Information Updated Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.email).to.eql(email);",
+							"    pm.expect(jsonData.value.dob).to.eql(dob);",
+							"    console.log('Retrieved User ID', jsonData.value._id);",
+							"    console.log('Retrieved User Email', jsonData.value.email);",
+							"    console.log('Retrieved User DOB', jsonData.value.dob);",
+							"});",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteAccount, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"email\");",
+							"pm.environment.unset(\"dob\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {",
+							"        console.log('Registered User ID', response.json().insertedId);",
+							"        console.log('Registered User Email', 'testuser@gmail.com');",
+							"        console.log('Registered User DOB', '11/17/2021');",
+							"    }",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    pm.environment.set(\"email\", '\"testuser@icloud.com\"');",
+							"    pm.environment.set(\"dob\", '\"11/24/2021\"');",
+							"    console.log('New Email', 'testuser@icloud.com');",
+							"    console.log('New DOB', '11/24/2021');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"email\": {{email}},\n    \"dob\": {{dob}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/updatePersonalInfo",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"updatePersonalInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/updateGenres",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"genres = pm.environment.get(\"genres\");",
+							"",
+							"pm.test(\"Favorite Genres Updated Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.genres).to.eql(genres);",
+							"    console.log('Retrieved User ID', jsonData.value._id);",
+							"    console.log('Retrieved User Genres', jsonData.value.genres);",
+							"});",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteAccount, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"genres\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {",
+							"        console.log('Registered User ID', response.json().insertedId);",
+							"        console.log('Registered User Genres', []);",
+							"    }",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    pm.environment.set(\"genres\", [\"Jazz\"]);",
+							"    console.log('New Genres', [\"Jazz\"]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"genres\": \"{{genres}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/updateGenres",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"updateGenres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/switchtoArtist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"uid = pm.environment.get(\"uid\");",
+							"artistName = pm.environment.get(\"artistName\").replace('\"','').replace('\"','');",
+							"recordLabel = pm.environment.get(\"recordLabel\").replace('\"','').replace('\"','');",
+							"",
+							"pm.test(\"Switch from User to Artist Successful\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.artistName).to.eql(artistName);",
+							"    pm.expect(jsonData.value.recordLabel).to.eql(recordLabel);",
+							"    console.log('Retrieved User ID', jsonData.value._id);",
+							"    console.log('Retrieved User Artist Status', jsonData.value.isArtist);",
+							"    console.log('Retrieved User Artist Name', jsonData.value.artistName);",
+							"    console.log('Retrieved User Record Label', jsonData.value.recordLabel);",
+							"});",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteAccount, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"artistName\");",
+							"pm.environment.unset(\"recordLabel\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    pm.environment.set(\"artistName\", '\"Dr. Music\"');",
+							"    pm.environment.set(\"recordLabel\", '\"Music Forever Records\"');",
+							"    console.log('Artist Name', 'Dr. Music');",
+							"    console.log('Record Label', 'Music Forever Records');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"artistName\": {{artistName}},\n    \"recordLabel\": {{recordLabel}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/switchtoArtist",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"switchtoArtist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/getUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"",
+							"pm.test(\"User Retrieved Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql(uid);",
+							"    console.log('Retrieved User ID', jsonData._id);",
+							"});",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteAccount, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/getUser",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"getUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/getArtist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"",
+							"pm.test(\"Artist Retrieved Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql(uid);",
+							"    console.log('Retrieved User ID', jsonData._id);",
+							"    console.log('Retrieved User Artist Status', jsonData.isArtist);",
+							"});",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteAccount, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    uid = pm.environment.get(\"uid\");",
+							"",
+							"    const switchtoArtist = {",
+							"        url: 'localhost:5000/user/switchtoArtist',",
+							"        method: 'PUT',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'X-Foo': 'bar'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"artistName\": \"Dr. Music\",",
+							"                \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"    };",
+							"",
+							"    pm.sendRequest(switchtoArtist, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User Artist Status', response.json().value.isArtist);}",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/getArtist",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"getArtist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/getSong",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"sid = pm.environment.get(\"sid\");",
+							"",
+							"pm.test(\"Song Retrieved Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql(sid);",
+							"    pm.expect(jsonData.publisher_id).to.eql(uid);",
+							"    console.log('Retrieved Song ID', jsonData._id);",
+							"    console.log('Retrieved Song Publisher ID', jsonData.publisher_id);",
+							"});",
+							"",
+							"const deleteSingle = {",
+							"    url: 'localhost:5000/artist/deleteSingle',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ sid: sid })",
+							"    }",
+							"};",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteSingle, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteAccount, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"sid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    uid = pm.environment.get(\"uid\");",
+							"",
+							"    const switchtoArtist = {",
+							"        url: 'localhost:5000/user/switchtoArtist',",
+							"        method: 'PUT',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'X-Foo': 'bar'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"artistName\": \"Dr. Music\",",
+							"                \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"    };",
+							"",
+							"    pm.sendRequest(switchtoArtist, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User Artist Status', response.json().value.isArtist);}",
+							"",
+							"        const createSong = {",
+							"            url: 'localhost:5000/artist/createSong',",
+							"            method: 'POST',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                    \"uid\": uid,",
+							"                    \"songName\": \"Song Name\",",
+							"                    \"isSignle\": true,",
+							"                    \"genre\": \"Pop\",",
+							"                    \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"        };",
+							"",
+							"        pm.sendRequest(createSong, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {console.log('Registered Song ID', response.json().insertedId);}",
+							"            insertedId = response.json().insertedId;",
+							"            pm.environment.set(\"sid\", insertedId);",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sid\": \"{{sid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/getSong",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"getSong"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/getAlbum",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"aid = pm.environment.get(\"aid\");",
+							"",
+							"pm.test(\"Album Retrieved Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql(aid);",
+							"    pm.expect(jsonData.publisher_id).to.eql(uid);",
+							"    console.log('Retrieved Album ID', jsonData._id);",
+							"    console.log('Retrieved Album Publisher ID', jsonData.publisher_id);",
+							"});",
+							"",
+							"const deleteAlbum = {",
+							"    url: 'localhost:5000/artist/deleteAlbum',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ aid: aid })",
+							"    }",
+							"};",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteAlbum, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteAccount, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"aid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    uid = pm.environment.get(\"uid\");",
+							"",
+							"    const switchtoArtist = {",
+							"        url: 'localhost:5000/user/switchtoArtist',",
+							"        method: 'PUT',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'X-Foo': 'bar'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"artistName\": \"Dr. Music\",",
+							"                \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"    };",
+							"",
+							"    pm.sendRequest(switchtoArtist, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User Artist Status', response.json().value.isArtist);}",
+							"",
+							"        const createAlbum = {",
+							"            url: 'localhost:5000/artist/createAlbum',",
+							"            method: 'POST',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                    \"uid\": uid,",
+							"                    \"albumName\": \"Album Name\",",
+							"                    \"genre\": \"Pop\",",
+							"                    \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"        };",
+							"",
+							"        pm.sendRequest(createAlbum, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {console.log('Registered Album ID', response.json().insertedId);}",
+							"            insertedId = response.json().insertedId;",
+							"            pm.environment.set(\"aid\", insertedId);",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"aid\": \"{{aid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/getAlbum",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"getAlbum"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/incrementSongStream",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"sid = pm.environment.get(\"sid\");",
+							"",
+							"pm.test(\"Song Streams Incremented Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(sid);",
+							"    pm.expect(jsonData.value.streams).to.eql(1);",
+							"    console.log('Retrieved Song ID', jsonData.value._id);",
+							"    console.log('Retrieved Song Publisher ID', jsonData.value.publisher_id);",
+							"    console.log('Retrieved Song Streams', jsonData.value.streams);",
+							"});",
+							"",
+							"const deleteSingle = {",
+							"    url: 'localhost:5000/artist/deleteSingle',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ sid: sid })",
+							"    }",
+							"};",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteSingle, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteAccount, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"sid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    uid = pm.environment.get(\"uid\");",
+							"",
+							"    const switchtoArtist = {",
+							"        url: 'localhost:5000/user/switchtoArtist',",
+							"        method: 'PUT',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'X-Foo': 'bar'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"artistName\": \"Dr. Music\",",
+							"                \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"    };",
+							"",
+							"    pm.sendRequest(switchtoArtist, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User Artist Status', response.json().value.isArtist);}",
+							"",
+							"        const createSong = {",
+							"            url: 'localhost:5000/artist/createSong',",
+							"            method: 'POST',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                    \"uid\": uid,",
+							"                    \"songName\": \"Song Name\",",
+							"                    \"isSignle\": true,",
+							"                    \"genre\": \"Pop\",",
+							"                    \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"        };",
+							"",
+							"        pm.sendRequest(createSong, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {console.log('Registered Song ID', response.json().insertedId);}",
+							"            insertedId = response.json().insertedId;",
+							"            pm.environment.set(\"sid\", insertedId);",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sid\": \"{{sid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/incrementSongStream",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"incrementSongStream"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/addLibrarySong",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"sid = pm.environment.get(\"sid\");",
+							"",
+							"pm.test(\"Song Added To Library Sucessfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.library[0]).to.eql(sid);",
+							"    pm.expect(jsonData.value.library.length).to.eql(1);",
+							"    console.log('Retrieved User ID', jsonData.value._id);",
+							"    console.log('Retrieved User Library', jsonData.value.library);",
+							"});",
+							"",
+							"const deleteSingle = {",
+							"    url: 'localhost:5000/artist/deleteSingle',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ sid: sid })",
+							"    }",
+							"};",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteSingle, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteAccount, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"sid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {",
+							"        console.log('Registered User ID', response.json().insertedId);",
+							"        console.log('Registered User Library', []);",
+							"        }",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    uid = pm.environment.get(\"uid\");",
+							"",
+							"    const switchtoArtist = {",
+							"        url: 'localhost:5000/user/switchtoArtist',",
+							"        method: 'PUT',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'X-Foo': 'bar'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"artistName\": \"Dr. Music\",",
+							"                \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"    };",
+							"",
+							"    pm.sendRequest(switchtoArtist, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User Artist Status', response.json().value.isArtist);}",
+							"",
+							"        const createSong = {",
+							"            url: 'localhost:5000/artist/createSong',",
+							"            method: 'POST',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                    \"uid\": uid,",
+							"                    \"songName\": \"Song Name\",",
+							"                    \"isSignle\": true,",
+							"                    \"genre\": \"Pop\",",
+							"                    \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"        };",
+							"",
+							"        pm.sendRequest(createSong, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {console.log('Registered Song ID', response.json().insertedId);}",
+							"            insertedId = response.json().insertedId;",
+							"            pm.environment.set(\"sid\", insertedId);",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"sid\": \"{{sid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/addLibrarySong",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"addLibrarySong"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/recentlyAddedtoLibrary",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    uid = pm.environment.get(\"uid\");",
+							"",
+							"    const switchtoArtist = {",
+							"        url: 'localhost:5000/user/switchtoArtist',",
+							"        method: 'PUT',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'X-Foo': 'bar'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"artistName\": \"Dr. Music\",",
+							"                \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"    };",
+							"",
+							"    pm.sendRequest(switchtoArtist, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User Artist Status', response.json().value.isArtist);}",
+							"",
+							"        const createSong = {",
+							"            url: 'localhost:5000/artist/createSong',",
+							"            method: 'POST',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                    \"uid\": uid,",
+							"                    \"songName\": \"Song Name\",",
+							"                    \"isSignle\": true,",
+							"                    \"genre\": \"Pop\",",
+							"                    \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"        };",
+							"",
+							"        pm.sendRequest(createSong, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {console.log('Registered Song ID', response.json().insertedId);}",
+							"            insertedId = response.json().insertedId;",
+							"            pm.environment.set(\"sid\", insertedId);",
+							"            sid = pm.environment.get(\"sid\");",
+							"",
+							"            const addLibrarySong = {",
+							"                url: 'localhost:5000/user/addLibrarySong',",
+							"                method: 'PUT',",
+							"                header: {",
+							"                    'Content-Type': 'application/json',",
+							"                    'X-Foo': 'bar'",
+							"                },",
+							"                body: {",
+							"                    mode: 'raw',",
+							"                    raw: JSON.stringify({",
+							"                        \"uid\": uid,",
+							"                        \"sid\": sid,",
+							"                    })",
+							"                }",
+							"            };",
+							"",
+							"            pm.sendRequest(addLibrarySong, (error, response) => {",
+							"                if (error) {console.log(error)}",
+							"                else {console.log('Registered User Library', response.json().value.library);}",
+							"            });",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"sid = pm.environment.get(\"sid\");",
+							"",
+							"pm.test(\"Songs Recently Added to Library Retrieved Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql(uid);",
+							"    pm.expect(jsonData.recentlyAdded[0]).to.eql(sid);",
+							"    console.log('Retrieved User ID', jsonData._id);",
+							"    console.log('Retrieved User Library', jsonData.recentlyAdded);",
+							"});",
+							"",
+							"const deleteSingle = {",
+							"    url: 'localhost:5000/artist/deleteSingle',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ sid: sid })",
+							"    }",
+							"};",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteSingle, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteAccount, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"sid\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/recentlyAddedtoLibrary",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"recentlyAddedtoLibrary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/removeLibrarySong",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"sid = pm.environment.get(\"sid\");",
+							"",
+							"pm.test(\"Song Removed From Library Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.library.length).to.eql(0);",
+							"    console.log('Retrieved User ID', jsonData.value._id);",
+							"    console.log('Retrieved User Library', jsonData.value.library);",
+							"});",
+							"",
+							"const deleteSingle = {",
+							"    url: 'localhost:5000/artist/deleteSingle',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ sid: sid })",
+							"    }",
+							"};",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteSingle, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteAccount, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"sid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    uid = pm.environment.get(\"uid\");",
+							"",
+							"    const switchtoArtist = {",
+							"        url: 'localhost:5000/user/switchtoArtist',",
+							"        method: 'PUT',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'X-Foo': 'bar'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"artistName\": \"Dr. Music\",",
+							"                \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"    };",
+							"",
+							"    pm.sendRequest(switchtoArtist, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User Artist Status', response.json().value.isArtist);}",
+							"",
+							"        const createSong = {",
+							"            url: 'localhost:5000/artist/createSong',",
+							"            method: 'POST',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                    \"uid\": uid,",
+							"                    \"songName\": \"Song Name\",",
+							"                    \"isSignle\": true,",
+							"                    \"genre\": \"Pop\",",
+							"                    \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"        };",
+							"",
+							"        pm.sendRequest(createSong, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {console.log('Registered Song ID', response.json().insertedId);}",
+							"            insertedId = response.json().insertedId;",
+							"            pm.environment.set(\"sid\", insertedId);",
+							"            sid = pm.environment.get(\"sid\");",
+							"",
+							"            const addLibrarySong = {",
+							"                url: 'localhost:5000/user/addLibrarySong',",
+							"                method: 'PUT',",
+							"                header: {",
+							"                    'Content-Type': 'application/json',",
+							"                    'X-Foo': 'bar'",
+							"                },",
+							"                body: {",
+							"                    mode: 'raw',",
+							"                    raw: JSON.stringify({",
+							"                        \"uid\": uid,",
+							"                        \"sid\": sid,",
+							"                    })",
+							"                }",
+							"            };",
+							"",
+							"            pm.sendRequest(addLibrarySong, (error, response) => {",
+							"                if (error) {console.log(error)}",
+							"                else {console.log('Registered User Library', response.json().value.library);}",
+							"            });",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"sid\": \"{{sid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/removeLibrarySong",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"removeLibrarySong"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/librarySongCount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"sid = pm.environment.get(\"sid\");",
+							"",
+							"pm.test(\"Song Removed From Library Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql(uid);",
+							"    pm.expect(jsonData.count).to.eql(1);",
+							"    console.log('Retrieved User ID', jsonData._id);",
+							"    console.log('Retrieved User Library Count', jsonData.count);",
+							"});",
+							"",
+							"const deleteSingle = {",
+							"    url: 'localhost:5000/artist/deleteSingle',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ sid: sid })",
+							"    }",
+							"};",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteSingle, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteAccount, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"sid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    uid = pm.environment.get(\"uid\");",
+							"",
+							"    const switchtoArtist = {",
+							"        url: 'localhost:5000/user/switchtoArtist',",
+							"        method: 'PUT',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'X-Foo': 'bar'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"artistName\": \"Dr. Music\",",
+							"                \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"    };",
+							"",
+							"    pm.sendRequest(switchtoArtist, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User Artist Status', response.json().value.isArtist);}",
+							"",
+							"        const createSong = {",
+							"            url: 'localhost:5000/artist/createSong',",
+							"            method: 'POST',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                    \"uid\": uid,",
+							"                    \"songName\": \"Song Name\",",
+							"                    \"isSignle\": true,",
+							"                    \"genre\": \"Pop\",",
+							"                    \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"        };",
+							"",
+							"        pm.sendRequest(createSong, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {console.log('Registered Song ID', response.json().insertedId);}",
+							"            insertedId = response.json().insertedId;",
+							"            pm.environment.set(\"sid\", insertedId);",
+							"            sid = pm.environment.get(\"sid\");",
+							"",
+							"            const addLibrarySong = {",
+							"                url: 'localhost:5000/user/addLibrarySong',",
+							"                method: 'PUT',",
+							"                header: {",
+							"                    'Content-Type': 'application/json',",
+							"                    'X-Foo': 'bar'",
+							"                },",
+							"                body: {",
+							"                    mode: 'raw',",
+							"                    raw: JSON.stringify({",
+							"                        \"uid\": uid,",
+							"                        \"sid\": sid,",
+							"                    })",
+							"                }",
+							"            };",
+							"",
+							"            pm.sendRequest(addLibrarySong, (error, response) => {",
+							"                if (error) {console.log(error)}",
+							"                else {console.log('Registered User Library', response.json().value.library);}",
+							"            });",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/librarySongCount",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"librarySongCount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/createPlaylist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"name = pm.environment.get(\"name\").replace('\"','').replace('\"','');",
+							"",
+							"pm.test(\"Playlist Created Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.playlists.length).to.eql(1);",
+							"    pm.expect(jsonData.value.playlists[0].name).to.eql(name);",
+							"    console.log('Retrieved User ID', jsonData.value._id);",
+							"    console.log('Retrieved User Playlists', jsonData.value.playlists);",
+							"});",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteAccount, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"name\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {",
+							"        console.log('Registered User ID', response.json().insertedId);",
+							"        console.log('Registered User Playlists', []);",
+							"    }",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    pm.environment.set(\"name\", '\"Favorite Songs\"');",
+							"    console.log('Playlist Name', 'Favorite Songs');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"name\": {{name}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/createPlaylist",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"createPlaylist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/playlistsCount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"pid = pm.environment.get(\"pid\");",
+							"",
+							"pm.test(\"Playlist Count Retrieved Successfully \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql(uid);",
+							"    pm.expect(jsonData.count).to.eql(1);",
+							"    console.log('Retrieved User ID', jsonData._id);",
+							"    console.log('Retrieved User Playlist Count', jsonData.count);",
+							"});",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteAccount, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"pid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {",
+							"        console.log('Registered User ID', response.json().insertedId);",
+							"        console.log('Registered User Playlists', []);",
+							"    }",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    uid = pm.environment.get(\"uid\");",
+							"",
+							"    const createPlaylist = {",
+							"        url: 'localhost:5000/user/createPlaylist',",
+							"        method: 'PUT',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'X-Foo': 'bar'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"            \"uid\": uid,",
+							"            \"name\": \"Favorite Songs\",",
+							"            })",
+							"        }",
+							"    };",
+							"",
+							"    pm.sendRequest(createPlaylist, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User Playlists', response.json().value.playlists);}",
+							"        pid = response.json().value.playlists[0]._id;",
+							"        pm.environment.set(\"pid\", pid);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/playlistsCount",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"playlistsCount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/addPlaylistSong",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"sid = pm.environment.get(\"sid\");",
+							"pid = pm.environment.get(\"pid\");",
+							"",
+							"pm.test(\"Song Added to Playlist Successfully \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.playlists[0].songs[0]).to.eql(sid);",
+							"    console.log('Retrieved User ID', jsonData.value._id);",
+							"    console.log('Retrieved User Playlist', jsonData.value.playlists);",
+							"});",
+							"",
+							"const deleteSingle = {",
+							"    url: 'localhost:5000/artist/deleteSingle',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ sid: sid })",
+							"    }",
+							"};",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteSingle, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteAccount, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"sid\");",
+							"pm.environment.unset(\"pid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    uid = pm.environment.get(\"uid\");",
+							"",
+							"    const switchtoArtist = {",
+							"        url: 'localhost:5000/user/switchtoArtist',",
+							"        method: 'PUT',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'X-Foo': 'bar'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"artistName\": \"Dr. Music\",",
+							"                \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"    };",
+							"",
+							"    pm.sendRequest(switchtoArtist, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User Artist Status', response.json().value.isArtist);}",
+							"",
+							"        const createSong = {",
+							"            url: 'localhost:5000/artist/createSong',",
+							"            method: 'POST',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                    \"uid\": uid,",
+							"                    \"songName\": \"Song Name\",",
+							"                    \"isSignle\": true,",
+							"                    \"genre\": \"Pop\",",
+							"                    \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"        };",
+							"",
+							"        pm.sendRequest(createSong, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {console.log('Registered Song ID', response.json().insertedId);}",
+							"            insertedId = response.json().insertedId;",
+							"            pm.environment.set(\"sid\", insertedId);",
+							"",
+							"            const createPlaylist = {",
+							"                url: 'localhost:5000/user/createPlaylist',",
+							"                method: 'PUT',",
+							"                header: {",
+							"                    'Content-Type': 'application/json',",
+							"                    'X-Foo': 'bar'",
+							"                },",
+							"                body: {",
+							"                    mode: 'raw',",
+							"                    raw: JSON.stringify({",
+							"                    \"uid\": uid,",
+							"                    \"name\": \"Favorite Songs\",",
+							"                    })",
+							"                }",
+							"            };",
+							"",
+							"            pm.sendRequest(createPlaylist, (error, response) => {",
+							"                if (error) {console.log(error)}",
+							"                else {console.log('Registered User Playlist', response.json().value.playlists);}",
+							"                pid = response.json().value.playlists[0]._id;",
+							"                pm.environment.set(\"pid\", pid);",
+							"            });",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"pid\": \"{{pid}}\",\n    \"sid\": \"{{sid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/addPlaylistSong",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"addPlaylistSong"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/removePlaylistSong",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"sid = pm.environment.get(\"sid\");",
+							"pid = pm.environment.get(\"pid\");",
+							"",
+							"pm.test(\"Song Removed from Playlist Successfully \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.playlists[0].songs.length).to.eql(0);",
+							"    console.log('Retrieved User ID', jsonData.value._id);",
+							"    console.log('Retrieved User Playlist', jsonData.value.playlists);",
+							"});",
+							"",
+							"const deleteSingle = {",
+							"    url: 'localhost:5000/artist/deleteSingle',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ sid: sid })",
+							"    }",
+							"};",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteSingle, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteAccount, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"sid\");",
+							"pm.environment.unset(\"pid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"            \"username\": \"testuser\",",
+							"            \"password\": \"password\",",
+							"            \"name\": \"Test User\",",
+							"            \"email\": \"testuser@gmail.com\",",
+							"            \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    uid = pm.environment.get(\"uid\");",
+							"",
+							"    const switchtoArtist = {",
+							"        url: 'localhost:5000/user/switchtoArtist',",
+							"        method: 'PUT',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'X-Foo': 'bar'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"artistName\": \"Dr. Music\",",
+							"                \"recordLabel\": \"Music Forever Records\"",
+							"            })",
+							"        }",
+							"    };",
+							"",
+							"    pm.sendRequest(switchtoArtist, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User Artist Status', response.json().value.isArtist);}",
+							"",
+							"        const createSong = {",
+							"            url: 'localhost:5000/artist/createSong',",
+							"            method: 'POST',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                    \"uid\": uid,",
+							"                    \"songName\": \"Song Name\",",
+							"                    \"isSignle\": true,",
+							"                    \"genre\": \"Pop\",",
+							"                    \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"        };",
+							"",
+							"        pm.sendRequest(createSong, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {console.log('Registered Song ID', response.json().insertedId);}",
+							"            insertedId = response.json().insertedId;",
+							"            pm.environment.set(\"sid\", insertedId);",
+							"            sid = pm.environment.get(\"sid\");",
+							"",
+							"            const createPlaylist = {",
+							"                url: 'localhost:5000/user/createPlaylist',",
+							"                method: 'PUT',",
+							"                header: {",
+							"                    'Content-Type': 'application/json',",
+							"                    'X-Foo': 'bar'",
+							"                },",
+							"                body: {",
+							"                    mode: 'raw',",
+							"                    raw: JSON.stringify({",
+							"                        \"uid\": uid,",
+							"                        \"name\": \"Favorite Songs\",",
+							"                    })",
+							"                }",
+							"            };",
+							"",
+							"            pm.sendRequest(createPlaylist, (error, response) => {",
+							"                if (error) {console.log(error)}",
+							"                else {console.log('Registered User Playlist', response.json().value.playlists);}",
+							"                pid = response.json().value.playlists[0]._id;",
+							"                pm.environment.set(\"pid\", pid);",
+							"                pid = pm.environment.get(\"pid\");",
+							"",
+							"                const addPlaylistSong = {",
+							"                    url: 'localhost:5000/user/addPlaylistSong',",
+							"                    method: 'PUT',",
+							"                    header: {",
+							"                        'Content-Type': 'application/json',",
+							"                        'X-Foo': 'bar'",
+							"                    },",
+							"                    body: {",
+							"                        mode: 'raw',",
+							"                        raw: JSON.stringify({",
+							"                            \"uid\": uid,",
+							"                            \"pid\": pid,",
+							"                            \"sid\": sid ",
+							"                        })",
+							"                    }",
+							"                };",
+							"",
+							"                pm.sendRequest(addPlaylistSong, (error, response) => {",
+							"                    if (error) {console.log(error)}",
+							"                    else {console.log('Registered User Playlist', response.json().value.playlists);}",
+							"                });",
+							"            });",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"pid\": \"{{pid}}\",\n    \"sid\": \"{{sid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/removePlaylistSong",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"removePlaylistSong"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/getPlaylistInfo",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"            \"username\": \"testuser\",",
+							"            \"password\": \"password\",",
+							"            \"name\": \"Test User\",",
+							"            \"email\": \"testuser@gmail.com\",",
+							"            \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    uid = pm.environment.get(\"uid\");",
+							"",
+							"    const switchtoArtist = {",
+							"        url: 'localhost:5000/user/switchtoArtist',",
+							"        method: 'PUT',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'X-Foo': 'bar'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"artistName\": \"Dr. Music\",",
+							"                \"recordLabel\": \"Music Forever Records\"",
+							"            })",
+							"        }",
+							"    };",
+							"",
+							"    pm.sendRequest(switchtoArtist, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User Artist Status', response.json().value.isArtist);}",
+							"",
+							"        const createSong = {",
+							"            url: 'localhost:5000/artist/createSong',",
+							"            method: 'POST',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                    \"uid\": uid,",
+							"                    \"songName\": \"Song Name\",",
+							"                    \"isSignle\": true,",
+							"                    \"genre\": \"Pop\",",
+							"                    \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"        };",
+							"",
+							"        pm.sendRequest(createSong, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {console.log('Registered Song ID', response.json().insertedId);}",
+							"            insertedId = response.json().insertedId;",
+							"            pm.environment.set(\"sid\", insertedId);",
+							"            sid = pm.environment.get(\"sid\");",
+							"",
+							"            const createPlaylist = {",
+							"                url: 'localhost:5000/user/createPlaylist',",
+							"                method: 'PUT',",
+							"                header: {",
+							"                    'Content-Type': 'application/json',",
+							"                    'X-Foo': 'bar'",
+							"                },",
+							"                body: {",
+							"                    mode: 'raw',",
+							"                    raw: JSON.stringify({",
+							"                        \"uid\": uid,",
+							"                        \"name\": \"Favorite Songs\",",
+							"                    })",
+							"                }",
+							"            };",
+							"",
+							"            pm.sendRequest(createPlaylist, (error, response) => {",
+							"                if (error) {console.log(error)}",
+							"                else {console.log('Registered User Playlist', response.json().value.playlists);}",
+							"                pid = response.json().value.playlists[0]._id;",
+							"                pm.environment.set(\"pid\", pid);",
+							"                pid = pm.environment.get(\"pid\");",
+							"",
+							"                const addPlaylistSong = {",
+							"                    url: 'localhost:5000/user/addPlaylistSong',",
+							"                    method: 'PUT',",
+							"                    header: {",
+							"                        'Content-Type': 'application/json',",
+							"                        'X-Foo': 'bar'",
+							"                    },",
+							"                    body: {",
+							"                        mode: 'raw',",
+							"                        raw: JSON.stringify({",
+							"                            \"uid\": uid,",
+							"                            \"pid\": pid,",
+							"                            \"sid\": sid ",
+							"                        })",
+							"                    }",
+							"                };",
+							"",
+							"                pm.sendRequest(addPlaylistSong, (error, response) => {",
+							"                    if (error) {console.log(error)}",
+							"                    else {console.log('Registered User Playlist', response.json().value.playlists);}",
+							"                });",
+							"            });",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"pid = pm.environment.get(\"pid\");",
+							"",
+							"pm.test(\"Playlist Retrieved Successfully \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql(uid);",
+							"    pm.expect(jsonData.playlists[0]._id).to.eql(pid);",
+							"    console.log('Retrieved User ID', jsonData._id);",
+							"    console.log('Retrieved User Playlist ID', jsonData.playlists[0]._id);",
+							"});",
+							"",
+							"const deleteSingle = {",
+							"    url: 'localhost:5000/artist/deleteSingle',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ sid: sid })",
+							"    }",
+							"};",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteSingle, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteAccount, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"sid\");",
+							"pm.environment.unset(\"pid\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"pid\": \"{{pid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/getPlaylistInfo",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"getPlaylistInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/playlistSongCount",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"            \"username\": \"testuser\",",
+							"            \"password\": \"password\",",
+							"            \"name\": \"Test User\",",
+							"            \"email\": \"testuser@gmail.com\",",
+							"            \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    uid = pm.environment.get(\"uid\");",
+							"",
+							"    const switchtoArtist = {",
+							"        url: 'localhost:5000/user/switchtoArtist',",
+							"        method: 'PUT',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'X-Foo': 'bar'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"                \"uid\": uid,",
+							"                \"artistName\": \"Dr. Music\",",
+							"                \"recordLabel\": \"Music Forever Records\"",
+							"            })",
+							"        }",
+							"    };",
+							"",
+							"    pm.sendRequest(switchtoArtist, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User Artist Status', response.json().value.isArtist);}",
+							"",
+							"        const createSong = {",
+							"            url: 'localhost:5000/artist/createSong',",
+							"            method: 'POST',",
+							"            header: {",
+							"                'Content-Type': 'application/json',",
+							"                'X-Foo': 'bar'",
+							"            },",
+							"            body: {",
+							"                mode: 'raw',",
+							"                raw: JSON.stringify({",
+							"                    \"uid\": uid,",
+							"                    \"songName\": \"Song Name\",",
+							"                    \"isSignle\": true,",
+							"                    \"genre\": \"Pop\",",
+							"                    \"recordLabel\": \"Music Forever Records\"",
+							"                })",
+							"            }",
+							"        };",
+							"",
+							"        pm.sendRequest(createSong, (error, response) => {",
+							"            if (error) {console.log(error)}",
+							"            else {console.log('Registered Song ID', response.json().insertedId);}",
+							"            insertedId = response.json().insertedId;",
+							"            pm.environment.set(\"sid\", insertedId);",
+							"            sid = pm.environment.get(\"sid\");",
+							"",
+							"            const createPlaylist = {",
+							"                url: 'localhost:5000/user/createPlaylist',",
+							"                method: 'PUT',",
+							"                header: {",
+							"                    'Content-Type': 'application/json',",
+							"                    'X-Foo': 'bar'",
+							"                },",
+							"                body: {",
+							"                    mode: 'raw',",
+							"                    raw: JSON.stringify({",
+							"                        \"uid\": uid,",
+							"                        \"name\": \"Favorite Songs\",",
+							"                    })",
+							"                }",
+							"            };",
+							"",
+							"            pm.sendRequest(createPlaylist, (error, response) => {",
+							"                if (error) {console.log(error)}",
+							"                else {console.log('Registered User Playlist', response.json().value.playlists);}",
+							"                pid = response.json().value.playlists[0]._id;",
+							"                pm.environment.set(\"pid\", pid);",
+							"                pid = pm.environment.get(\"pid\");",
+							"",
+							"                const addPlaylistSong = {",
+							"                    url: 'localhost:5000/user/addPlaylistSong',",
+							"                    method: 'PUT',",
+							"                    header: {",
+							"                        'Content-Type': 'application/json',",
+							"                        'X-Foo': 'bar'",
+							"                    },",
+							"                    body: {",
+							"                        mode: 'raw',",
+							"                        raw: JSON.stringify({",
+							"                            \"uid\": uid,",
+							"                            \"pid\": pid,",
+							"                            \"sid\": sid ",
+							"                        })",
+							"                    }",
+							"                };",
+							"",
+							"                pm.sendRequest(addPlaylistSong, (error, response) => {",
+							"                    if (error) {console.log(error)}",
+							"                    else {console.log('Registered User Playlist', response.json().value.playlists);}",
+							"                });",
+							"            });",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"",
+							"pm.test(\"Playlist Song Count Retrieved Successfully \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0]._id).to.eql(uid);",
+							"    pm.expect(jsonData[0].count).to.eql(1);",
+							"    console.log('Retrieved User ID', jsonData[0]._id);",
+							"    console.log('Retrieved User Playlist Song Count', jsonData[0].count);",
+							"});",
+							"",
+							"const deleteSingle = {",
+							"    url: 'localhost:5000/artist/deleteSingle',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ sid: sid })",
+							"    }",
+							"};",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteSingle, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"",
+							"    pm.sendRequest(deleteAccount, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"    });",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"sid\");",
+							"pm.environment.unset(\"pid\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"pid\": \"{{pid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/playlistSongCount",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"playlistSongCount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/deletePlaylist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"uid = pm.environment.get(\"uid\");",
+							"",
+							"pm.test(\"Playlist Deleted Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value._id).to.eql(uid);",
+							"    pm.expect(jsonData.value.playlists.length).to.eql(0);",
+							"    console.log('Retrieved User ID', jsonData.value._id);",
+							"    console.log('Retrieved User Playlists', jsonData.value.playlists);",
+							"});",
+							"",
+							"const deleteAccount = {",
+							"    url: 'localhost:5000/user/deleteAccount',",
+							"    method: 'DELETE',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({ uid: uid })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(deleteAccount, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");",
+							"pm.environment.unset(\"pid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"    uid = pm.environment.get(\"uid\");",
+							"",
+							"    const createPlaylist = {",
+							"        url: 'localhost:5000/user/createPlaylist',",
+							"        method: 'PUT',",
+							"        header: {",
+							"            'Content-Type': 'application/json',",
+							"            'X-Foo': 'bar'",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"            \"uid\": uid,",
+							"            \"name\": \"Favorite Songs\",",
+							"            })",
+							"        }",
+							"    };",
+							"",
+							"    pm.sendRequest(createPlaylist, (error, response) => {",
+							"        if (error) {console.log(error)}",
+							"        else {console.log('Registered User Playlists', response.json().value.playlists);}",
+							"        pid = response.json().value.playlists[0]._id;",
+							"        pm.environment.set(\"pid\", pid);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"pid\": \"{{pid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/deletePlaylist",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"deletePlaylist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/deleteAccount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User Deleted Successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.deletedCount).to.eql(1);",
+							"});",
+							"",
+							"pm.environment.unset(\"uid\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const registerUser = {",
+							"    url: 'localhost:5000/user/register',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'X-Foo': 'bar'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"        \"username\": \"testuser\",",
+							"        \"password\": \"password\",",
+							"        \"name\": \"Test User\",",
+							"        \"email\": \"testuser@gmail.com\",",
+							"        \"dob\": \"11/17/2021\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(registerUser, (error, response) => {",
+							"    if (error) {console.log(error)}",
+							"    else {console.log('Registered User ID', response.json().insertedId);}",
+							"    insertedId = response.json().insertedId;",
+							"    pm.environment.set(\"uid\", insertedId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{uid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/deleteAccount",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"deleteAccount"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
