@@ -81,11 +81,9 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"uid = pm.environment.get(\"uid\");",
-							"",
 							"pm.test(\"User Login Successful\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData._id).to.eql(uid);",
+							"    pm.expect(jsonData._id).to.eql(pm.environment.get(\"uid\"));",
 							"    console.log('Retrieved User ID', jsonData._id);",
 							"});",
 							"",
@@ -98,7 +96,7 @@
 							"    },",
 							"    body: {",
 							"        mode: 'raw',",
-							"        raw: JSON.stringify({ uid: uid })",
+							"        raw: JSON.stringify({ uid: pm.environment.get(\"uid\")})",
 							"    }",
 							"};",
 							"",
