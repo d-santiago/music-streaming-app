@@ -27,4 +27,7 @@ jobs:
       - name: Start Server and Run Tests
         run: |
           cd server
-          npm start & cd .. & npm routes
+          npm start &
+          sleep 5 &&
+          cd .. &&
+          npm routes
