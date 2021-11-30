@@ -15,6 +15,7 @@ _________________
 ### Testing: Postman and Newman
 ### Linting: ESLint
 ### Documentation: JSDOC
+### Build and Deployment: Heroku
 _________________
 ## To Install Dependencies:
 ### Root, Client, and Server
@@ -35,7 +36,7 @@ _________________
 
 ## To Lint Code (Using ESLint)
 ### Root
-    npm run linter (client and server files)
+    npm run lint (client and server files)
     npm run cl (client files)
     npm run sl (server files)
 
