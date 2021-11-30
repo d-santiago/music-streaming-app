@@ -24,9 +24,9 @@ jobs:
           npm install 
           cd server
           npm install
-      - name: Start Server
+      - name: Start Server and Run Tests
         run: |
           cd server
           npm start
-      - name: Run Tests
-        run: npm routes
+          cd ..
+          npm routes
