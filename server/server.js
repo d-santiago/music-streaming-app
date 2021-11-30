@@ -18,10 +18,15 @@ console.log('\n ---------------- ALL ROUTES ---------------- \n');
 const dbo = require('./db/conn');
 
 const path = require("path")
-app.use(express.static(path.join(__dirname, "client", "build")))
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-});
+
+// Serve static files from the React client app
+app.use(express.static(path.join(__dirname, '../client/build')))
+
+// After defining the routes: Anything that doesn't match what's above,
+// send back index.html;
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/../client/build/index.html'))
+})
 
 app.listen(port, () => {
   // perform a database connection when server starts
