@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [16.10.0]
 
     steps:
       - uses: actions/checkout@v2
@@ -27,6 +27,4 @@ jobs:
       - name: Start Server and Run Tests
         run: |
           cd server
-          npm start
-          cd ..
-          npm routes
+          npm start && cd .. && npm routes
