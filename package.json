@@ -10,6 +10,7 @@
     "jsdoc": "^3.6.7"
   },
   "scripts": {
+    "start": "node server/server.js",
     "routes": "newman run server/postman/user.postman_collection.json -e server/postman/env.postman_environment.json ; newman run server/postman/artist.postman_collection.json -e server/postman/env.postman_environment.json",
     "uroutes": "newman run server/postman/user.postman_collection.json -e server/postman/env.postman_environment.json",
     "aroutes": "newman run server/postman/artist.postman_collection.json -e server/postman/env.postman_environment.json",
