@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Test Routes using Postman and Newman
 
 on:
   push:
@@ -29,4 +29,4 @@ jobs:
           cd server
           npm start &
           cd .. &&
-          npm run uroutes
+          npm run utests

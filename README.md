@@ -12,7 +12,7 @@ Asha Music is a streaming service that allows users to have a personalized music
 
 _________________
 ### Stack: MongoDB, Express, React, and Node (MERN)
-### Testing: Postman and Newman
+### Testing: Postman, Newman, and GitHub Actions
 ### Linting: ESLint
 ### Documentation: JSDOC
 ### Build and Deployment: Heroku
@@ -21,18 +21,18 @@ _________________
 ### Root, Client, and Server
     npm install
 
-## To Start the Application:
+## To Start the Application Locally:
 ### Client and Server
     npm start
 
-## To Test Routes (Using Postman and Newman):
+## To Test Routes (Using Postman and Newman) Locally:
 ### Server
     npm start
 
 ### Root
-    npm run routes (user and artist routes)
-    npm run uroutes (user routes)
-    npm run aroutes (artist routes)
+    npm run tests (user and artist route tests)
+    npm run utests (user route tests)
+    npm run atests (artist route tests)
 
 ## To Lint Code (Using ESLint)
 ### Root
