@@ -1,13 +1,19 @@
-name: Newman Run
+name: CI - Integration Test 
 
-on: push
+on:
+  push:
+    branches: [ main ]
 
 jobs:
-  newman:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - uses: matt-ball/newman-action@master
-        with:
-          collection: server/postman/user.postman_collection.json
-          environment: server/postman/env.postman_environment.json
+
+  steps:
+  - name: Check out code
+  - uses: actions/checkout@master
+
+  - name: Install dependencies
+    run: npm install && cd server && npm install && npm start
+  
+  - name: Run tests 
+    run: npm routes
