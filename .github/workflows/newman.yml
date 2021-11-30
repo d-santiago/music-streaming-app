@@ -1,0 +1,13 @@
+name: Newman Run
+
+on: push
+
+jobs:
+  newman:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: matt-ball/newman-action@master
+        with:
+          collection: server/postman/user.postman_collection.json
+          environment: server/postman/env.postman_environment.json
