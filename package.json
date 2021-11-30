@@ -11,6 +11,7 @@
   },
   "scripts": {
     "start": "cd server && npm install && node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build",
     "routes": "newman run server/postman/user.postman_collection.json -e server/postman/env.postman_environment.json ; newman run server/postman/artist.postman_collection.json -e server/postman/env.postman_environment.json",
     "uroutes": "newman run server/postman/user.postman_collection.json -e server/postman/env.postman_environment.json",
     "aroutes": "newman run server/postman/artist.postman_collection.json -e server/postman/env.postman_environment.json",
