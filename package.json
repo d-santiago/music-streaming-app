@@ -10,8 +10,8 @@
     "jsdoc": "^3.6.7"
   },
   "scripts": {
-    "heroku-prebuild": "npm install && cd client && npm install && npm run build && cd .. && cd server && npm install",
-    "start": "cd server && npm start",
+    "start": "cd server && node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build",
     "routes": "newman run server/postman/user.postman_collection.json -e server/postman/env.postman_environment.json ; newman run server/postman/artist.postman_collection.json -e server/postman/env.postman_environment.json",
     "uroutes": "newman run server/postman/user.postman_collection.json -e server/postman/env.postman_environment.json",
     "aroutes": "newman run server/postman/artist.postman_collection.json -e server/postman/env.postman_environment.json",
@@ -25,5 +25,8 @@
     "eslint-config-google": "^0.14.0",
     "eslint-config-standard": "^16.0.3",
     "newman": "^5.3.0"
+  },
+  "engines": {
+    "node": "16.10.0"
   }
 }

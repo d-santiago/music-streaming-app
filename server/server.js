@@ -17,6 +17,12 @@ console.log('\n ---------------- ALL ROUTES ---------------- \n');
 // get driver connection
 const dbo = require('./db/conn');
 
+const path = require("path")
+app.use(express.static(path.join(__dirname, "client", "build")))
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
+
 app.listen(port, () => {
   // perform a database connection when server starts
   dbo.connectToServer(function(err) {
