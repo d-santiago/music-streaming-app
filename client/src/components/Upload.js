@@ -1,40 +1,45 @@
-import React, { useRef } from "react";
-import S3 from "react-aws-s3";
+import { AlexaForBusiness } from 'aws-sdk';
+import React , {useState} from 'react';
+import { uploadFile } from 'react-s3';
+
+const S3_BUCKET ='myashamusic';
+const REGION ='us-east-2';
+const ACCESS_KEY ='AKIAVVDASVJEUQAOB4FZ';
+const SECRET_ACCESS_KEY ='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';
 
 
-function Upload() {
-  const fileInput = useRef();
-  const handleClick = (event) => {
-    event.preventDefault();
-    let file = fileInput.current.files[0];
-    let newFileName = fileInput.current.files[0].name.replace(/\..+$/, "");
-    const config = {
-      bucketName : "myashamusic",
-      region: 'us-east-2'
-    
-    }
-    const ReactS3Client = new S3(config);
-    ReactS3Client.uploadFile(file, newFileName).then((data) => {
-      console.log(data);
-      if (data.status === 204) {
-        console.log("success");
-      } else {
-        console.log("fail");
-      }
-    });
-  };
-  return (
-    <>
-      <form className='upload-steps' onSubmit={handleClick}>
-        <label>
-          Upload file:
-          <input type='file' ref={fileInput} />
-        </label>
-        <br />
-        <button type='submit'>Upload</button>
-      </form>
-    </>
-  );
+const config = {
+  bucketName: S3_BUCKET,
+  region: REGION,
+  accessKeyId: ACCESS_KEY,
+  secretAccessKey: SECRET_ACCESS_KEY,
 }
+
+
+const Upload = () => {
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [data,setData] = useState("");
+  const handleFileInput = (e) => {
+      setSelectedFile(e.target.files[0]);
+  }
+
+  const handleUpload = async (file) => {
+      uploadFile(file, config)
+          .then(data => setData(data))
+          .catch(err => console.error(err))
+  }
+  console.log(data);
+
+ 
+  
+
+  return <div>
+      <div>React S3 File Upload</div>
+      <input type="file" onChange={handleFileInput}/>
+      <button onClick={() => handleUpload(selectedFile)}> Upload to S3</button>
+  </div>
+}
+
 
 export default Upload;
