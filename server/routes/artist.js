@@ -49,6 +49,7 @@ artistRoutes.route('/artist/createSong').post(function(req, response) {
     publisher_id: ObjectId(req.body.uid),
     isPublished: false,
     songURL: '',
+    metaData: '',
     songName: req.body.songName,
     coverURL: '',
     isSignle: req.body.isSignle,
