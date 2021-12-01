@@ -5,16 +5,72 @@
         "password": "password",
         "name": "Abed Islam",
         "email": "abedislam@music.com",
-        "dob": "",
-        "followers": [],
-        "following": [],
-        "bio": "",
-        "library": [],
-        "genres": [],
+        "dob": "01/01/2000",
+        "followers": [
+            {"$oid": "617993da4ffb8072f0aec7a4"},
+            {"$oid": "617993da4ffb8072f0aec7a5"},
+            {"$oid": "617993da4ffb8072f0aec7a6"},
+            {"$oid": "617993da4ffb8072f0aec7a7"}
+        ],
+        "following": [
+            {"$oid": "617993da4ffb8072f0aec7a4"},
+            {"$oid": "617993da4ffb8072f0aec7a5"},
+            {"$oid": "617993da4ffb8072f0aec7a6"},
+            {"$oid": "617993da4ffb8072f0aec7a7"}
+        ],
+        "bio": "Check out Growing Pains, Vol 2!",
+        "library": [
+            {"$oid": "618ae4c46d23e189de72d67f"},
+            {"$oid": "618ae4c46d23e189de72d680"},
+            {"$oid": "618ae4c46d23e189de72d681"},
+            {"$oid": "618ae4c46d23e189de72d682"},
+            {"$oid": "618ae4c46d23e189de72d683"},
+            {"$oid": "618ae4c46d23e189de72d684"},
+            {"$oid": "618ae4c46d23e189de72d685"},
+            {"$oid": "618ae4c46d23e189de72d686"},
+            {"$oid": "618ae4c46d23e189de72d687"},
+            {"$oid": "618ae4c46d23e189de72d688"},
+            {"$oid": "618ae4c46d23e189de72d68a"},
+            {"$oid": "618ae4c46d23e189de72d68b"},
+            {"$oid": "618ae4c46d23e189de72d68c"},
+            {"$oid": "618ae4c46d23e189de72d68d"}
+        ],
+        "genres": [
+            "Hip Hop",
+            "Pop",
+            "R&B"
+        ],
         "isArtist": true,
         "artistName": "Abed Islam",
         "recordLabel": "Really Far Media",
-        "playlists": []
+        "playlists": [
+            {
+                "_id": {"$oid": "618aed07fe81ff536b7b3000"},
+                "name": "Favorite Songs",
+                "songs": [
+                    {"$oid": "618ae4c46d23e189de72d67f"},
+                    {"$oid": "618ae4c46d23e189de72d680"},
+                    {"$oid": "618ae4c46d23e189de72d681"},
+                    {"$oid": "618ae4c46d23e189de72d682"},
+                    {"$oid": "618ae4c46d23e189de72d683"}
+                ]
+            },
+            {
+                "_id": {"$oid": "618aed07fe81ff536b7b3001"},
+                "name": "Hip Hop Mix",
+                "songs": [
+                    {"$oid": "618ae4c46d23e189de72d684"},
+                    {"$oid": "618ae4c46d23e189de72d685"},
+                    {"$oid": "618ae4c46d23e189de72d686"},
+                    {"$oid": "618ae4c46d23e189de72d687"},
+                    {"$oid": "618ae4c46d23e189de72d688"},
+                    {"$oid": "618ae4c46d23e189de72d68a"},
+                    {"$oid": "618ae4c46d23e189de72d68b"},
+                    {"$oid": "618ae4c46d23e189de72d68c"},
+                    {"$oid": "618ae4c46d23e189de72d68d"}
+                ]
+            }
+        ]
     },
     {
         "_id": {"$oid": "617993da4ffb8072f0aec7a4"},
@@ -23,8 +79,12 @@
         "name": "Leslie",
         "email": "tcrawford@gmail.com",
         "dob": "1974-11-26T14:30:20Z",
-        "followers": [],
-        "following": [],
+        "followers": [
+            {"$oid": "618aed07fe81ff536b7b3cfc"}
+        ],
+        "following": [
+            {"$oid": "618aed07fe81ff536b7b3cfc"}
+        ],
         "bio": "",
         "library": [],
         "genres": [],
@@ -40,8 +100,12 @@
         "name": "Gary",
         "email": "laura34@yahoo.com",
         "dob": "1993-02-25T17:37:29Z",
-        "followers": [],
-        "following": [],
+        "followers": [
+            {"$oid": "618aed07fe81ff536b7b3cfc"}
+        ],
+        "following": [
+            {"$oid": "618aed07fe81ff536b7b3cfc"}
+        ],
         "bio": "",
         "library": [],
         "genres": [],
@@ -57,8 +121,12 @@
         "name": "John",
         "email": "zmelton@gmail.com",
         "dob": "1993-03-13T11:37:34Z",
-        "followers": [],
-        "following": [],
+        "followers": [
+            {"$oid": "618aed07fe81ff536b7b3cfc"}
+        ],
+        "following": [
+            {"$oid": "618aed07fe81ff536b7b3cfc"}
+        ],
         "bio": "",
         "library": [],
         "genres": [],
@@ -74,8 +142,12 @@
         "name": "Amy",
         "email": "christophercastro@hotmail.com",
         "dob": "1989-06-14T09:13:05Z",
-        "followers": [],
-        "following": [],
+        "followers": [
+            {"$oid": "618aed07fe81ff536b7b3cfc"}
+        ],
+        "following": [
+            {"$oid": "618aed07fe81ff536b7b3cfc"}
+        ],
         "bio": "",
         "library": [],
         "genres": [],
