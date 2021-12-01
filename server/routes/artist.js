@@ -65,7 +65,7 @@ artistRoutes.route('/artist/createSong').post(function(req, response) {
 });
 
 /**
-  * @name PUT user/uploadSongAudio
+  * @name PUT user/uploadSongData
   * @memberof module:routers/artist~artistRoutes
   * @inner
   * @function
@@ -79,12 +79,13 @@ artistRoutes.route('/artist/createSong').post(function(req, response) {
   *   "insertedId": "618ad779c2c43d391bf73919"
   *  }
 */
-artistRoutes.route('/artist/uploadSongAudio').put(function(req, response) {
+artistRoutes.route('/artist/uploadSongData').put(function(req, response) {
   const dbConnect = dbo.getDb();
   const query = {_id: ObjectId(req.body.sid), isPublished: false};
   const update = {
     $set: {
       songURL: req.body.songURL,
+      metaData: req.body.metaData,
     },
   };
   dbConnect.collection('songs')
