@@ -81,7 +81,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"uid = pm.environment.get(\"uid\");",
+							"uid = pm.environment.get(\"uid\")",
 							"",
 							"pm.test(\"User Login Successful\", function () {",
 							"    var jsonData = pm.response.json();",

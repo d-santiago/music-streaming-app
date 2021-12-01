@@ -39,10 +39,10 @@ userRoutes.route('/user/listUserRoutes').get(function(req, response) {
   * @param {string} dob
   * @return {object}
   * @example
-  *  {
-  *   "acknowledged": true,
-  *   "insertedId": "618aed07fe81ff536b7b3cfc"
-  *  }
+  * {
+      "acknowledged": true,
+      "insertedId": "61a538141aa6aff50f71ed5a"
+  * }
 */
 userRoutes.route('/user/register').post(function(req, response) {
   const dbConnect = dbo.getDb();
@@ -79,21 +79,21 @@ userRoutes.route('/user/register').post(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "_id": "618aed07fe81ff536b7b3cfc",
-  *   "username": "abedislam",
-  *   "password": "password",
-  *   "name": "Abed Islam",
-  *   "email": "abedislam@music.com",
-  *   "dob": "",
-  *   "followers": [],
-  *   "following": [],
-  *   "bio": "",
-  *   "library": [],
-  *   "genres": [],
-  *   "isArtist": true,
-  *   "artistName": "Abed Islam",
-  *   "recordLabel": "Really Far Media",
-  *   "playlists": []
+      "_id": "61a5384b1aa6aff50f71ed5b",
+      "username": "testuser",
+      "password": "password",
+      "name": "Test User",
+      "email": "testuser@gmail.com",
+      "dob": "11/17/2021",
+      "followers": [],
+      "following": [],
+      "bio": "",
+      "library": [],
+      "genres": [],
+      "isArtist": false,
+      "artistName": "",
+      "recordLabel": "",
+      "playlist": []
   * }
 */
 userRoutes.route('/user/login').post(function(req, response) {
@@ -109,56 +109,6 @@ userRoutes.route('/user/login').post(function(req, response) {
 });
 
 /**
-  * @name POST user/followingCount
-  * @memberof module:routers/user~userRoutes
-  * @inner
-  * @function
-  * @summary Retrieves the number of accounts a user is following
-  * @param {string} uid user _id
-  * @return {object}
-  * @example
-  *  {
-  *   "_id": "618aed07fe81ff536b7b3cfc",
-  *   "count": 0
-  *  }
-*/
-userRoutes.route('/user/followingCount').post(function(req, response) {
-  const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.uid)};
-  const projection = {projection: {count: {$size: '$following'}}};
-  dbConnect.collection('users')
-      .findOne(query, projection, function(err, result) {
-        if (err) throw err;
-        response.json(result);
-      });
-});
-
-/**
-  * @name POST user/followerCount
-  * @memberof module:routers/user~userRoutes
-  * @inner
-  * @function
-  * @summary Retrieves the number of accounts following a user
-  * @param {string} uid user _id
-  * @return {object}
-  * @example
-  *  {
-  *   "_id": "618aed07fe81ff536b7b3cfc",
-  *   "count": 0
-  *  }
-*/
-userRoutes.route('/user/followerCount').post(function(req, response) {
-  const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.uid)};
-  const projection = {projection: {count: {$size: '$followers'}}};
-  dbConnect.collection('users')
-      .findOne(query, projection, function(err, result) {
-        if (err) throw err;
-        response.json(result);
-      });
-});
-
-/**
   * @name PUT user/follow
   * @memberof module:routers/user~userRoutes
   * @inner
@@ -169,11 +119,26 @@ userRoutes.route('/user/followerCount').post(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a536281b616a3b05bc1d9b",
+        "username": "user1",
+        "password": "password",
+        "name": "User 1",
+        "email": "user1@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [],
+        "following": [
+          "61a536281b616a3b05bc1d9c"
+        ],
+        "bio": "",
+        "library": [],
+        "genres": [],
+        "isArtist": false,
+        "artistName": "",
+        "recordLabel": "",
+        "playlist": []
+      }
   * }
 */
 userRoutes.route('/user/follow').put(function(req, response) {
@@ -203,11 +168,26 @@ userRoutes.route('/user/follow').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a538c91aa6aff50f71ed5c",
+        "username": "user1",
+        "password": "password",
+        "name": "User 1",
+        "email": "user1@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [
+            "61a538c91aa6aff50f71ed5d"
+        ],
+        "following": [],
+        "bio": "",
+        "library": [],
+        "genres": [],
+        "isArtist": false,
+        "artistName": "",
+        "recordLabel": "",
+        "playlist": []
+      }
   * }
 */
 userRoutes.route('/user/addFollower').put(function(req, response) {
@@ -237,11 +217,24 @@ userRoutes.route('/user/addFollower').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a539191aa6aff50f71ed5e",
+        "username": "user1",
+        "password": "password",
+        "name": "User 1",
+        "email": "user1@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [],
+        "following": [],
+        "bio": "",
+        "library": [],
+        "genres": [],
+        "isArtist": false,
+        "artistName": "",
+        "recordLabel": "",
+        "playlist": []
+      }
   * }
 */
 userRoutes.route('/user/unfollow').put(function(req, response) {
@@ -271,11 +264,24 @@ userRoutes.route('/user/unfollow').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a5395d1aa6aff50f71ed60",
+        "username": "user1",
+        "password": "password",
+        "name": "User 1",
+        "email": "user1@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [],
+        "following": [],
+        "bio": "",
+        "library": [],
+        "genres": [],
+        "isArtist": false,
+        "artistName": "",
+        "recordLabel": "",
+        "playlist": []
+      }
   * }
 */
 userRoutes.route('/user/removeFollower').put(function(req, response) {
@@ -286,9 +292,59 @@ userRoutes.route('/user/removeFollower').put(function(req, response) {
       followers: ObjectId(req.body.ouid),
     },
   };
-  const options = {returnDocument: 'after'}
+  const options = {returnDocument: 'after'};
   dbConnect.collection('users')
       .findOneAndUpdate(query, update, options, function(err, result) {
+        if (err) throw err;
+        response.json(result);
+      });
+});
+
+/**
+  * @name POST user/followingCount
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
+  * @summary Retrieves the number of accounts a user is following
+  * @param {string} uid user _id
+  * @return {object}
+  * @example
+  * {
+      "_id": "61a539871aa6aff50f71ed62",
+      "count": 1
+  * }
+*/
+userRoutes.route('/user/followingCount').post(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid)};
+  const projection = {projection: {count: {$size: '$following'}}};
+  dbConnect.collection('users')
+      .findOne(query, projection, function(err, result) {
+        if (err) throw err;
+        response.json(result);
+      });
+});
+
+/**
+  * @name POST user/followerCount
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
+  * @summary Retrieves the number of accounts following a user
+  * @param {string} uid user _id
+  * @return {object}
+  * @example
+  * {
+      "_id": "61a539951aa6aff50f71ed64",
+      "count": 1
+  * }
+*/
+userRoutes.route('/user/followerCount').post(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid)};
+  const projection = {projection: {count: {$size: '$followers'}}};
+  dbConnect.collection('users')
+      .findOne(query, projection, function(err, result) {
         if (err) throw err;
         response.json(result);
       });
@@ -305,11 +361,24 @@ userRoutes.route('/user/removeFollower').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a539a51aa6aff50f71ed66",
+        "username": "updatedtestuser",
+        "password": "password",
+        "name": "Test User",
+        "email": "testuser@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [],
+        "following": [],
+        "bio": "",
+        "library": [],
+        "genres": [],
+        "isArtist": false,
+        "artistName": "",
+        "recordLabel": "",
+        "playlist": []
+      }
   * }
 */
 userRoutes.route('/user/updateUsername').put(function(req, response) {
@@ -339,11 +408,24 @@ userRoutes.route('/user/updateUsername').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a53a0a1aa6aff50f71ed67",
+        "username": "testuser",
+        "password": "newPassword",
+        "name": "Test User",
+        "email": "testuser@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [],
+        "following": [],
+        "bio": "",
+        "library": [],
+        "genres": [],
+        "isArtist": false,
+        "artistName": "",
+        "recordLabel": "",
+        "playlist": []
+      }
   * }
 */
 userRoutes.route('/user/updatePassword').put(function(req, response) {
@@ -374,11 +456,24 @@ userRoutes.route('/user/updatePassword').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a53b951aa6aff50f71ed68",
+        "username": "testuser",
+        "password": "password",
+        "name": "Fake User",
+        "email": "testuser@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [],
+        "following": [],
+        "bio": "I love music!",
+        "library": [],
+        "genres": [],
+        "isArtist": false,
+        "artistName": "",
+        "recordLabel": "",
+        "playlist": []
+      }
   * }
 */
 userRoutes.route('/user/updateProfile').put(function(req, response) {
@@ -410,11 +505,24 @@ userRoutes.route('/user/updateProfile').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a53bdd1aa6aff50f71ed69",
+        "username": "testuser",
+        "password": "password",
+        "name": "Test User",
+        "email": "testuser@icloud.com",
+        "dob": "11/24/2021",
+        "followers": [],
+        "following": [],
+        "bio": "",
+        "library": [],
+        "genres": [],
+        "isArtist": false,
+        "artistName": "",
+        "recordLabel": "",
+        "playlist": []
+      }
   * }
 */
 userRoutes.route('/user/updatePersonalInfo').put(function(req, response) {
@@ -445,11 +553,26 @@ userRoutes.route('/user/updatePersonalInfo').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a53c101aa6aff50f71ed6a",
+        "username": "testuser",
+        "password": "password",
+        "name": "Test User",
+        "email": "testuser@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [],
+        "following": [],
+        "bio": "",
+        "library": [],
+        "genres": [
+            "Jazz"
+        ],
+        "isArtist": false,
+        "artistName": "",
+        "recordLabel": "",
+        "playlist": []
+      }
   * }
 */
 userRoutes.route('/user/updateGenres').put(function(req, response) {
@@ -480,11 +603,24 @@ userRoutes.route('/user/updateGenres').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a53c521aa6aff50f71ed6b",
+        "username": "testuser",
+        "password": "password",
+        "name": "Test User",
+        "email": "testuser@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [],
+        "following": [],
+        "bio": "",
+        "library": [],
+        "genres": [],
+        "isArtist": true,
+        "artistName": "Dr. Music",
+        "recordLabel": "Music Forever Records",
+        "playlist": []
+      }
   * }
 */
 userRoutes.route('/user/switchToArtist').put(function(req, response) {
@@ -516,21 +652,21 @@ userRoutes.route('/user/switchToArtist').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "_id": "618aed07fe81ff536b7b3cfc",
-  *   "username": "abedislam",
-  *   "password": "password",
-  *   "name": "Abed Islam",
-  *   "email": "abedislam@music.com",
-  *   "dob": "",
-  *   "followers": [],
-  *   "following": [],
-  *   "bio": "",
-  *   "library": [],
-  *   "genres": [],
-  *   "isArtist": true,
-  *   "artistName": "Abed Islam",
-  *   "recordLabel": "Really Far Media",
-  *   "playlists": []
+      "_id": "61a53c971aa6aff50f71ed6c",
+      "username": "testuser",
+      "password": "password",
+      "name": "Test User",
+      "email": "testuser@gmail.com",
+      "dob": "11/17/2021",
+      "followers": [],
+      "following": [],
+      "bio": "",
+      "library": [],
+      "genres": [],
+      "isArtist": false,
+      "artistName": "",
+      "recordLabel": "",
+      "playlist": []
   * }
 */
 userRoutes.route('/user/getUser').post(function(req, response) {
@@ -558,21 +694,21 @@ userRoutes.route('/user/getUser').post(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "_id": "618aed07fe81ff536b7b3cfc",
-  *   "username": "abedislam",
-  *   "password": "password",
-  *   "name": "Abed Islam",
-  *   "email": "abedislam@music.com",
-  *   "dob": "",
-  *   "followers": [],
-  *   "following": [],
-  *   "bio": "",
-  *   "library": [],
-  *   "genres": [],
-  *   "isArtist": true,
-  *   "artistName": "Abed Islam",
-  *   "recordLabel": "Really Far Media",
-  *   "playlists": []
+    "_id": "61a53ce01aa6aff50f71ed6d",
+      "username": "testuser",
+      "password": "password",
+      "name": "Test User",
+      "email": "testuser@gmail.com",
+      "dob": "11/17/2021",
+      "followers": [],
+      "following": [],
+      "bio": "",
+      "library": [],
+      "genres": [],
+      "isArtist": true,
+      "artistName": "Dr. Music",
+      "recordLabel": "Music Forever Records",
+      "playlist": []
   * }
 */
 userRoutes.route('/user/getArtist').post(function(req, response) {
@@ -600,20 +736,20 @@ userRoutes.route('/user/getArtist').post(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "_id": "618ae4c46d23e189de72d67f",
-  *   "publisher_id": "618aed07fe81ff536b7b3cfc",
-  *   "isPublished": true,
-  *   "songURL": "https://myashamusic.s3.us-east-2.amazonaws.com/Growing+Pains+Vol+2/Act+1+Night.mp3",
-  *   "songName": "Act 1: Night",
-  *   "coverURL": "https://myashamusic.s3.us-east-2.amazonaws.com/Growing+Pains+Vol+2/artwork.png",
-  *   "isSignle": false,
-  *   "fromAlbum": true,
-  *   "albumName": "Growing Pains, Vol 2",
-  *   "genre": "Hip Hop",
-  *   "releaseDate": "11/04/2021",
-  *   "recordLabel": "Really Far Media",
-  *   "streams": 87,
-  *   "album_id": "618ae4f86d23e189de72f3cb"
+      "_id": "618ae4c46d23e189de72d67f",
+      "publisher_id": "618aed07fe81ff536b7b3cfc",
+      "isPublished": true,
+      "songURL": "https://myashamusic.s3.us-east-2.amazonaws.com/Growing+Pains+Vol+2/Act+1+Night.mp3",
+      "songName": "Act 1: Night",
+      "coverURL": "https://myashamusic.s3.us-east-2.amazonaws.com/Growing+Pains+Vol+2/artwork.png",
+      "isSignle": false,
+      "fromAlbum": true,
+      "albumName": "Growing Pains, Vol 2",
+      "genre": "Hip Hop",
+      "releaseDate": "11/04/2021",
+      "recordLabel": "Really Far Media",
+      "streams": 87,
+      "album_id": "618ae4f86d23e189de72f3cb"
   * }
 */
 userRoutes.route('/user/getSong').post(function(req, response) {
@@ -641,31 +777,31 @@ userRoutes.route('/user/getSong').post(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "_id": "618ae4f86d23e189de72f3cb",
-  *   "publisher_id": "618aed07fe81ff536b7b3cfc",
-  *   "isPublished": "true",
-  *   "albumURL": "https://myashamusic.s3.us-east-2.amazonaws.com/Growing+Pains+Vol+2/",
-  *   "albumName": "Growing Pains, Vol 2",
-  *   "coverURL": "https://myashamusic.s3.us-east-2.amazonaws.com/Growing+Pains+Vol+2/artwork.png",
-  *   "songs": [
-  *     "618ae4c46d23e189de72d67f",
-  *     "618ae4c46d23e189de72d680",
-  *     "618ae4c46d23e189de72d681",
-  *     "618ae4c46d23e189de72d682",
-  *     "618ae4c46d23e189de72d683",
-  *     "618ae4c46d23e189de72d684",
-  *     "618ae4c46d23e189de72d685",
-  *     "618ae4c46d23e189de72d686",
-  *     "618ae4c46d23e189de72d687",
-  *     "618ae4c46d23e189de72d688",
-  *     "618ae4c46d23e189de72d68a",
-  *     "618ae4c46d23e189de72d68b",
-  *     "618ae4c46d23e189de72d68c",
-  *     "618ae4c46d23e189de72d68d"
-  *   ],
-  * "genre": "Hip Hop",
-  * "releaseDate": "11/04/2021",
-  * "recordLabel": "Really Far Media"
+      "_id": "618ae4f86d23e189de72f3cb",
+      "publisher_id": "618aed07fe81ff536b7b3cfc",
+      "isPublished": "true",
+      "albumURL": "https://myashamusic.s3.us-east-2.amazonaws.com/Growing+Pains+Vol+2/",
+      "albumName": "Growing Pains, Vol 2",
+      "coverURL": "https://myashamusic.s3.us-east-2.amazonaws.com/Growing+Pains+Vol+2/artwork.png",
+      "songs": [
+        "618ae4c46d23e189de72d67f",
+        "618ae4c46d23e189de72d680",
+        "618ae4c46d23e189de72d681",
+        "618ae4c46d23e189de72d682",
+        "618ae4c46d23e189de72d683",
+        "618ae4c46d23e189de72d684",
+        "618ae4c46d23e189de72d685",
+        "618ae4c46d23e189de72d686",
+        "618ae4c46d23e189de72d687",
+        "618ae4c46d23e189de72d688",
+        "618ae4c46d23e189de72d68a",
+        "618ae4c46d23e189de72d68b",
+        "618ae4c46d23e189de72d68c",
+        "618ae4c46d23e189de72d68d"
+      ],
+      "genre": "Hip Hop",
+      "releaseDate": "11/04/2021",
+      "recordLabel": "Really Far Media"
   * }
 */
 // This route retrieves album with _id or all albums with albumName
@@ -693,11 +829,21 @@ userRoutes.route('/user/getAlbum').post(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a53df31aa6aff50f71ed71",
+        "publisher_id": "61a53df21aa6aff50f71ed70",
+        "isPublished": false,
+        "songURL": "",
+        "songName": "Song Name",
+        "coverURL": "",
+        "isSignle": true,
+        "album_id": "",
+        "genre": "Pop",
+        "releaseDate": "",
+        "recordLabel": "Music Forever Records",
+        "streams": 1
+      }
   * }
 */
 userRoutes.route('/user/incrementSongStream').put(function(req, response) {
@@ -725,11 +871,26 @@ userRoutes.route('/user/incrementSongStream').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a53e191aa6aff50f71ed72",
+        "username": "testuser",
+        "password": "password",
+        "name": "Test User",
+        "email": "testuser@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [],
+        "following": [],
+        "bio": "",
+        "library": [
+            "61a53e191aa6aff50f71ed73"
+        ],
+        "genres": [],
+        "isArtist": true,
+        "artistName": "Dr. Music",
+        "recordLabel": "Music Forever Records",
+        "playlist": []
+      }
   * }
 */
 userRoutes.route('/user/addLibrarySong').put(function(req, response) {
@@ -737,40 +898,6 @@ userRoutes.route('/user/addLibrarySong').put(function(req, response) {
   const query = {_id: ObjectId(req.body.uid)};
   const update = {
     $push: {
-      library: ObjectId(req.body.sid),
-    },
-  };
-  const options = {returnDocument: 'after'};
-  dbConnect.collection('users')
-      .findOneAndUpdate(query, update, options, function(err, result) {
-        if (err) throw err;
-        response.json(result);
-      });
-});
-
-/**
-  * @name PUT user/removeLibrarySong
-  * @memberof module:routers/user~userRoutes
-  * @inner
-  * @function
-  * @summary Removes song from user's library
-  * @param {string} uid user_id
-  * @param {string} sid song _id
-  * @return {object}
-  * @example
-  * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
-  * }
-*/
-userRoutes.route('/user/removeLibrarySong').put(function(req, response) {
-  const dbConnect = dbo.getDb();
-  const query = {_id: ObjectId(req.body.uid)};
-  const update = {
-    $pull: {
       library: ObjectId(req.body.sid),
     },
   };
@@ -791,7 +918,12 @@ userRoutes.route('/user/removeLibrarySong').put(function(req, response) {
   * @param {string} uid user_id
   * @return {object}
   * @example
-  * {}
+  * {
+      "_id": "61a53e641aa6aff50f71ed74",
+      "recentlyAdded": [
+          "61a53e641aa6aff50f71ed75"
+      ]
+  * }
 */
 userRoutes.route('/user/recentlyAddedtoLibrary').post(function(req, response) {
   const dbConnect = dbo.getDb();
@@ -799,6 +931,53 @@ userRoutes.route('/user/recentlyAddedtoLibrary').post(function(req, response) {
   const projection = {projection: {recentlyAdded: {$slice: ['$library', -10]}}};
   dbConnect.collection('users').
       findOne(query, projection, function(err, result) {
+        if (err) throw err;
+        response.json(result);
+      });
+});
+
+/**
+  * @name PUT user/removeLibrarySong
+  * @memberof module:routers/user~userRoutes
+  * @inner
+  * @function
+  * @summary Removes song from user's library
+  * @param {string} uid user_id
+  * @param {string} sid song _id
+  * @return {object}
+  * @example
+  * {
+    "value":
+      {
+        "_id": "61a53e831aa6aff50f71ed76",
+        "username": "testuser",
+        "password": "password",
+        "name": "Test User",
+        "email": "testuser@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [],
+        "following": [],
+        "bio": "",
+        "library": [],
+        "genres": [],
+        "isArtist": true,
+        "artistName": "Dr. Music",
+        "recordLabel": "Music Forever Records",
+        "playlist": []
+      }
+  * }
+*/
+userRoutes.route('/user/removeLibrarySong').put(function(req, response) {
+  const dbConnect = dbo.getDb();
+  const query = {_id: ObjectId(req.body.uid)};
+  const update = {
+    $pull: {
+      library: ObjectId(req.body.sid),
+    },
+  };
+  const options = {returnDocument: 'after'};
+  dbConnect.collection('users')
+      .findOneAndUpdate(query, update, options, function(err, result) {
         if (err) throw err;
         response.json(result);
       });
@@ -814,8 +993,8 @@ userRoutes.route('/user/recentlyAddedtoLibrary').post(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "_id": "617993da4ffb8072f0aec7a3",
-  *   "count": 1
+      "_id": "617993da4ffb8072f0aec7a3",
+      "count": 1
   * }
 */
 userRoutes.route('/user/librarySongCount').post(function(req, response) {
@@ -840,11 +1019,31 @@ userRoutes.route('/user/librarySongCount').post(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a53ed71aa6aff50f71ed7a",
+        "username": "testuser",
+        "password": "password",
+        "name": "Test User",
+        "email": "testuser@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [],
+        "following": [],
+        "bio": "",
+        "library": [],
+        "genres": [],
+        "isArtist": false,
+        "artistName": "",
+        "recordLabel": "",
+        "playlist": [],
+        "playlists": [
+          {
+              "_id": "61a53ed71aa6aff50f71ed7b",
+              "name": "Favorite Songs",
+              "songs": []
+          }
+        ]
+      }
   * }
 */
 userRoutes.route('/user/createPlaylist').put(function(req, response) {
@@ -877,8 +1076,8 @@ userRoutes.route('/user/createPlaylist').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "_id": "618aed07fe81ff536b7b3cfc",
-  *   "count": 1
+      "_id": "618aed07fe81ff536b7b3cfc",
+      "count": 1
   * }
 */
 userRoutes.route('/user/playlistsCount').post(function(req, response) {
@@ -904,11 +1103,33 @@ userRoutes.route('/user/playlistsCount').post(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a53f361aa6aff50f71ed7e",
+        "username": "testuser",
+        "password": "password",
+        "name": "Test User",
+        "email": "testuser@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [],
+        "following": [],
+        "bio": "",
+        "library": [],
+        "genres": [],
+        "isArtist": true,
+        "artistName": "Dr. Music",
+        "recordLabel": "Music Forever Records",
+        "playlist": [],
+        "playlists": [
+          {
+            "_id": "61a53f361aa6aff50f71ed80",
+            "name": "Favorite Songs",
+            "songs": [
+              "61a53f361aa6aff50f71ed7f"
+            ]
+          }
+        ]
+      }
   * }
 */
 userRoutes.route('/user/addPlaylistSong').put(function(req, response) {
@@ -942,11 +1163,31 @@ userRoutes.route('/user/addPlaylistSong').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a53f821aa6aff50f71ed81",
+        "username": "testuser",
+        "password": "password",
+        "name": "Test User",
+        "email": "testuser@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [],
+        "following": [],
+        "bio": "",
+        "library": [],
+        "genres": [],
+        "isArtist": true,
+        "artistName": "Dr. Music",
+        "recordLabel": "Music Forever Records",
+        "playlist": [],
+        "playlists": [
+          {
+            "_id": "61a53f831aa6aff50f71ed83",
+            "name": "Favorite Songs",
+            "songs": []
+          }
+        ]
+      }
   * }
 */
 userRoutes.route('/user/removePlaylistSong').put(function(req, response) {
@@ -979,14 +1220,16 @@ userRoutes.route('/user/removePlaylistSong').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "_id": "618aed07fe81ff536b7b3cfc",
-  *   "playlists": [
-  *     {
-  *       "_id": "618afd6bfe81ff536b7b3d00",
-  *       "name": "Favorites",
-  *       "songs": []
-  *     }
-  *   ]
+      "_id": "61a53fbb1aa6aff50f71ed84",
+        "playlists": [
+          {
+            "_id": "61a53fbc1aa6aff50f71ed86",
+            "name": "Favorite Songs",
+            "songs": [
+                "61a53fbc1aa6aff50f71ed85"
+            ]
+          }
+        ]
   * }
 */
 userRoutes.route('/user/getPlaylistInfo').post(function(req, response) {
@@ -1014,10 +1257,10 @@ userRoutes.route('/user/getPlaylistInfo').post(function(req, response) {
   * @return {array}
   * @example
   * [
-  *   {
-  *     "_id": "61776035f20535a31b19d77d",
-  *     "count": 7
-  *   }
+      {
+        "_id": "61776035f20535a31b19d77d",
+        "count": 7
+      }
   * ]
 */
 userRoutes.route('/user/playlistSongCount').post(function(req, response) {
@@ -1053,11 +1296,25 @@ userRoutes.route('/user/playlistSongCount').post(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "modifiedCount": 1,
-  *   "upsertedId": null,
-  *   "upsertedCount": 0,
-  *   "matchedCount": 1
+    "value":
+      {
+        "_id": "61a5400a1aa6aff50f71ed8c",
+        "username": "testuser",
+        "password": "password",
+        "name": "Test User",
+        "email": "testuser@gmail.com",
+        "dob": "11/17/2021",
+        "followers": [],
+        "following": [],
+        "bio": "",
+        "library": [],
+        "genres": [],
+        "isArtist": false,
+        "artistName": "",
+        "recordLabel": "",
+        "playlist": [],
+        "playlists": []
+      }
   * }
 */
 userRoutes.route('/user/deletePlaylist').put(function(req, response) {
@@ -1088,8 +1345,8 @@ userRoutes.route('/user/deletePlaylist').put(function(req, response) {
   * @return {object}
   * @example
   * {
-  *   "acknowledged": true,
-  *   "deletedCount": 1
+      "acknowledged": true,
+      "deletedCount": 1
   * }
 */
 userRoutes.route('/user/deleteAccount').delete((req, response) => {

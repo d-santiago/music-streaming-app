@@ -6,21 +6,28 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-standard": "^16.0.3",
     "jest": "^27.2.4",
-    "jsdoc": "^3.6.7"
+    "jsdoc": "^3.6.7",
+    "newman": "^5.3.0"
   },
   "scripts": {
+    "start": "cd server && npm install && node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "dev": "npm install && cd client && npm install && cd .. && cd server && npm install",
+    "tests": "newman run server/postman/user.postman_collection.json -e server/postman/env.postman_environment.json ; newman run server/postman/artist.postman_collection.json -e server/postman/env.postman_environment.json",
+    "utests": "newman run server/postman/user.postman_collection.json -e server/postman/env.postman_environment.json",
+    "atests": "newman run server/postman/artist.postman_collection.json -e server/postman/env.postman_environment.json",
+    "lint": "eslint client/src; eslint server",
     "cl": "eslint client/src",
     "sl": "eslint server",
-    "routes": "newman run server/postman/user.postman_collection.json -e server/postman/env.postman_environment.json ; newman run server/postman/artist.postman_collection.json -e server/postman/env.postman_environment.json",
-    "uroutes": "newman run server/postman/user.postman_collection.json -e server/postman/env.postman_environment.json",
-    "aroutes": "newman run server/postman/artist.postman_collection.json -e server/postman/env.postman_environment.json",
     "jsdoc": "./node_modules/.bin/jsdoc server/routes/user.js server/routes/artist.js -d server/jsdoc"
   },
   "dependencies": {
-    "aws-sdk": "^2.1022.0",
-    "eslint-config-google": "^0.14.0",
-    "eslint-config-standard": "^16.0.3",
-    "newman": "^5.3.0"
+    "aws-sdk": "^2.1022.0"
+  },
+  "engines": {
+    "node": "16.10.0"
   }
 }

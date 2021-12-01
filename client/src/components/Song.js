@@ -1,6 +1,6 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/Buttongroup';
+// import ButtonGroup from 'react-bootstrap/Buttongroup';
 
 import { useState } from 'react';
 
@@ -19,7 +19,8 @@ const Song = (props) => {
             <small class="ml-2">R Kelly - Thoia Toing</small> 
             </div> 
 
-            <Dropdown as={ButtonGroup}>
+            {/* <Dropdown as={ButtonGroup}> */}
+						<Dropdown as={Button}>
 				{likeButton}
 
 				<Dropdown.Toggle split variant="primary" id="dropdown-split-basic" />
