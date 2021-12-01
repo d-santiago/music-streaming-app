@@ -1,4 +1,3 @@
-import { AlexaForBusiness } from 'aws-sdk';
 import React , {useState} from 'react';
 import { uploadFile } from 'react-s3';
 
@@ -20,6 +19,7 @@ const Upload = () => {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [data,setData] = useState("");
+  
   const handleFileInput = (e) => {
       setSelectedFile(e.target.files[0]);
   }
@@ -34,11 +34,13 @@ const Upload = () => {
  
   
 
-  return <div>
-      <div>React S3 File Upload</div>
+  return (
+    <div>
+      <div>upload song file</div>
       <input type="file" onChange={handleFileInput}/>
       <button onClick={() => handleUpload(selectedFile)}> Upload to S3</button>
   </div>
+  ) 
 }
 
 
