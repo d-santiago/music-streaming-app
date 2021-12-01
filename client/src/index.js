@@ -28,8 +28,9 @@ import {
 ReactDOM.render(
   <React.StrictMode>
     <UserDetailsProvider>
+    
     <BrowserRouter>
-      
+      <Navbar isLoggedIn={sessionStorage.uid} />
     	<Routes>
     		<Route path="/" element={<App />} />
     		<Route path="/login" element={<Login />} />

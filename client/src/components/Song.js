@@ -13,10 +13,10 @@ const Song = (props) => {
 	)
 
 	return (
-		<div class="d-flex justify-content-between align-items-center p-3 music">
+		<div class="d-flex justify-content-between align-items-center p-3 music" onClick={props.playSong}>
             <div class="d-flex flex-row align-items-center"> 
             <i class="fas fa-play p-2 text-primary"></i> 
-            <small class="ml-2">R Kelly - Thoia Toing</small> 
+            <small class="ml-2">{props.name}</small> 
             </div> 
 
             {/* <Dropdown as={ButtonGroup}> */}

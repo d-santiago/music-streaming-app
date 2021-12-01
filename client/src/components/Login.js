@@ -21,7 +21,8 @@ const Login = (props) => {
  	const [passwordValue, setPasswordValue] = useInput({ type: "password", className: "form-control", id: "password" });
 
  	const [userDetails, setUserDetails] = useContext(userDetailsContext);
-
+ 	/* hash the password, http code of 200 and send back token, make error system using 410
+ 	"invalid username or password" */
  	const handleLogin = (e) => {
  		e.preventDefault();
  		let values = {
@@ -34,12 +35,12 @@ const Login = (props) => {
  			sessionStorage.setItem("uid", response.data._id);
  			sessionStorage.setItem("username", response.data.username);
  			navigate("/profile");
+ 			window.location.reload();
  		})
  	}
 
 	return (
 		<div>
-		<Navbar />
 		<div className="col-md-4 mx-auto mt-5">
 			<div>
 				<h2 class="mt-3">Login</h2>

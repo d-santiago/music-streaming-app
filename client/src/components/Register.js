@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const axios = require('axios');
 const Register = () => {
@@ -9,7 +10,7 @@ const Register = () => {
 	   type={type} className={className} name={id} />;
 	   return [value, input];
  	}
-
+ 	const navigate = useNavigate();
  	const handleRegister = (e) => {
 	 		e.preventDefault();
 	 		let values = {
@@ -21,7 +22,8 @@ const Register = () => {
 	 			dob: dobValue
 	 		};
  		axios.post("http://localhost:5000/user/register", values)
- 		.then(response => console.log(response.data))
+ 		.then(response => alert("User registered. Please login to continue."));
+ 		navigate("/");
  	}
  	
  	const [userType, setUserType] = useState("");
@@ -36,17 +38,6 @@ const Register = () => {
 			<h2 class="mt-3">Register</h2>
 			<form className="mb-5">
 			  	<div>
-			  		{/*
-			  		<p className="mb-1"> Choose user type: </p>
-					<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onClick={() => setUserType("listener")}/>
-					  <label class="form-check-label" for="flexRadioDefault1">Listener</label>
-					</div>
-					<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onClick={() => setUserType("artist")}/>
-					  <label class="form-check-label" for="flexRadioDefault2">Artist</label>
-					</div>
-					*/ }
 					<div class="mb-3">
 				    	<label for="email" class="form-label">Email</label>
 				    	{setEmailValue}
