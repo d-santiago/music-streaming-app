@@ -18,8 +18,8 @@ _________________
 ### Build and Deployment: Heroku
 _________________
 ## To Install Dependencies:
-### Root, Client, and Server
-    npm install
+### Root
+    npm run dev
 
 ## To Start the Application Locally:
 ### Client and Server
