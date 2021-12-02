@@ -11,11 +11,14 @@
 Asha Music is a streaming service that allows users to have a personalized music listening experience. Users can create playlists, tailor music recommendations, and upgrade to an Artist account, allowing them to upload music. One of our developers, Abed Islam, is a musical artist. He has noticed the disparity between local and popular artists and believes that it is imperative bridge the gap between the two groups. This application will give local aspiring artists the opportunity to connect with the artists that inspire them and give artists with larger fanbases the ability to provide mentoring services and develop personal connections with their audience.
 
 _________________
-### Stack: MongoDB, Express, React, and Node (MERN)
-### Testing: Postman, Newman, and GitHub Actions
+### Stack: MongoDB, Express, React, Node (MERN), and AWS S3
 ### Linting: ESLint
-### Documentation: JSDOC
+### Documentation: JSDoc
+### Testing: Postman, Newman, and GitHub Actions
 ### Build and Deployment: Heroku
+### CI/CD Pipeline: GitHub Actions to Heroku
+#### Git Push &rarr; Github Actions Testing &rarr; Tests Pass &rarr; Heroku Builds and Deploys Application
+#### Git Push &rarr; Github Actions Testing &rarr; Tests Fail
 _________________
 ## To Install Dependencies:
 ### Root
@@ -30,43 +33,39 @@ _________________
     npm start
 
 ### Root
-    npm run tests (user and artist route tests)
-    npm run utests (user route tests)
-    npm run atests (artist route tests)
+    npm run tests (user and artist routes)
+    npm run utests (user routes)
+    npm run atests (artist routes)
 
 ## To Lint Code (Using ESLint)
 ### Root
-    npm run lint (client and server files)
-    npm run cl (client files)
-    npm run sl (server files)
+    npm run lint (client and server)
+    npm run cl (client)
+    npm run sl (server)
 
 ## To Read Routes Documentation (Using JSDOC):
 ### Root
     npm run jsdoc
     Open server/jsdoc/index.html in browser
 
-## Requirements:
+## Completed Requirements:
 ### User and Artist Requirements:
-1. Register
-1. Delete Account
+1. Register and Delete Account
 1. Login
 1. Edit Account Information (Username, Password, Name, Bio, Email, DOB, Favorite Genres)
-1. Upgrade From User to Artist
+1. Upgrade from User to Artist
 1. Search for Users and Artists
 1. Follow and Unfollow Users and Artists
 1. Search for Music
 1. Play Music
-1. Add Music to Library
-1. Remove Music From Library
-1. Create Playlists
-1. Delete Playlists
+1. Add Music to and Remove Music from Library
+1. View Songs Recently Added to Library
+1. Create and Delete Playlists
+1. Add Music to and Remove Music from Playlists
 
 ### Artist Specific Requirements:
-1. Upload and Publish Songs
-1. Upload and Publish Albums
+1. Upload and Publish Songs and Albums
+1. Update Unpublished Song and Album Information
 1. Delete Unpublished Songs
-1. Delete Unpublished and Published Singles (Songs That Do Not Belong to an Album)
-1. Delete Unpublished and Published Albums
-1. View Song Streams
-1. View Album Streams
-1. View All Streams
+1. Delete Unpublished and Published Singles and Albums
+1. View Song, Album, and All Streams
