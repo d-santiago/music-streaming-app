@@ -35,6 +35,9 @@ const ChangePassword = (props) => {
 			<div>
 				<h2 class="mt-3">Change Password: </h2>
 				<form>
+					<div>
+						<label for="password" class="form-label">Old Password: ******* </label>
+					</div>
 				  	<div class="mb-3">
 				    	<label for="password" class="form-label">New Password</label>
 				    	{setNewPassword}

@@ -13,17 +13,17 @@ const EditGenres = (props) => {
 	 }
 
 	const [isRock, setRock] = useState(true);
-	const [isPop, setPop] = useState(false);
-	const [isClassic, setClassic] = useState(false);
-	const [isHiphop, setHiphop] = useState(false);
-	const [isReggae, setReggae] = useState(false);
-	const [isGospel, setGospel] = useState(false);
-	const [isDance, setDance] = useState(false);
-	const [isCountry, setCountry] = useState(false);
-	const [isOpera, setOpera] = useState(false);
-	const [isBollywood, setBollywood] = useState(false);
+	const [isPop, setPop] = useState(true);
+	const [isClassic, setClassic] = useState(true);
+	const [isHiphop, setHiphop] = useState(true);
+	const [isReggae, setReggae] = useState(true);
+	const [isGospel, setGospel] = useState(true);
+	const [isDance, setDance] = useState(true);
+	const [isCountry, setCountry] = useState(true);
+	const [isOpera, setOpera] = useState(true);
+	const [isBollywood, setBollywood] = useState(true);
 
-	const [infoRock, setInfoRock] = useState("");
+	const [infoRock, setInfoRock] = useState("Rock");
 	const [infoPop, setInfoPop] = useState("Pop");
 	const [infoClassic, setInfoClassic] = useState("Classic");
 	const [infoHiphop, setInfoHiphop] = useState("HipHop");
@@ -38,10 +38,10 @@ const EditGenres = (props) => {
 
 
  	const SubmitGenres = (e) => {
-		console.log(infoHooks[0])
+		console.log("hahaSubmittedhaha")
 		 e.preventDefault();
 		 for (let i = 0; i < 10; i++) {
-			 if (infoHooks[i] !== ""){
+			 if (infoHooks[i] == true){
 				let values = {
 					genres: infoHooks[i],
 					uid: sessionStorage.getItem("uid")
@@ -85,93 +85,121 @@ const EditGenres = (props) => {
 		}
 	}
 	const pop = (e) => {
-		setPop(!isPop)
-		if (isPop){
-			setInfoPop("Pop")
-		}
-		else{
+		setInfoPop ("Pop")
+		console.log(isPop)
+		if (isPop == true){
+			setPop(false)
 			setInfoPop("")
+			console.log(isPop, infoPop);
+		}
+		else if (isPop == false){
+			setPop(true)
+			setInfoPop("Pop")
 		}
 	}
 	const classic = (e) => {
-		setClassic(!isClassic)
-		if (isClassic){
+		setInfoClassic ("Classic")
+		console.log(isClassic)
+		if (isClassic == true){
+			setClassic(false)
+			setInfoClassic("")
+			console.log(isClassic, infoClassic);
+		}
+		else if (isClassic == false){
+			setClassic(true)
 			setInfoClassic("Classic")
 		}
-		else{
-			setInfoClassic("")
-		}
-		
 	}
 	const hiphop = (e) => {
-		setHiphop(!isHiphop)
-		if (isHiphop){
-			setInfoPop("Hip Hop")
-		}
-		else{
+		setInfoHiphop ("HipHop")
+		console.log(isHiphop)
+		if (isHiphop == true){
+			setHiphop(false)
 			setInfoHiphop("")
+			console.log(isHiphop, infoHiphop);
 		}
-		
+		else if (isHiphop == false){
+			setHiphop(true)
+			setInfoHiphop("HipHop")
+		}
 	}
 	const reggae = (e) => {
-		setReggae(!isReggae)
-		if (isReggae){
+		setInfoReggae ("Reggae")
+		console.log(isReggae)
+		if (isReggae == true){
+			setReggae(false)
+			setInfoReggae("")
+			console.log(isReggae, infoReggae);
+		}
+		else if (isReggae == false){
+			setReggae(true)
 			setInfoReggae("Reggae")
 		}
-		else{
-			setInfoReggae("")
-		}
-		
 	}
 	const gospel = (e) => {
-		setGospel(!isGospel)
-		if (isGospel){
+		setInfoGospel ("Gospel")
+		console.log(isGospel)
+		if (isGospel == true){
+			setGospel(false)
+			setInfoGospel("")
+			console.log(isGospel, infoGospel);
+		}
+		else if (isGospel == false){
+			setGospel(true)
 			setInfoGospel("Gospel")
 		}
-		else{
-			setInfoGospel("")
-		}
-		
 	}
 	const dance = (e) => {
-		setDance(!isDance)
-		if (isDance){
+		setInfoDance ("Dance")
+		console.log(isDance)
+		if (isDance == true){
+			setDance(false)
+			setInfoDance("")
+			console.log(isDance, infoDance);
+		}
+		else if (isDance == false){
+			setDance(true)
 			setInfoDance("Dance")
 		}
-		else{
-			setInfoDance("")
-		}
-		
 	}
 	const country = (e) => {
-		setCountry(!isCountry)
-		if (isCountry){
+		setInfoCountry("Country")
+		console.log(isCountry)
+		if (isCountry == true){
+			setCountry(false)
+			setInfoCountry("")
+			console.log(isCountry, infoCountry);
+		}
+		else if (isCountry == false){
+			setCountry(true)
 			setInfoCountry("Country")
 		}
-		else{
-			setInfoCountry("")
-		}
-		
 	}
 	const opera = (e) => {
-		setOpera(!isOpera)
-		if (isOpera){
+		setInfoOpera ("Opera")
+		console.log(isOpera)
+		if (isOpera == true){
+			setOpera(false)
+			setInfoOpera("")
+			console.log(isOpera, infoOpera);
+		}
+		else if (isOpera == false){
+			setOpera(true)
 			setInfoOpera("Opera")
 		}
-		else{
-			setInfoOpera("")
-		}
-		
 	}
 	const bollywood = (e) => {
-		setBollywood(!isBollywood)
-		if (isBollywood){
+		setInfoBollywood ("Bollywood")
+		console.log(isBollywood)
+		if (isBollywood == true){
+			setBollywood(false)
+			setInfoBollywood("")
+			console.log(isBollywood, infoBollywood);
+		}
+		else if (isBollywood == false){
+			setBollywood(true)
 			setInfoBollywood("Bollywood")
 		}
-		else{
-			setInfoBollywood("")
-		}
-		
 	}
 
 	return (
@@ -220,7 +248,7 @@ const EditGenres = (props) => {
 					  <label class="form-check-label" for="flexRadioDefault10">Bollywood</label>
 					</div>
     
-				  	<button type="submit" class="btn btn-primary" onClick={SubmitGenres}>Submit Genres</button>
+				  	<button type="submit" class="btn btn-primary" onClick={SubmitGenres=>this.reset()}>Submit Genres</button> 
 				</form>
 			</div>
 		</div>

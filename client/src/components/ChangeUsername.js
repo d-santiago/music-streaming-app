@@ -20,12 +20,13 @@ const ChangeUsername = (props) => {
 		e.preventDefault();
 	
         let values = {
-			username: newUserName,
+			newUsername: newUserName,
 			uid: sessionStorage.getItem("uid")
 		};
- 		axios.put("http://localhost:5000/user/updateUsername", values)
+ 		axios.put("/user/updateUsername", values)
  		.then(response => {
 			 console.log(response.data);
+			 sessionStorage.setItem("username", newUserName)
 			 navigate("/profile");
 		 })
  	}
@@ -35,9 +36,13 @@ const ChangeUsername = (props) => {
 			<div>
 				<h2 class="mt-3">Change Username: </h2>
 				<form>
+					<div>
+						<label for="username" class="form-label">Old Username: {sessionStorage.getItem("username")}</label>
+					</div>
 				  	<div class="mb-3">
-				    	<label for="username" class="form-label">New Username</label>
-				    	{setNewUserName}
+					  	<input type="username" onChange={setNewUserName}/>
+						{newUserName}
+				
 				  	</div>
 				  	<button type="submit" class="btn btn-primary" onClick={UpdateUserName}>Update Username</button>
 				</form>
