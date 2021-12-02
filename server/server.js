@@ -7,7 +7,6 @@ app.use(cors());
 app.use(express.json());
 app.use(require('./routes/user'));
 app.use(require('./routes/artist'));
-// app.use(require('./routes/aws'));
 
 const listRoutes = require('express-list-routes');
 console.log('\n ---------------- ALL ROUTES ---------------- \n');
