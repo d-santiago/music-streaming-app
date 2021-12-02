@@ -1,7 +1,6 @@
 import {useState, useEffect } from 'react';
-import {userDetailsContext} from './../UserDetailsProvider';
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar"
+import Navbar from "./Navbar";
 //import { Link} from "react-router-dom";
 const axios = require('axios');
 const ChangePassword = (props) => {

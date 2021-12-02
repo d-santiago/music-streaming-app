@@ -54,8 +54,8 @@ const Library = () => {
 		<div className="container">
 			<div className="row">
 				<h1 className="display-1"> <img src={AlbumCover} height={80} />My library </h1>
-				<MusicPlayer songname={musicDetails.songName} coverURL={musicDetails.coverURL} 
-				songURL={musicDetails.songURL} audioRef={audioRef} /> 
+				{musicDetails.songURL ? <MusicPlayer songname={musicDetails.songName} coverURL={musicDetails.coverURL} 
+				songURL={musicDetails.songURL} audioRef={audioRef} /> : null}
 				<h4> Afnan Haq, {songCount} songs </h4>
 				<div class="p-3 card">
 						<SongList songlist={songList} playSong={(song) => setMusicPlayer(song)} />

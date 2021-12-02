@@ -1,6 +1,4 @@
 import ProfileCard from './ProfileCard';
-
-
 import {useState, useEffect, useRef } from 'react';
 
 import Modal from 'react-bootstrap/Modal';
@@ -11,6 +9,7 @@ import PlaylistProfileCard from './PlaylistProfileCard';
 import Navbar from './Navbar';
 import SongList from './SongList';
 import MusicPlayer from './MusicPlayer';
+import Playlist from './Playlist';
 
 const axios = require('axios');
 
@@ -21,13 +20,16 @@ const Profile = (props) => {
 
 	const [profileData, setProfileData] = useState({});
 	const [recentlyAddedSongs, setRecentlyAddedSongs] = useState("");
+	const [songsByArtist, setSongsByArtist] = useState([]);
 	const [musicDetails, setMusicDetails] = useState({});
+
+	const [playlistSongs, setPlaylistSongs] = useState([]);
+	const [playlistName, setPlaylistName] = useState("");
 
 	const audioRef = useRef();
 
 	useEffect(() => {
 			if (recentlyAddedSongs) {
-				console.log("RECENTLY ADDED", recentlyAddedSongs.recentlyAdded);
 				recentlyAddedSongs.recentlyAdded.forEach((song) => {
 					axios.post("http://localhost:5000/user/getSong", {sid: song})
 					.then(res => {
@@ -36,7 +38,6 @@ const Profile = (props) => {
 				});
 			}		
 	}, [recentlyAddedSongs])
-
 	
 	useEffect(() => {
 		const values = { uid: sessionStorage.uid, username: sessionStorage.username };
@@ -48,8 +49,13 @@ const Profile = (props) => {
 
 		axios.post('http://localhost:5000/user/recentlyAddedToLibrary', {uid: sessionStorage.uid})
 		.then(res => {
-			console.log("recently added", res.data.recentlyAdded);
 			setRecentlyAddedSongs({recentlyAdded: res.data.recentlyAdded});
+		})
+
+		axios.post('http://localhost:5000/artist/getSongs', {uid: sessionStorage.uid})
+		.then(res => {
+			console.log("songs by abed", res.data);
+			setSongsByArtist(res.data);
 		})
 
 	}, []);
@@ -62,6 +68,17 @@ const Profile = (props) => {
 	        audioRef.current.load();
 	        audioRef.current.play();
     	}	
+	}
+
+	const handleOpenPlaylist = (profilecard) => {
+		setPlaylistSongs([]);
+		setPlaylistName(profilecard.name);
+		profilecard.songs.forEach((song) => {
+			axios.post("http://localhost:5000/user/getSong", {sid: song})
+			.then(res => {
+				setPlaylistSongs(prevArray => [...prevArray, res.data])
+			})
+		});
 	}
 	
 
@@ -106,10 +123,10 @@ const Profile = (props) => {
 		<CreatePlaylist />
 		<br />
 		<CreateAlbum />
-		<MusicPlayer songname={musicDetails.songName} coverURL={musicDetails.coverURL} 
-		songURL={musicDetails.songURL} audioRef={audioRef} />
+		{musicDetails.songURL ? <MusicPlayer songname={musicDetails.songName} coverURL={musicDetails.coverURL} 
+		songURL={musicDetails.songURL} audioRef={audioRef} /> : null }
 		<div className="row">
-			<div className="col-md-4">
+			<div className="col-md-6">
 				<ProfileCard name={profileData.name}
 				username={profileData.username}
 				artistName={profileData.artistName}
@@ -120,33 +137,19 @@ const Profile = (props) => {
 				/>
 				<h3> Playlists </h3>
 				<div class="row">
-				  <PlaylistProfileCard />
-				  <PlaylistProfileCard />
-				  <PlaylistProfileCard />
-				  <PlaylistProfileCard />
+				  <PlaylistProfileCard profilecardlist={profileData.playlists ? profileData.playlists : []} 
+				  handleOpenPlaylist={(profilecard) => handleOpenPlaylist(profilecard)} />
 				</div>
+				{playlistName ?
+				<Playlist name={playlistName} songList={playlistSongs} artist={profileData.name}
+				setMusicPlayer={(song) => setMusicPlayer(song)} /> : null }
 			</div>
 			<div className="col-md-6">
 				<h1> <u> Profile </u> </h1>
 				<br />
 				<h3> Songs by {profileData.name} </h3>
 				<div class="p-3 card">
-						
-		                <div class="d-flex justify-content-between align-items-center p-3 music">
-		                    <div class="d-flex flex-row align-items-center"> <i class="fas fa-play p-2 text-primary"></i> <small class="ml-2">Shannon jin pride - The Usual [Beat, Jess Scott]</small> </div> <i class="fa fa-check text-primary"></i>
-		                </div>
-		                <div class="d-flex justify-content-between align-items-center p-3 music">
-		                    <div class="d-flex flex-row align-items-center"> <i class="fas fa-play p-2 text-primary"></i> <small class="ml-2">R Kelly - Thoia Toing</small> </div> <i class="fa fa-plus text-muted"></i>
-		                </div>
-		                <div class="d-flex justify-content-between align-items-center p-3 music">
-		                    <div class="d-flex flex-row align-items-center"> <i class="fas fa-play p-2 text-primary"></i> <small class="ml-2">Under - Yeah [Feat Lil John & Lutaring] </small> </div> <i class="fa fa-check text-primary"></i>
-		                </div>
-		                <div class="d-flex justify-content-between align-items-center p-3 music">
-		                    <div class="d-flex flex-row align-items-center"> <i class="fas fa-play p-2 text-primary"></i> <small class="ml-2">Dua Lipa - Thingong Huango [Beat, Jess Scott]</small> </div> <i class="fa fa-plus text-muted"></i>
-		                </div>
-		                <div class="d-flex justify-content-between align-items-center p-3 music">
-		                    <div class="d-flex flex-row align-items-center"> <i class="fas fa-play p-2 text-primary"></i> <small class="ml-2">Things are better - The Usual [Beat, Jess Scott]</small> </div> <i class="fa fa-check text-primary"></i>
-		                </div> 
+						<SongList songlist={songsByArtist} playSong={(song) => setMusicPlayer(song)}  />
 		        </div>
 		        <br />
 		        <h3> Recently added songs to library </h3>

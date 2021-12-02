@@ -16,7 +16,6 @@ import EditPersonalInfo from './components/EditPersonalInfo';
 import EditProfile from './components/EditProfile';
 import EditGenres from './components/EditGenres';
 import Upload from './components/Upload';
-import UserDetailsProvider from './UserDetailsProvider';
 
 import { render } from 'react-dom';
 import {
@@ -27,7 +26,6 @@ import {
 
 ReactDOM.render(
   <React.StrictMode>
-    <UserDetailsProvider>
     
     <BrowserRouter>
       <Navbar isLoggedIn={sessionStorage.uid} />
@@ -47,7 +45,6 @@ ReactDOM.render(
 			<Route path= "settings/upload" element={<Upload/>} />
     	</Routes>
     </BrowserRouter>
-    </UserDetailsProvider>
     
   </React.StrictMode>,
   document.getElementById("root")

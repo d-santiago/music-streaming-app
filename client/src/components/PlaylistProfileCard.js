@@ -1,14 +1,24 @@
-import AlbumCover from './../albumcover.JPG';
 
-const PlaylistProfileCard = () => {
+const PlaylistProfileCard = (props) => {
 	return (	
-	<div class="card col-sm-6 p-0">
-	    <img src={AlbumCover} class="card-img-top" alt="..." />
+	<div class="card col-sm-6 p-0" onClick={props.handleOpenPlaylist}>
 	    <div class="card-body">
-	    	<h5 class="card-title">Card title</h5>
+	    	<h5 class="card-title">{props.name}</h5>
 	    </div>  
 	</div>
 	)
 }
 
-export default PlaylistProfileCard;
+const PlaylistProfileCardList = (props) => {
+	const list = props.profilecardlist.map(profilecard => {
+		return <PlaylistProfileCard name={profilecard.name} handleOpenPlaylist={() => props.handleOpenPlaylist(profilecard)} />
+	})
+
+	return (
+		<>
+		{list}
+		</>
+	)
+}
+
+export default PlaylistProfileCardList;

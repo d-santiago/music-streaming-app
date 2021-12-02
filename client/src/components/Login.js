@@ -1,7 +1,5 @@
-import {useState, useEffect, useContext } from 'react';
-import {userDetailsContext} from './../UserDetailsProvider';
+import {useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
 
 
 
@@ -16,11 +14,9 @@ const Login = (props) => {
 	   return [value, input];
  	}
  	const navigate = useNavigate();
- 	const [userType, setUserType] = useState("");
 	const [usernameValue, setUsernameValue] = useInput({ type: "text", className: "form-control", id: "username" });
  	const [passwordValue, setPasswordValue] = useInput({ type: "password", className: "form-control", id: "password" });
 
- 	const [userDetails, setUserDetails] = useContext(userDetailsContext);
  	/* hash the password, http code of 200 and send back token, make error system using 410
  	"invalid username or password" */
  	const handleLogin = (e) => {
