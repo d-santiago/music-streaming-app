@@ -55,6 +55,7 @@ const Upload = () => {
       songURL : url.location,
       sid : insertId,
     }
+
     axios.put("artist/uploadSongData",v).then(response => {
       console.log(response.data);
     })
@@ -64,9 +65,9 @@ const Upload = () => {
   
   const uploadButton = (
     <div>
-      <div>upload song file</div>
-      <input type="file" onChange={handleFileInput}/>
-      <button onClick={() => handleUpload(selectedFile)}> Upload </button>
+      <h2>Upload song file</h2>
+      <input className="form-control form-control-lg my-3" type="file" onChange={handleFileInput}/>
+      <button className="btn btn-primary btn-lg" onClick={() => handleUpload(selectedFile)}> Upload </button>
     </div>
   )
   const songForm  =  (
@@ -102,7 +103,7 @@ const Upload = () => {
 
   return (
 
-    <div>
+    <div className="col-md-4 mx-auto mt-5">
       {uploadVisible ? uploadButton : null }
       {!uploadVisible ? songForm : null}
       <p>{url.location}</p>

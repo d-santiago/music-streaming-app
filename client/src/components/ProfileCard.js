@@ -1,6 +1,8 @@
 import "./ProfileCard.css";
 import { useEffect, useState } from 'react';
+import profilepic from './../profilepic.JPG';
 const axios = require('axios');
+
 
 
 
@@ -31,7 +33,7 @@ const Profile = (props) => {
 		<div className="container mt-4 mb-4 p-3 d-flex justify-content-center">
 	    	<div className="profilecard p-4 col-md-3">
 	        	<div className="profileimage d-flex flex-column justify-content-center align-items-center"> 
-	        	<button className="profilebtn btn-secondary"> <img src="https://i.imgur.com/wvxPV9S.png" height="100" width="100" /></button> 
+	        	<img src={profilepic} height="100" width="100" />
 	        	<span className="name mt-3">{props.name}</span> 
 	        	<span className="idd">{props.username}</span>
 		            <div className="d-flex flex-row justify-content-center align-items-center gap-2"> <span className="profileidd1">{props.artistName}</span></div>
