@@ -86,7 +86,6 @@ artistRoutes.route('/artist/uploadSongData').put(function(req, response) {
   const update = {
     $set: {
       songURL: req.body.songURL,
-      metaData: req.body.metaData,
     },
   };
   dbConnect.collection('songs')
