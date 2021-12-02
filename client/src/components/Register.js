@@ -21,7 +21,7 @@ const Register = () => {
 	 			name: nameValue, 
 	 			dob: dobValue
 	 		};
- 		axios.post("http://localhost:5000/user/register", values)
+ 		axios.post("/user/register", values)
  		.then(response => alert("User registered. Please login to continue."));
  		navigate("/");
  	}

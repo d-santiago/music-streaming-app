@@ -19,7 +19,7 @@ const CreateAlbum = () => {
 
  	const handleSubmit = () => {
 		const values = { uid: sessionStorage.uid, albumName: nameValue, genre: genreValue, recordLabel: recordLabelValue }
-		axios.put("http://localhost:5000/artist/createAlbum", values)
+		axios.put("/artist/createAlbum", values)
 	    .then((res) => {
 	    	console.log(res.data);
 	        navigate("/profile");

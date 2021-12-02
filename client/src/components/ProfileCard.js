@@ -13,13 +13,13 @@ const Profile = (props) => {
 	useEffect(() => {
 		const values = { uid: sessionStorage.uid };
 		console.log(values);
-	    axios.post("http://localhost:5000/user/followerCount", values)
+	    axios.post("/user/followerCount", values)
 	    .then((res) => {
 	    	console.log(res.data);
 	        setFollowersCount(res.data.count);
 	    })
 
-	    axios.post("http://localhost:5000/user/followingCount", values)
+	    axios.post("/user/followingCount", values)
 	    .then((res) => {
 	    	console.log(res.data);
 	        setFollowingCount(res.data.count);

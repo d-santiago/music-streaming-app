@@ -1,6 +1,5 @@
 //Email and DOB
 import {useState, useEffect } from 'react';
-import {userDetailsContext} from './../UserDetailsProvider';
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar"
 const axios = require('axios');
@@ -26,7 +25,7 @@ const EditPersonalInfo = (props) => {
 			dob: dobValue,
 			uid: sessionStorage.getItem("uid")
 		};
- 		axios.put("http://localhost:5000/user/updatePersonalInfo", values)
+ 		axios.put("/user/updatePersonalInfo", values)
 		.then(response => {
 			console.log(response.data);
 			navigate("/profile");

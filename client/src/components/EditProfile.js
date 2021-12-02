@@ -1,7 +1,6 @@
 //current name and bio
 
 import {useState, useEffect } from 'react';
-import {userDetailsContext} from './../UserDetailsProvider';
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar"
 //import { Link} from "react-router-dom";
@@ -31,7 +30,7 @@ const EditProfile = (props) => {
 			uid: sessionStorage.getItem("uid")
 
 		};
- 		axios.put("http://localhost:5000/user/updateProfile", values)
+ 		axios.put("/user/updateProfile", values)
 		.then(response => {
 			console.log(response.data);
 			navigate("/profile");

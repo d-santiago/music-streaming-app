@@ -22,7 +22,7 @@ const ChangePassword = (props) => {
 			password: newPassword,
 			uid: sessionStorage.getItem("uid")
 		}
- 		axios.put("http://localhost:5000/user/updatePassword", values)
+ 		axios.put("/user/updatePassword", values)
  		.then(response => {
 			 console.log(response.data)
 			 navigate("/profile")

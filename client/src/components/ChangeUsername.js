@@ -22,7 +22,7 @@ const ChangeUsername = (props) => {
 			username: newUserName,
 			uid: sessionStorage.getItem("uid")
 		};
- 		axios.put("http://localhost:5000/user/updateUsername", values)
+ 		axios.put("/user/updateUsername", values)
  		.then(response => {
 			 console.log(response.data);
 			 navigate("/profile");

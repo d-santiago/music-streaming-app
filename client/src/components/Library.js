@@ -13,7 +13,7 @@ const Library = () => {
 	useEffect(() => {
 			if (libraryData) {
 				libraryData.forEach((song) => {
-					axios.post("http://localhost:5000/user/getSong", {sid: song})
+					axios.post("/user/getSong", {sid: song})
 					.then(res => {
 						setSongList(prevArray => [...prevArray, res.data])
 					})
@@ -23,14 +23,14 @@ const Library = () => {
 
 	useEffect(() => {
 		const values = { uid: sessionStorage.uid }
-		axios.post('http://localhost:5000/user/librarySongCount', values)
+		axios.post('/user/librarySongCount', values)
 		.then(res => {
 			console.log(res.data);
 			setSongCount(res.data.count);
 		})
 
 		const values2 = { uid: sessionStorage.uid, username: sessionStorage.username };
-		axios.post('http://localhost:5000/user/getUser', values2)
+		axios.post('/user/getUser', values2)
 		.then(res => {
 			console.log(res.data.library);
 			setLibraryData(res.data.library);

@@ -31,7 +31,7 @@ const Profile = (props) => {
 	useEffect(() => {
 			if (recentlyAddedSongs) {
 				recentlyAddedSongs.recentlyAdded.forEach((song) => {
-					axios.post("http://localhost:5000/user/getSong", {sid: song})
+					axios.post("/user/getSong", {sid: song})
 					.then(res => {
 						setSongList(prevArray => [...prevArray, res.data])
 					})
@@ -41,18 +41,18 @@ const Profile = (props) => {
 	
 	useEffect(() => {
 		const values = { uid: sessionStorage.uid, username: sessionStorage.username };
-		axios.post('http://localhost:5000/user/getUser', values)
+		axios.post('/user/getUser', values)
 		.then(res => {
 			console.log(res.data);
 			setProfileData(res.data);
 		})
 
-		axios.post('http://localhost:5000/user/recentlyAddedToLibrary', {uid: sessionStorage.uid})
+		axios.post('/user/recentlyAddedToLibrary', {uid: sessionStorage.uid})
 		.then(res => {
 			setRecentlyAddedSongs({recentlyAdded: res.data.recentlyAdded});
 		})
 
-		axios.post('http://localhost:5000/artist/getSongs', {uid: sessionStorage.uid})
+		axios.post('/artist/getSongs', {uid: sessionStorage.uid})
 		.then(res => {
 			console.log("songs by abed", res.data);
 			setSongsByArtist(res.data);
@@ -74,7 +74,7 @@ const Profile = (props) => {
 		setPlaylistSongs([]);
 		setPlaylistName(profilecard.name);
 		profilecard.songs.forEach((song) => {
-			axios.post("http://localhost:5000/user/getSong", {sid: song})
+			axios.post("/user/getSong", {sid: song})
 			.then(res => {
 				setPlaylistSongs(prevArray => [...prevArray, res.data])
 			})

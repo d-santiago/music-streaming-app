@@ -16,6 +16,7 @@ import EditPersonalInfo from './components/EditPersonalInfo';
 import EditProfile from './components/EditProfile';
 import EditGenres from './components/EditGenres';
 import Upload from './components/Upload';
+import axios from 'axios';
 
 import { render } from 'react-dom';
 import {
@@ -23,6 +24,27 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+
+axios.defaults.baseURL = "https://asha-music.herokuapp.com/";
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+axios.interceptors.request.use(request => {
+    console.log(request);
+    // Edit request config
+    return request;
+}, error => {
+    console.log(error);
+    return Promise.reject(error);
+});
+
+axios.interceptors.response.use(response => {
+    console.log(response);
+    // Edit response config
+    return response;
+}, error => {
+    console.log(error);
+    return Promise.reject(error);
+});
 
 ReactDOM.render(
   <React.StrictMode>

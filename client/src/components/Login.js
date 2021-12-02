@@ -25,7 +25,7 @@ const Login = (props) => {
  			username: usernameValue,
  			password: passwordValue
  		};
- 		axios.post("http://localhost:5000/user/login", values)
+ 		axios.post("/user/login", values)
  		.then(response => {
  			console.log(response.data);
  			sessionStorage.setItem("uid", response.data._id);
