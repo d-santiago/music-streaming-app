@@ -28,5 +28,6 @@ jobs:
         run: |
           cd server
           npm start &
+          sleep 5 &&
           cd .. &&
           npm run utests

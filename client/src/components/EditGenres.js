@@ -47,7 +47,7 @@ const EditGenres = (props) => {
 					uid: sessionStorage.getItem("uid")
 		
 				}; 
-				axios.put("http://localhost:5000/user/updateGenres", values)
+				axios.put("/user/updateGenres", values)
 				 .then(response => {
 					console.log(values.genres);
 				 })

@@ -17,7 +17,7 @@ const CreatePlaylist = () => {
 
 	const handleSubmit = () => {
 		const values = {uid: sessionStorage.uid, name: nameValue}
-		axios.put("http://localhost:5000/user/createPlaylist", values)
+		axios.put("/user/createPlaylist", values)
 	    .then((res) => {
 	    	console.log(res.data);
 	        navigate("/profile");
