@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React , {useState} from 'react';
+import React , {useState, useEffect } from 'react';
 import { uploadFile } from 'react-s3';
 
 const S3_BUCKET ='myashamusic';
@@ -37,8 +37,23 @@ const Upload = () => {
           .catch(err => console.error(err))
           setUploadVisible(false);
   }
+
+  useEffect(() => {
+    if (insertId) {
+      let v = {
+      songURL : url.location,
+      sid : insertId,
+      }
+
+      axios.put("artist/uploadSongData",v).then(response => {
+        console.log(response.data);
+      })
+    }
+    
+  }, [insertId])
   
-  const handleSubmission = (e) => {
+  const handleSubmission = async (e) => {
+    /* put a try,catch block around every axios call and we should always async await results for axios calls */
     e.preventDefault()
     let values = {
         songName : songName,
@@ -47,20 +62,10 @@ const Upload = () => {
         isSignle:true,
 
     }
-    axios.post("artist/createSong",values).then(response => {
+    await axios.post("artist/createSong",values).then(response => {
       setInsertId(response.data.insertedId);
-      console.log(insertId)
+      console.log("insertID = ", insertId)
     })
-    let v = {
-      songURL : url.location,
-      sid : insertId,
-    }
-
-    axios.put("artist/uploadSongData",v).then(response => {
-      console.log(response.data);
-    })
-    
-
   } 
   
   const uploadButton = (
@@ -96,7 +101,7 @@ const Upload = () => {
       onChange={(e) => setGenre(e.target.value)}
     />
 
-    <button onClick = {handleSubmission}>submit info</button>
+    <button className="btn btn-primary btn-lg" onClick = {handleSubmission}>Submit</button>
     </form>
  );
   
