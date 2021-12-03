@@ -82,7 +82,6 @@ _________________
         POST     /user/playlistSongCount
         PUT      /user/deletePlaylist
         DELETE   /user/deleteAccount
-        GET      /user/listArtistRoutes
 
     Artist Routes
 

@@ -21,7 +21,7 @@ const dbo = require('../db/conn');
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require('mongodb').ObjectId;
 
-artistRoutes.route('/user/listArtistRoutes').get(function(req, response) {
+artistRoutes.route('/artist/listArtistRoutes').get(function(req, response) {
   const listRoutes = require('express-list-routes');
   response.json(listRoutes(artistRoutes));
 });
